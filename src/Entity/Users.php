@@ -6,11 +6,14 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
+* @UniqueEntity(fields={"email"}, message="Il y a déjà un compte associé à cet email")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -50,11 +53,12 @@ class Users
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
     /**
+     * @var string The hashed password
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -67,7 +71,7 @@ class Users
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_verified;
+    private $is_verified = false;
 
     /**
      * @ORM\OneToMany(targetEntity=Orders::class, mappedBy="user")
@@ -186,16 +190,50 @@ class Users
         return $this;
     }
 
-    public function getRole(): ?array
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->role;
+        return (string) $this->email;
     }
 
-    public function setRole(?array $role): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->role = $role;
+        $roles = $this->role;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->role = $roles;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getIsVerified(): ?bool
