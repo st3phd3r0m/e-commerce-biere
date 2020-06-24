@@ -1,0 +1,35 @@
+/* header */
+.navbar{
+    height: 100px;
+    background: url("../Css/images/Biere_mousse.jpg") center;
+    align-content: center;
+}
+
+.cat{
+    color: white;
+    background-color: #2FB5F4;
+}
+
+.liste {
+    display: flex;
+    list-style-type: none;
+}
+/* Fin header */
+
+.btn{
+    color: white;
+    background-color: #2FB5F4;
+}
+
+/* footer */
+.footer-contact{
+    color: white;
+    background-color: #232323;
+}
+
+.copyright{
+    color: white;
+    background-color:#2FB5F4 ;
+}
+
+/* fin footer */
