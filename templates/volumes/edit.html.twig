@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Volumes{% endblock %}
+
+{% block body %}
+    <h1>Edit Volumes</h1>
+
+    {{ include('volumes/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('volumes_index') }}">back to list</a>
+
+    {{ include('volumes/_delete_form.html.twig') }}
+{% endblock %}
