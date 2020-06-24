@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Flavors{% endblock %}
+
+{% block body %}
+    <h1>Create new Flavors</h1>
+
+    {{ include('flavors/_form.html.twig') }}
+
+    <a href="{{ path('flavors_index') }}">back to list</a>
+{% endblock %}
