@@ -1,6 +1,6 @@
 {
-    "name":"",
-    "description": "",
+    "name": "beer",
+    "description": "beer",
     "type": "project",
     "license": "proprietary",
     "require": {
