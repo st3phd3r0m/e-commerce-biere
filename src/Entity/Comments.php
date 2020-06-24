@@ -28,7 +28,7 @@ class Comments
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=users::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
