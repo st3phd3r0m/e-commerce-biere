@@ -1,4 +1,7 @@
 {
+    "bluemmb/faker-picsum-photos-provider": {
+        "version": "v1.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -107,6 +110,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.4"
+    },
+    "mmo/faker-images": {
+        "version": "v0.1.0"
     },
     "monolog/monolog": {
         "version": "1.25.4"
