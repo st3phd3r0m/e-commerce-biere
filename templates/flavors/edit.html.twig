@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Flavors{% endblock %}
+
+{% block body %}
+    <h1>Edit Flavors</h1>
+
+    {{ include('flavors/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('flavors_index') }}">back to list</a>
+
+    {{ include('flavors/_delete_form.html.twig') }}
+{% endblock %}
