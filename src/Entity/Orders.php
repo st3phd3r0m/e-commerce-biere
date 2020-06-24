@@ -22,7 +22,7 @@ class Orders
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $reference;
+    private $ref;
 
     /**
      * @ORM\Column(type="datetime")
@@ -49,11 +49,7 @@ class Orders
      */
     private $payment;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $cart = [];
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=users::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
@@ -75,14 +71,14 @@ class Orders
         return $this->id;
     }
 
-    public function getReference(): ?string
+    public function getRef(): ?string
     {
-        return $this->reference;
+        return $this->ref;
     }
 
-    public function setReference(string $reference): self
+    public function setRef(string $ref): self
     {
-        $this->reference = $reference;
+        $this->ref = $ref;
 
         return $this;
     }
@@ -143,18 +139,6 @@ class Orders
     public function setPayment(?string $payment): self
     {
         $this->payment = $payment;
-
-        return $this;
-    }
-
-    public function getCart(): ?array
-    {
-        return $this->cart;
-    }
-
-    public function setCart(array $cart): self
-    {
-        $this->cart = $cart;
 
         return $this;
     }
