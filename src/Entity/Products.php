@@ -56,19 +56,16 @@ class Products
 
     /**
      * @ORM\ManyToOne(targetEntity=Volumes::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $volume;
 
     /**
      * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity=Flavors::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $flavor;
 
