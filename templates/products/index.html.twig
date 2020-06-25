@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Products index{% endblock %}
+{% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-    <h1>Products index</h1>
+    <h1>Liste des produits</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Degree</th>
-                <th>Price</th>
-                <th>Quantity</th>
+                <th>#</th>
+                <th>Nom du produit</th>
+                <th>Degré d'alcool</th>
+                <th>Prix</th>
+                <th>Quantité en stock</th>
                 <th>Image</th>
                 <th>actions</th>
             </tr>
@@ -23,23 +22,32 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.degree }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.degree }}&deg;</td>
+                <td>{{ product.price }}&euro; </td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.image }}</td>
                 <td>
-                    <a href="{{ path('products_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('products_edit', {'id': product.id}) }}">edit</a>
+                    <a href="{{ path('products_show', {'id': product.id}) }}">Détail</a>
+                    <a href="{{ path('products_edit', {'id': product.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Pas de produit en base de données.</td>
             </tr>
         {% endfor %}
+
+            <div class="py-5">
+            {{ knp_pagination_render(products) }}
+            </div>
+
         </tbody>
+
+        <div class="py-5">
+        {{ knp_pagination_render(products) }}
+        </div>
+
     </table>
 
-    <a href="{{ path('products_new') }}">Create new</a>
+    <a href="{{ path('products_new') }}">Ajouter un nouveau produit</a>
 {% endblock %}

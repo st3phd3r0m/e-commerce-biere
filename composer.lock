@@ -5,10 +5,14 @@
         "This file is @generated automatically"
     ],
 <<<<<<< HEAD
+<<<<<<< HEAD
     "content-hash": "8bcdaf3c260974d0431164556c7c6d98",
 =======
     "content-hash": "ae49609ed8849f57ae0466633a328c6d",
 >>>>>>> 48f653b6481510ea9c78df4f925bfd50a168af4f
+=======
+    "content-hash": "c55c3a9585f40699c666183f78d450c2",
+>>>>>>> a1280acc62f661439fa18b0357e702e09f4a1edf
     "packages": [
         {
             "name": "bluemmb/faker-picsum-photos-provider",
