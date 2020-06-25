@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/orders")
@@ -17,11 +18,21 @@ class OrdersController extends AbstractController
 {
     /**
      * @Route("/", name="orders_index", methods={"GET"})
+     * @param PaginatorInterface $paginator
      */
-    public function index(OrdersRepository $ordersRepository): Response
+    public function index(OrdersRepository $ordersRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $orders = $paginator->paginate(
+            // Requête récuperant la totalité des données
+            $this->getDoctrine()->getRepository(Orders::class)->findBy([], ['created_at' => 'DESC']),
+            // Le numéro de la page, si aucun numéro on force la page 1
+            $request->query->getInt('page', 1),
+            // Nombre d'éléments par page
+            10
+        );
+
         return $this->render('orders/index.html.twig', [
-            'orders' => $ordersRepository->findAll(),
+            'orders' => $orders
         ]);
     }
 

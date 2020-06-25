@@ -15,13 +15,5 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    /**
-     * @Route("/products", name="products_index")
-     */
-    public function products()
-    {
-        return $this->render('home/products/index.html.twig');
-    }
-
 
 }
