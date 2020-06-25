@@ -42,7 +42,9 @@
                             <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
                         </svg>
                     </a>
+                    {% if user.getComments().count == 0 and user.getOrders().count == 0 %}
                     {{ include('users/_delete_form.html.twig') }}
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
