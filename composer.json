@@ -1,6 +1,4 @@
 {
-    "name": "beer",
-    "description": "beer",
     "type": "project",
     "license": "proprietary",
     "require": {
@@ -9,6 +7,7 @@
         "ext-iconv": "*",
         "bluemmb/faker-picsum-photos-provider": "^1.0",
         "fzaninotto/faker": "^1.9",
+        "knplabs/knp-paginator-bundle": "^5.2",
         "mmo/faker-images": "^0.1.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "4.4.*",
