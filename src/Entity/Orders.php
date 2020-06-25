@@ -51,7 +51,7 @@ class Orders
 
     
     /**
-     * @ORM\ManyToOne(targetEntity=users::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="orders")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
