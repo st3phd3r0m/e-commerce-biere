@@ -1,16 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}Flavors index{% endblock %}
+{% block title %}Liste des saveurs{% endblock %}
 
 {% block body %}
-    <h1>Flavors index</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+<div class="p-5">
+    <h1>Liste des saveurs</h1>
+
+    <a class="btn btn-success float-right" href="{{ path('flavors_new') }}">Ajouter</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>#</th>
+                <th>Saveurs</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +29,21 @@
                 <td>{{ flavor.id }}</td>
                 <td>{{ flavor.name }}</td>
                 <td>
-                    <a href="{{ path('flavors_show', {'id': flavor.id}) }}">show</a>
-                    <a href="{{ path('flavors_edit', {'id': flavor.id}) }}">edit</a>
+                    <a class="btn btn-warning" href="{{ path('flavors_edit', {'id': flavor.id}) }}">Modifier</a>
+                    {{ include('flavors/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune saveur enregistrée en bdd</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('flavors_new') }}">Create new</a>
+    <a class="btn btn-success float-right" href="{{ path('flavors_new') }}">Ajouter</a>
+
+</div>
+
+
 {% endblock %}

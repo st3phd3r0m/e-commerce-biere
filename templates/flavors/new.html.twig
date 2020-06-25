@@ -1,11 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Flavors{% endblock %}
+{% block title %}Ajout d'une nouvelle saveur en bdd{% endblock %}
 
-{% block body %}
-    <h1>Create new Flavors</h1>
+{% block body %}    
+
+<div class="p-5">
+    <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à liste des saveurs</a>
+    <h1>Ajout d'une nouvelle saveur en bdd</h1>
 
     {{ include('flavors/_form.html.twig') }}
 
-    <a href="{{ path('flavors_index') }}">back to list</a>
+</div>
+
+
+
 {% endblock %}

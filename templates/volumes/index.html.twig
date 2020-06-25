@@ -1,16 +1,27 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}Volumes index{% endblock %}
+{% block title %}Liste des volumes de boisson en bdd{% endblock %}
 
 {% block body %}
-    <h1>Volumes index</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+<div class="p-5">
+
+    <h1>Liste des volumes de boisson en bdd</h1>
+    
+    <a class="btn btn-success float-right" href="{{ path('volumes_new') }}">Ajouter un volume</a>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>Volume</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +30,22 @@
                 <td>{{ volume.id }}</td>
                 <td>{{ volume.volume }}</td>
                 <td>
-                    <a href="{{ path('volumes_show', {'id': volume.id}) }}">show</a>
-                    <a href="{{ path('volumes_edit', {'id': volume.id}) }}">edit</a>
+                    <a class="btn btn-warning" href="{{ path('volumes_edit', {'id': volume.id}) }}">Modifier</a>
+                    {{ include('volumes/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucun volume en bdd</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('volumes_new') }}">Create new</a>
+    <a class="btn btn-success float-right" href="{{ path('volumes_new') }}">Ajouter un volume</a>
+
+
+</div>
+
+
 {% endblock %}

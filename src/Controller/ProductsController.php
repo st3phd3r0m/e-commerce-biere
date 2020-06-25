@@ -24,7 +24,7 @@ class ProductsController extends AbstractController
 
         $products = $paginator->paginate(
             //Selectionne toutes les données de la table "Products"
-            $productsRepository->findAll(),
+            $productsRepository->findBy([], ['created_at' => 'DESC']),
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
@@ -42,13 +42,23 @@ class ProductsController extends AbstractController
     public function new(Request $request): Response
     {
         $product = new Products();
-        $form = $this->createForm(ProductsType::class, $product);
+        $form = $this->createForm(ProductsType::class, $product, [
+            'validation_groups' => ['new']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setCreatedAt(new \DateTime('now'));
+            $product->setUpdatedAt(new \DateTime('now'));
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
+
             $entityManager->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Les informations sur le nouveau produit de vente ont bien été ajoutée en bdd.');
 
             return $this->redirectToRoute('products_index');
         }
@@ -74,11 +84,19 @@ class ProductsController extends AbstractController
      */
     public function edit(Request $request, Products $product): Response
     {
-        $form = $this->createForm(ProductsType::class, $product);
+        $form = $this->createForm(ProductsType::class, $product, [
+            'validation_groups' => ['update']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setUpdatedAt(new \DateTime('now'));
+
             $this->getDoctrine()->getManager()->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Les informations du produit de vente ont bien été modifiée dans la bdd.');
 
             return $this->redirectToRoute('products_index');
         }
@@ -97,7 +115,11 @@ class ProductsController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
+
             $entityManager->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Les informations du produit de vente ont bien été supprimée de la bdd.');
         }
 
         return $this->redirectToRoute('products_index');

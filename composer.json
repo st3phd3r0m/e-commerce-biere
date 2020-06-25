@@ -8,6 +8,7 @@
         "bluemmb/faker-picsum-photos-provider": "^1.0",
         "fzaninotto/faker": "^1.9",
         "knplabs/knp-paginator-bundle": "^5.2",
+        "liip/imagine-bundle": "^2.3",
         "mmo/faker-images": "^0.1.0",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/apache-pack": "^1.0",

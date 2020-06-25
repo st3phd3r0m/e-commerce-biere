@@ -35,9 +35,17 @@ class VolumesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($volume);
             $entityManager->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Le nouveau volume a bien été ajoutée en bdd.');
 
             return $this->redirectToRoute('volumes_index');
         }
@@ -45,16 +53,6 @@ class VolumesController extends AbstractController
         return $this->render('volumes/new.html.twig', [
             'volume' => $volume,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="volumes_show", methods={"GET"})
-     */
-    public function show(Volumes $volume): Response
-    {
-        return $this->render('volumes/show.html.twig', [
-            'volume' => $volume,
         ]);
     }
 
@@ -67,7 +65,11 @@ class VolumesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $this->getDoctrine()->getManager()->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Le volume a bien été modifiée dans la bdd.');
 
             return $this->redirectToRoute('volumes_index');
         }
@@ -83,10 +85,13 @@ class VolumesController extends AbstractController
      */
     public function delete(Request $request, Volumes $volume): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$volume->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $volume->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($volume);
             $entityManager->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Le volume a bien été supprimé de la bdd.');
         }
 
         return $this->redirectToRoute('volumes_index');
