@@ -5,25 +5,22 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="Css/normalize.css">
-    <link rel="stylesheet" href="Css/styles.css">
-        {% block stylesheets %}
-            <link rel="stylesheet" href="Css/normalize.css">
-            <link rel="stylesheet" href="Css/styles.css">
-        {% endblock %}
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('Css/normalize.css') }}">
+        <link rel="stylesheet" href="{{ asset('Css/styles.css') }}">
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <header class="container-fluid p-0">
             <nav class="row navbar align-content-center">
                 <div class="col">
-                <a class="navbar-brand">E-commerce</a>
+                <a class="navbar-brand" href="{{ path('home') }}">E-commerce</a>
                 </div>
                 <div class="col input-group mb-3">
                     <input type="text" class="form-control" placeholder="rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn my-2 my-sm-0" type="submit"><i class="las la-search"></i></button>
+                        <button class="btn my-2 my-sm-0 bouton" type="submit"><i class="las la-search"></i></button>
                     </div>   
                 </div>    
                 <div class="col d-flex">
@@ -59,7 +56,7 @@
         <footer class="container-fluid">
             <div class="row d-block">
                 <div class="row d-block text-center">
-                    <img src="Css/images/bandeau_informatif_alcool_mineurs.png" alt="Législation vente d'alcool">
+                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool">
                 </div>
                 <div class="row text-center footer-contact">
                     <div class="col">
@@ -93,7 +90,7 @@
                         <div class="col input-group mb-3">
                             <input type="text" class="form-control" placeholder="rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn my-2 my-sm-0" type="submit"><i class="lab la-telegram"></i></button>
+                                <button class="btn my-2 my-sm-0 bouton" type="submit"><i class="lab la-telegram"></i></button>
                             </div>
                         </div>      
                     </div>
@@ -104,7 +101,7 @@
             </div> 
         </footer>
 
-        <!-- JS, Popper.js, and jQuery -->
+         <!-- JS, Popper.js, and jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

@@ -22,7 +22,6 @@ class ProductsController extends AbstractController
     public function index(ProductsRepository $productsRepository, PaginatorInterface $paginator, Request $request): Response
     {
 
-
         $products = $paginator->paginate(
             //Selectionne toutes les données de la table "Products"
             $productsRepository->findAll(),
@@ -30,7 +29,6 @@ class ProductsController extends AbstractController
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
             10
-
         );
 
         return $this->render('products/index.html.twig', [
