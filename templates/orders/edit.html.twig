@@ -3,11 +3,42 @@
 {% block title %}Edition de commande{% endblock %}
 
 {% block body %}
-    <h1>Edition de commande</h1>
+<div class="container">
+    <h1 class="text-center">Edition de commande</h1>
 
-    {{ include('orders/_form.html.twig', {'button_label': 'Update'}) }}
+{# {{ form_start(formEditOrder, { attr: { 'novalidate': 'novalidate' } }) }}
+    <div class="row">
+            <div class="col-8">
+            
+                {# Référence commande #}
+                {# {{ form_row(formEditOrder.ref) }} #}
 
-    <a href="{{ path('orders_index') }}">Retour à la liste</a>
+                {# Date de création de commande #}
+                {# {{ form_row(formEditOrder.created_at) }} #}
 
-    {{ include('orders/_delete_form.html.twig') }}
+            {# </div>
+            <div class="col-4"> #}
+
+                {# Status de la commande #}
+                {# {{ form_row(formEditOrder.status) }} #}
+
+                {# Total de la commande #}
+                {# {{ form_row(formEditOrder.amount) }} #}
+
+                {# Adresse de livraison de la commande #}
+                {# {{ form_row(formEditOrder.delivery_point) }} #}
+
+                {# Moyens de paiement de la commande #}
+                {# {{ form_row(formEditOrder.payment) }} #}
+
+                {# Bouton d'édition de commande' #}
+                {# {{ form_row(formEditPost.editer) }} #}
+
+            {# </div>
+        </div> #}
+    {{ include('orders/_form.html.twig', {'button_label': 'Valider'}) }}
+
+    <a class="btn btn-primary" role="button" href="{{ path('orders_index') }}">Retour à la liste</a>
+{# {{ form_end(formEditOrder) }} #}
+</div>    
 {% endblock %}

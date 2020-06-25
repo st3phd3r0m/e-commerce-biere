@@ -3,9 +3,11 @@
 {% block title %}Nouvelle commande{% endblock %}
 
 {% block body %}
-    <h1>Création d'une nouvelle commande</h1>
+<div class="container">
+    <h1 class="text-center">Création d'une nouvelle commande</h1>
 
     {{ include('orders/_form.html.twig') }}
 
     <a href="{{ path('orders_index') }}">Retour à la liste</a>
+</div>
 {% endblock %}

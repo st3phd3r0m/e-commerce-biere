@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Orders;
+use App\Entity\Users;
 use App\Form\OrdersType;
 use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
