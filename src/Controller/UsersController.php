@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use App\Form\UsersType;
 use App\Repository\UsersRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,49 +18,28 @@ class UsersController extends AbstractController
 {
     /**
      * @Route("/", name="users_index", methods={"GET"})
+     * @param UsersRepository $usersRepository
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
      */
-    public function index(UsersRepository $usersRepository): Response
+    public function index(UsersRepository $usersRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $users = $paginator->paginate(
+            $usersRepository->findAll(),
+            $request->query->getInt('page', 1),
+            10
+        );
         return $this->render('users/index.html.twig', [
-            'users' => $usersRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/new", name="users_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $user = new Users();
-        $form = $this->createForm(UsersType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('users_index');
-        }
-
-        return $this->render('users/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="users_show", methods={"GET"})
-     */
-    public function show(Users $user): Response
-    {
-        return $this->render('users/show.html.twig', [
-            'user' => $user,
+            'users' => $users
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @param Request $request
+	 * @param Users $user
+	 * @return Response
      */
     public function edit(Request $request, Users $user): Response
     {
