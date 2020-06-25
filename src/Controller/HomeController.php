@@ -16,11 +16,11 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/products", name="products")
+     * @Route("/products", name="products_index")
      */
     public function products()
     {
-        return $this->render('products/index.html.twig');
+        return $this->render('home/products/index.html.twig');
     }
 
 
