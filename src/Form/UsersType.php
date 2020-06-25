@@ -91,7 +91,7 @@ class UsersType extends AbstractType
 				]
             ])
             
-            /*->add('role', ChoiceType::class, [
+            ->add('roles', ChoiceType::class, [
                 'required' => true,
 				'label' => 'Rôle utilisateur',
 				'expanded' => true,
@@ -105,7 +105,7 @@ class UsersType extends AbstractType
 						'message' => 'Veuillez choisir un rôle pour l\'utilisateur'
 					])
 				]
-            ])*/
+            ])
 
             ->add('valider', SubmitType::class)
 
