@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/cart")
@@ -18,10 +19,19 @@ class CartController extends AbstractController
     /**
      * @Route("/", name="cart_index", methods={"GET"})
      */
-    public function index(CartRepository $cartRepository): Response
+    public function index(CartRepository $cartRepository,PaginatorInterface $paginator, Request $request): Response
     {
+        $cart = $paginator->paginate(
+            // Requête récuperant la totalité des données
+            $this->getDoctrine()->getRepository(Cart::class)->findAll(),
+            // Le numéro de la page, si aucun numéro on force la page 1
+            $request->query->getInt('page', 1),
+            // Nombre d'éléments par page
+            10
+        );
+       
         return $this->render('cart/index.html.twig', [
-            'carts' => $cartRepository->findAll(),
+            'carts' => $cart,
         ]);
     }
 
