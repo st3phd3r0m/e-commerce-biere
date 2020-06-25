@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Form\ProductsType;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,22 @@ class ProductsController extends AbstractController
     /**
      * @Route("/", name="products_index", methods={"GET"})
      */
-    public function index(ProductsRepository $productsRepository): Response
+    public function index(ProductsRepository $productsRepository, PaginatorInterface $paginator, Request $request): Response
     {
+
+
+        $products = $paginator->paginate(
+            //Selectionne toutes les données de la table "Products"
+            $productsRepository->findAll(),
+            //Le numero de la page, si aucun numero, on force la page 1
+            $request->query->getInt('page', 1),
+            //Nombre d'élément par page
+            10
+
+        );
+
         return $this->render('products/index.html.twig', [
-            'products' => $productsRepository->findAll(),
+            'products' => $products
         ]);
     }
 
@@ -83,7 +96,7 @@ class ProductsController extends AbstractController
      */
     public function delete(Request $request, Products $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
