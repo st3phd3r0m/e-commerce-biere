@@ -36,40 +36,10 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="users_new", methods={"GET","POST"})
-     */
-    public function new(Request $request): Response
-    {
-        $user = new Users();
-        $form = $this->createForm(UsersType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('users_index');
-        }
-
-        return $this->render('users/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="users_show", methods={"GET"})
-     */
-    public function show(Users $user): Response
-    {
-        return $this->render('users/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="users_edit", methods={"GET","POST"})
+     * @param Request $request
+	 * @param Users $user
+	 * @return Response
      */
     public function edit(Request $request, Users $user): Response
     {
