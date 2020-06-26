@@ -33,7 +33,7 @@ class OrdersController extends AbstractController
         );
 
         return $this->render('orders/index.html.twig', [
-            'orders' => $orders
+            'orders' => $orders,
         ]);
     }
 

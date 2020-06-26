@@ -6,9 +6,9 @@
 <div class="container-fluid">
     <h1 class="text-center">Liste des commandes</h1>
     <div class="row">
-        <div class="col">
+        <!-- <div class="col">
             {{ knp_pagination_render(orders) }}
-        </div>
+        </div> -->
         <div class="col">
         <a class="btn btn-success float-right" role="button" href="{{ path('orders_new') }}">Nouvelle commande</a>
         </div>
@@ -59,8 +59,8 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="py-1">
+    <!-- <div class="py-1">
         {{ knp_pagination_render(orders) }}
-    </div>
+    </div> -->
 </div>
 {% endblock %}
