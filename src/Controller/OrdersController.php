@@ -21,11 +21,11 @@ class OrdersController extends AbstractController
      * @Route("/", name="orders_index", methods={"GET"})
      * @param PaginatorInterface $paginator
      */
-    public function index(OrdersRepository $ordersRepository,PaginatorInterface $paginator, Request $request): Response
+    public function index(OrdersRepository $ordersRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $orders = $paginator->paginate(
             // Requête récuperant la totalité des données
-            $this->getDoctrine()->getRepository(Orders::class)->findBy([], ['created_at' => 'DESC']),
+            $ordersRepository->findBy([], ['created_at' => 'DESC']),
             // Le numéro de la page, si aucun numéro on force la page 1
             $request->query->getInt('page', 1),
             // Nombre d'éléments par page
