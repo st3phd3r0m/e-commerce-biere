@@ -25,7 +25,7 @@ class OrdersController extends AbstractController
     {
         $orders = $paginator->paginate(
             // Requête récuperant la totalité des données
-            $this->getDoctrine()->getRepository(Orders::class)->findBy([], ['created_at' => 'DESC']),
+            $ordersRepository->findBy([], ['created_at' => 'DESC']),
             // Le numéro de la page, si aucun numéro on force la page 1
             $request->query->getInt('page', 1),
             // Nombre d'éléments par page
@@ -33,7 +33,7 @@ class OrdersController extends AbstractController
         );
 
         return $this->render('orders/index.html.twig', [
-            'orders' => $orders
+            'orders' => $orders,
         ]);
     }
 
