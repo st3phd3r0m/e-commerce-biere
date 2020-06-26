@@ -44,7 +44,7 @@ class HomeController extends AbstractController
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
-            6
+            12
         );
 
         return $this->render('home/categories.html.twig', [
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
-            6
+            12
         );
 
         return $this->render('home/categories.html.twig', [
@@ -96,7 +96,7 @@ class HomeController extends AbstractController
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
-            6
+            12
         );
 
         return $this->render('home/categories.html.twig', [
