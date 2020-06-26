@@ -3,6 +3,26 @@
 {% block title %}BierShop - Accueil{% endblock %}
 
 {% block body %}
+
+<main>
+    <!-- Diaporama -->
+    <div class="slider">
+        <img src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
+        <!--Flêches directionnelles-->
+        <i class="las la-chevron-circle-left"></i>
+        <i class="las la-chevron-circle-right"></i>
+        <!-- Ronds -->
+        <div id="circle" class="circle">
+            <i class="las la-dot-circle"></i>
+            <i class="las la-circle"></i>
+        </div>
+    </div> <!-- Fin Diaporama -->
+
+    <!--Services-->
+    <div class="services">
+        <img src="{{asset('Css/images/Services.png')}}" alt="Services">
+    </div> <!--Fin Services-->
+
 <div class="container-fluid p-5">
 
     {% if categorie is defined %}
@@ -76,24 +96,7 @@
 
 
 </div>    
-<main>
-    <!-- Diaporama -->
-    <div class="slider">
-        <img src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
-        <!--Flêches directionnelles-->
-        <i class="las la-chevron-circle-left"></i>
-        <i class="las la-chevron-circle-right"></i>
-        <!-- Ronds -->
-        <div id="circle" class="circle">
-            <i class="las la-dot-circle"></i>
-            <i class="las la-circle"></i>
-        </div>
-    </div> <!-- Fin Diaporama -->
 
-    <!--Services-->
-    <div class="services">
-        <img src="{{asset('Css/images/Services.png')}}" alt="Services">
-    </div> <!--Fin Services-->
 
     <!--Section En ce moment-->
     <section class="newProducts">
@@ -103,6 +106,7 @@
                 <img src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
                 <img src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen">
                 <div><!--Sélection nouveauté produits-->
+                
                 </div>
             </div>
     </section>
