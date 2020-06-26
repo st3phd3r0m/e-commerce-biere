@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon article {{ product.slug }}{% endblock %}
+
+{% block body %}
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
+
+    <div class="container-fluid p-5">
+
+        <h1><strong>{{ product.name }}</strong>, {{ product.volume.volume }}, {{ product.degree }} &deg;</h1>
+
+        <small> Bière <a href="" title="Aller vers les {{ product.category.name }}">{{ product.category.name }}</a>, <a href="" title="Aller vers les {{ product.flavor.name }}">{{ product.flavor.name }}</a> </small>
+
+        <div class="row">
+            <article class="col-9">
+                {% if product.image is not empty %}
+                <img class="d-block w-50 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
+                {% endif %}
+
+                <p>{{ product.description }}</p>
+            </article>
+
+            <aside class="col-3">
+
+                <p>Prix unitaire {{ product.price }} &euro; </p>
+
+                {% if product.quantity > 10 %}
+                    <p class="alert alert-success" role="alert">En stock !</p>
+                {% elseif product.quantity > 0 %}
+                    <p class="alert alert-success">Plus que {{ product.quantity }} en stock !</p>
+                {% else %}
+                    <p class="alert alert-warning">Produit indisponible pour le moment.</p>
+                {% endif %}   
+
+                <a class="btn btn-success float-right" href="">Ajouter au panier</a>
+
+            </aside>
+        </div>
+
+        <a class="btn btn-primary float-right" href="{{ path('home') }}">Aller vers les produits</a>
+
+        <h2>Commentaires</h2>
+        {# {% for comment in post.comments|sort((a, b) => a.createdAt > b.createdAt) %} #}
+            {# <div>
+                <small>Commentaire posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</small>
+                <p>{{ comment.comment }}</p> 
+            </div>
+            <hr> #}
+        {# {% endfor %} #}
+
+        <h3>Postez votre commentaire</h3>
+        {# Si l'utilisateur est connecté, on lui offre la possibilité de commenter l'article #}
+        {# {% if app.user %} #}
+        {# {{ app.user.firstname }} #}
+            <p>Postez votre commentaire </p>
+            {# {{ form(formComment) }} #}
+        {# {% else %} #}
+            {# Sinon, on l'invite à se connecter ou à s'incrire #}
+            {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
+        {# {% endif %} #}
+
+    </div>
+
+{% endblock %}

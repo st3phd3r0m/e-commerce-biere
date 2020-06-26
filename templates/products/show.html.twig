@@ -40,6 +40,20 @@
                 <th>Description</th>
                 <td>{{ product.description }}</td>
             </tr>
+
+            <tr>
+                <th>Catégorie</th>
+                <td>{{ product.category.name }}</td>
+            </tr>
+                        <tr>
+                <th>Saveur</th>
+                <td>{{ product.flavor.name }}</td>
+            </tr>
+                        <tr>
+                <th>Volume</th>
+                <td>{{ product.volume.volume }}</td>
+            </tr>
+
             <tr>
                 <th>Degré d'alcool</th>
                 <td>{{ product.degree }}&deg;</td>

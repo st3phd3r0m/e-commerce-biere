@@ -22,12 +22,15 @@
                 <th scope="col">#</th>
                 <th scope="col">Nom du produit</th>
                 <th scope="col">Image d'illustration</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Saveur</th>
+                <th scope="col">Volume</th>
                 <th scope="col">Degré d'alcool</th>
                 <th scope="col">Prix unitaire</th>
                 <th scope="col">Quantité en stock</th>
                 <th scope="col">Produit créé le</th>
                 <th scope="col">Produit mis à jour le</th>
-                <th scope="col">actions</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +43,9 @@
                     <img src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
                 {% endif %}
                 </td>
+                <td>{{ product.category.name }}</td>   
+                <td>{{ product.flavor.name }}</td>   
+                <td>{{ product.volume.volume }}</td>   
                 <td>{{ product.degree }}&deg;</td>
                 <td>{{ product.price }}&euro; </td>
                 <td>{{ product.quantity }}</td>
