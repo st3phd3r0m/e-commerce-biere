@@ -15,13 +15,13 @@ window.onload =  () => {
     flecheDroite.addEventListener("click", changeImage);
 
     // On sélectionne la flèche gauche
-    let flecheGauche = document.querySelector(".la-chevron-circle-left");
+    //let flecheGauche = document.querySelector(".la-chevron-circle-left");
 
     // On écoute l'évènement "click" sur la flèche gauche
     //flecheGauche.addEventListener("click", reculeImage);
 
     // On sélectionne l'image du diaporama
-    let diaporama = document.querySelector(".slider");
+    let diaporama = document.querySelector(".slider img");
 
     // On sélectionne la div contenant les points
     let points = document.querySelector(".circle");
@@ -58,10 +58,10 @@ window.onload =  () => {
 function changeImage(){
 
     // On va chercher tous les i
-    let balisesI = document.querySelector(".circle i");
+    let balisesI = document.querySelectorAll(".circle i");
     
-    console.log(baliseI[compteur]);
-
+    console.log(balisesI[compteur]);
+    
     // On efface le point de la balise i pointée actuellement (en changeant la classe)
     balisesI[compteur].classList.replace("la-dot-circle", "la-circle");
 
