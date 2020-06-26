@@ -1,5 +1,5 @@
 // Variables globales
-let images = ["./public/Css/images/Coucher_de_soleil.jpg", "./public/Css/images/Table_presentation_biere.jpg", "./public/Css/images/Sante_table.jpg"];
+// let images = ["../public/Css/images/Coucher_de_soleil.jpg", "../../public/Css/images/Table_presentation_biere.jpg", "../public/Css/images/Sante_table.jpg"];
 let compteur = 0; // Compteur qui servira d'index pour le tableau images
 let intervalle; // Variable destinée à stocker l'intervalle du diaporama
 
@@ -36,7 +36,7 @@ window.onload =  () => {
         // On crée la balise i
         let baliseI = document.createElement("i");
 
-        if(image == 0){
+        if(image === 0){
             // Ici on crée le premier rond
             // On ajoute les classes à la balise i
             baliseI.classList.add("las", "la-dot-circle");
@@ -59,28 +59,28 @@ function changeImage(){
 
     // On va chercher tous les i
     let balisesI = document.querySelector(".circle i");
-    
-    console.log(baliseI[compteur]);
+
+    console.log(images[compteur]);
 
     // On efface le point de la balise i pointée actuellement (en changeant la classe)
-    balisesI[compteur].classList.replace("la-dot-circle", "la-circle");
+    balisesI.classList.replace("la-dot-circle", "la-circle");
 
     // On incrémente le compteur
     compteur++;
-    
+
     // Si le compteur dépasse le bout du tableau
-    if(compteur == images.length){
+    if(compteur === images.length){
         // On réinitialise le compteur
         compteur = 0;
     }
 
     // On va chercher l'image
-    let diaporama = document.querySelector(".slider");
+    let diaporama = document.querySelector(".slider img");
 
     // On change l'image
     diaporama.src = images[compteur];
 
     // On ajoute le point dans la nouvelle balise i pointée
-    balisesI[compteur].classList.replace("la-circle", "la-dot-circle");
+    balisesI.classList.replace("la-circle", "la-dot-circle");
 }
 
