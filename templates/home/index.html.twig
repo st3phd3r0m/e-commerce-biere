@@ -1,12 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}E-commerce-Bieres{% endblock %}
+{% block title %}BierShop - Accueil{% endblock %}
 
 {% block body %}
+<div class="container-fluid p-5">
+
+    {% if categorie is defined %}
+        <h1 class="mb-5">Nos bières <em>{{ categorie.name }}</em> </h1>
+    {% elseif flavor is defined %}
+        <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
+    {% elseif volume is defined %}
+        <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
+    {% else %}
+        <h1>Nos produits en stock !</h1>
+    {% endif %}  
+
+    <div class="row">    
+
+        <div class="col-3">
+        
+        </div>
+
+ 
+        {% for product in products %} 
+        <article class="col-3 border-bottom mb-1">
+            <h2>
+                <a href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}">
+                    <strong>
+                        {{ product.name }}
+                    </strong>
+                </a>
+                , {{ product.volume.volume }}, {{ product.degree }} &deg;
+            </h2>
+
+            <small> Bière 
+            <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les bières {{ product.category.name }}">
+            {{ product.category.name }}
+            </a>, 
+            <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">
+            {{ product.flavor.name }}
+            </a> 
+            </small>
+
+
+            <a href="{{ path('home_show', { slug: product.slug }) }}" title="Page du produit {{ product.name }}">
+                {% if product.image is not empty %}
+                <img class="d-block w-75 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
+                {% endif %}
+            </a>
+
+            <p>{{ product.price }} &euro; </p>
+
+            {% if product.quantity > 10 %}
+                <p class="alert alert-success" role="alert">En stock !</p>
+            {% elseif product.quantity > 0 %}
+                <p class="alert alert-success">Plus que {{ product.quantity }} en stock !</p>
+            {% else %}
+                <p class="alert alert-warning">Produit indisponible pour le moment.</p>
+            {% endif %}   
+            
+
+        </article>
+        {% endfor %}
+
+        <div class="py-5">
+        {{ knp_pagination_render(products) }}
+        </div>
+        
+
+
+
+    </div>
+
+
+
+
+</div>    
 <main>
     <!-- Diaporama -->
     <div class="slider">
-        <img src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Biere au coucher de soleil">
+        <img src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
         <!--Flêches directionnelles-->
         <i class="las la-chevron-circle-left"></i>
         <i class="las la-chevron-circle-right"></i>
@@ -18,19 +91,31 @@
     </div> <!-- Fin Diaporama -->
 
     <!--Services-->
-    <div>
-        <div> <!--Livraison-->
-        <i></i>
-        </div>
-
+    <div class="services">
+        <img src="{{asset('Css/images/Services.png')}}" alt="Services">
     </div> <!--Fin Services-->
 
+    <!--Section En ce moment-->
+    <section class="newProducts">
+        <h1>En ce moment ! </h1>
+        <h2>Nouveauté</h2>
+            <div>
+                <img src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
+                <img src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen">
+                <div><!--Sélection nouveauté produits-->
+                </div>
+            </div>
+    </section>
+    <!--Fin Section En ce moment-->
+
+    <!--Section Les meilleures ventes-->
+    <section class="bestsellers">
+        <h1>Les meilleures ventes !</h1>
+        <div><!--Sélection meilleures ventes produits-->
+        </div>
+    </section>
+    <!--Fin Section Les meilleures ventes-->
 </main>
-<div class="container-fluid">
-    <h1>Bienvenue !</h1>
-    <a href="{{ path('products_index') }}">Aller aux produits</a>
-    <a href="{{ path('orders_index') }}">Aller aux commandes</a>
-</div>
 {% endblock %}
 
 {% block javascripts %}

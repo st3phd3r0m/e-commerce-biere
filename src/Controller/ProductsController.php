@@ -86,7 +86,8 @@ class ProductsController extends AbstractController
     {
         $form = $this->createForm(ProductsType::class, $product, [
             'validation_groups' => ['update']
-        ]);
+        ]); 
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
