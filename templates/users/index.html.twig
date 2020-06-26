@@ -1,58 +1,196 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
 {% block title %}Users index{% endblock %}
 
 {% block body %}
-    <h1>Users index</h1>
-
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th>>{{ knp_pagination_sortable(users, 'ID', 'id') }}</th>
-                <th>Prénom</th>
-                <th>{{ knp_pagination_sortable(users, 'Nom', 'lastname') }}</th>
-                <th>Adresse</th>
-                <th>Code Postal</th>
-                <th>Ville</th>
-                <th>Téléphone</th>
-                <th>Adresse email</th>
-                <th>Roles</th>
-                <th>E-mail vérifié ?</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.adress }}</td>
-                <td>{{ user.postalCode }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.phone }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
-                <td>
-                    <a href="{{ path('users_edit', {'id': user.id}) }}" class="btn btn-primary">
-                        <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
-                            <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
-                            <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
-                        </svg>
-                    </a>
-                    {% if user.getOrders().count == 0 %}
-                    {{ include('users/_delete_form.html.twig') }}
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">Aucun utilisateur trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {{ knp_pagination_render(users) }}
+   <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ path('dashboard') }}">Dashboard Admin</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Recherche-->
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Rechercher" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{ path('log') }}">Déconnexion</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- Début aside -->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Compte utilisateur</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseutilisateurs" aria-expanded="false" aria-controls="collapseUtilisateurs">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-cog"></i></div>
+                            Comptes utilisateurs
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseutilisateurs" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('users_index') }}">Liste des comptes</a>
+                                <a class="nav-link" href="#">Création d'un compte</a>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Interface du site</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduits" aria-expanded="false" aria-controls="collapseProduits">
+                            <div class="sb-nav-link-icon"><i class="fas fa-beer"></i></div>
+                            Produits
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseProduits" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('products_index') }}">Liste des produits</a>
+                                <a class="nav-link" href="{{ path('products_new') }}">Création d'un produit</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCommandes" aria-expanded="false" aria-controls="collapseCommandes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-dolly"></i></div>
+                            Commandes
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>           
+                        <div class="collapse" id="collapseCommandes" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('orders_index') }}">Liste des commandes</a>
+                                <a class="nav-link" href="{{ path('orders_new') }}">Création d'une commande</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+                            <div class="sb-nav-link-icon"><i class="fas fa-wine-bottle"></i></div>
+                            Catégories
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseCategories" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('categories_index') }}">Liste des catégories</a>
+                                <a class="nav-link" href="{{ path('categories_new') }}">Création d'une nouvelle catégories</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseVolumes" aria-expanded="false" aria-controls="collapseVolumes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-thermometer-full"></i></div>
+                            Volumes
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>           
+                        <div class="collapse" id="collapseVolumes" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('volumes_index') }}">Liste des volumes</a>
+                                <a class="nav-link" href="{{ path('volumes_new') }}">Création d'un nouveau volume</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaniers" aria-expanded="false" aria-controls="collapsePaniers">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cart-plus"></i></div>
+                            Paniers
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>           
+                        <div class="collapse" id="collapsePaniers" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('cart_index') }}">Liste des Paniers</a>
+                                <a class="nav-link" href="{{ path('cart_new') }}">Création d'un nouveau panier</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSaveurs" aria-expanded="false" aria-controls="collapseVolumes">
+                            <div class="sb-nav-link-icon"><i class="fas fa-cookie-bite"></i></div>
+                            Saveurs
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>           
+                        <div class="collapse" id="collapseSaveurs" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="{{ path('flavors_index') }}">Liste des saveurs</a>
+                                <a class="nav-link" href="{{ path('flavors_new') }}">Création d'un nouveau saveur</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Connecté en tant que:</div>
+                    User Admin
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <!-- Début du main -->
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-4">Utilisateurs</h1>
+                    <ul class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Utilisateurs</li>
+                    </ul>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-user-cog"></i>
+                            Tableau des Utilisateurs
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>>{{ knp_pagination_sortable(users, 'ID', 'id') }}</th>
+                                            <th>Prénom</th>
+                                            <th>{{ knp_pagination_sortable(users, 'Nom', 'lastname') }}</th>
+                                            <th>Adresse</th>
+                                            <th>Code Postal</th>
+                                            <th>Ville</th>
+                                            <th>Téléphone</th>
+                                            <th>Adresse email</th>
+                                            <th>Roles</th>
+                                            <th>E-mail vérifié ?</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>{{ user.id }}</td>
+                                            <td>{{ user.firstname }}</td>
+                                            <td>{{ user.lastname }}</td>
+                                            <td>{{ user.adress }}</td>
+                                            <td>{{ user.postalCode }}</td>
+                                            <td>{{ user.city }}</td>
+                                            <td>{{ user.phone }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                                            <td>{{ user.isVerified ? 'Oui' : 'Non' }}</td>
+                                            <td>
+                                                <a href="{{ path('users_edit', {'id': user.id}) }}" class="btn btn-primary">
+                                                    <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                                                        <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                                                        <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                                                    </svg>
+                                                </a>
+                                                {% if user.getOrders().count == 0 %}
+                                                {{ include('users/_delete_form.html.twig') }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="12">Aucun utilisateur trouvé</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="py-1">
+                                    {{ knp_pagination_render(users) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div
 {% endblock %}
