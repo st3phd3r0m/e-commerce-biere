@@ -1,0 +1,42 @@
+
+        <card class="col-{{ col }} border-bottom mb-1">
+            <h2>
+                <a href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}">
+                    <strong>
+                        {{ product.name }}
+                    </strong>
+                </a>
+                , {{ product.volume.volume }}, {{ product.degree }} &deg;
+            </h2>
+
+            <small> Bière 
+            <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les bières {{ product.category.name }}">
+            {{ product.category.name }}
+            </a>, 
+            <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">
+            {{ product.flavor.name }}
+            </a> 
+            </small>
+
+
+            <a href="{{ path('home_show', { slug: product.slug }) }}" title="Page du produit {{ product.name }}">
+                {% if product.image is not empty %}
+                <img class="d-block w-75 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
+                {% endif %}
+            </a>
+
+            <p>{{ product.price }} &euro; </p>
+
+            {% if product.quantity > 10 %}
+                <p class="alert alert-success" role="alert">En stock !</p>
+            {% elseif product.quantity > 0 %}
+                <p class="alert alert-success">Plus que {{ product.quantity }} en stock !</p>
+            {% else %}
+                <p class="alert alert-warning">Produit indisponible pour le moment.</p>
+            {% endif %}   
+            
+
+        </card>
+
+
+        

@@ -9,6 +9,7 @@ use App\Entity\Products;
 use App\Entity\Volumes;
 use App\Form\CommentsType;
 use App\Repository\CategoriesRepository;
+use App\Repository\ProductsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +47,7 @@ class HomeController extends AbstractController
             6
         );
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/categories.html.twig', [
             'volume' => $volume,
             'products' => $products
         ]);
@@ -72,7 +73,7 @@ class HomeController extends AbstractController
             6
         );
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/categories.html.twig', [
             'flavor' => $flavor,
             'products' => $products
         ]);
@@ -98,7 +99,7 @@ class HomeController extends AbstractController
             6
         );
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/categories.html.twig', [
             'categorie' => $categorie,
             'products' => $products
         ]);
@@ -162,26 +163,19 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(ProductsRepository $productsRepository , Request $request)
     {
 
         //Selectionne toutes les données de la table "posts"
         //getRepository attend en paramètre, l'entité avec laquelle on souhaite travailler
         // $posts = $this->getDoctrine()->getRepository(Posts::class)->findAll(),
 
-        $products = $paginator->paginate(
-            //Selectionne toutes les données de la table "posts"
-            //getRepository attend en paramètre, l'entité avec laquelle on souhaite travailler
-            $this->getDoctrine()->getRepository(Products::class)->findBy([], ['created_at' => 'DESC']),
-            //Le numero de la page, si aucun numero, on force la page 1
-            $request->query->getInt('page', 1),
-            //Nombre d'élément par page
-            6
-        );
-
+        $productsNew = $productsRepository->findBy([], ['created_at' => 'DESC'], 3);
+        $productsBestSales = $productsRepository->findBy([], ['created_at' => 'DESC'], 12);
 
         return $this->render('home/index.html.twig', [
-            'products' => $products
+            'productsNew' => $productsNew,
+            'productsBestSales' => $productsBestSales
         ]);
     }
 }

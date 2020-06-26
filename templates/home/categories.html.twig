@@ -1,0 +1,17 @@
+
+
+{% if categorie is defined %}
+    <h1 class="mb-5">Nos bières <em>{{ categorie.name }}</em> </h1>
+{% elseif flavor is defined %}
+    <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
+{% elseif volume is defined %}
+    <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
+{% else %}
+    <h1>Nos produits en stock !</h1>
+{% endif %}  
+
+{{ include('home/_listProducts.html.twig') }}
+
+<div class="py-5">
+{{ knp_pagination_render(products) }}
+</div>
