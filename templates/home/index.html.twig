@@ -3,9 +3,39 @@
 {% block title %}E-commerce-Bieres{% endblock %}
 
 {% block body %}
+<main>
+    <!-- Diaporama -->
+    <div class="slider">
+        <img src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Biere au coucher de soleil">
+        <!--Flêches directionnelles-->
+        <i class="las la-chevron-circle-left"></i>
+        <i class="las la-chevron-circle-right"></i>
+        <!-- Ronds -->
+        <div id="circle" class="circle">
+            <i class="las la-dot-circle"></i>
+            <i class="las la-circle"></i>
+        </div>
+    </div> <!-- Fin Diaporama -->
+
+    <!--Services-->
+    <div>
+        <div> <!--Livraison-->
+        <i></i>
+        </div>
+
+    </div> <!--Fin Services-->
+
+</main>
 <div class="container-fluid">
     <h1>Bienvenue !</h1>
     <a href="{{ path('products_index') }}">Aller aux produits</a>
     <a href="{{ path('orders_index') }}">Aller aux commandes</a>
-</div>    
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let images = ['{{ asset('Css/images/Coucher_de_soleil.jpg') }}', '{{ asset('Css/images/Table_presentation_biere.jpg') }}', '{{ asset('Css/images/Sante_table.jpg') }}'];
+    </script>
+    <script src="{{ asset('js/carousel.js') }}"></script>
 {% endblock %}

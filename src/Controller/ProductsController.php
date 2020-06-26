@@ -93,6 +93,8 @@ class ProductsController extends AbstractController
 
             $product->setUpdatedAt(new \DateTime('now'));
 
+            
+
             $this->getDoctrine()->getManager()->flush();
 
             //Envoi d'un message de succès
