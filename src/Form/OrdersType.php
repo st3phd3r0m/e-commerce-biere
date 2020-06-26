@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Orders;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -75,9 +76,14 @@ class OrdersType extends AbstractType
                     ])
                 ]
             ])
-            ->add('payment', TextType::class, [
+            ->add('payment', ChoiceType::class, [
                 'required' => true,
                 'label' => 'Moyens de paiement',
+                'attr' => ['class' => 'custom-select'],
+                'choices' => [
+                    'Carte banquaire' => 'carte banquaire',
+                    'Stripe' => 'stripe'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un moyens de paiement',
