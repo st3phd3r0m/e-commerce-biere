@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/volumes")
+ * @Route("/admin/dashboard/volumes")
  */
 class VolumesController extends AbstractController
 {
