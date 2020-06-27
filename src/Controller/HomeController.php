@@ -19,14 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
 
-
-    public function showCategories()
-    {
-        return $this->render('base.html.twig', [
-            'categories' => $this->getDoctrine()->getRepository(Volumes::class)->findAll()
-        ]);
-    }
-
     /**
      * 
      * @Route("/volume/{slug}", name="home_volume")
