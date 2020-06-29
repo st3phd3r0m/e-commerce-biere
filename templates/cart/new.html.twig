@@ -1,11 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Cart{% endblock %}
+{% block title %}Nouveau panier{% endblock %}
 
 {% block body %}
-    <h1>Create new Cart</h1>
+<div class="container">
+    <h1 class="text-center">Création d'un nouveau panier</h1>
 
     {{ include('cart/_form.html.twig') }}
 
-    <a href="{{ path('cart_index') }}">back to list</a>
+    <a class="btn btn-primary" role="button" href="{{ path('cart_index') }}">Retour à la liste</a>
+</div>    
 {% endblock %}

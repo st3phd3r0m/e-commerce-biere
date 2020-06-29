@@ -1,46 +1,80 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}Products{% endblock %}
+{% block title %}Détail de l'article #{{ product.id }} {% endblock %}
 
 {% block body %}
-    <h1>Products</h1>
 
-    <table class="table">
+<div class="p-5">
+
+    <h1>Détail de l'article #{{ product.id }}</h1>
+
+    <a class="btn btn-primary float-right" href="{{ path('products_index') }}">Retour à la liste des produits</a>
+
+    <a class="btn btn-warning float-right" href="{{ path('products_edit', {'id': product.id}) }}">Modifier les informations du produit</a>
+
+    <table class="table text-center">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <td>{{ product.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom du produit</th>
                 <td>{{ product.name }}</td>
+            </tr>  
+            <tr>
+                <th>Produit créé le</th>
+                <td>{{ product.createdAt | date('d.m.Y') }}</td>
+            </tr>
+            <tr>
+                <th>Produit mis à jour le</th>
+                <td>{{ product.updatedAt | date('d.m.Y') }}</td>
+            </tr>
+            <tr>
+                <th>Illustration</th>
+                <td>
+                    <img class="d-block w-50 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
+                </td>
             </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ product.description }}</td>
             </tr>
+
             <tr>
-                <th>Degree</th>
-                <td>{{ product.degree }}</td>
+                <th>Catégorie</th>
+                <td>{{ product.category.name }}</td>
+            </tr>
+                        <tr>
+                <th>Saveur</th>
+                <td>{{ product.flavor.name }}</td>
+            </tr>
+                        <tr>
+                <th>Volume</th>
+                <td>{{ product.volume.volume }}</td>
+            </tr>
+
+            <tr>
+                <th>Degré d'alcool</th>
+                <td>{{ product.degree }}&deg;</td>
             </tr>
             <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
+                <th>Prix unitaire</th>
+                <td>{{ product.price }}&euro;</td>
             </tr>
             <tr>
-                <th>Quantity</th>
+                <th>Quantité en stock</th>
                 <td>{{ product.quantity }}</td>
             </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
+
         </tbody>
     </table>
 
-    <a href="{{ path('products_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('products_index') }}">Retour à la liste des produits</a>
 
-    <a href="{{ path('products_edit', {'id': product.id}) }}">edit</a>
+    <a class="btn btn-warning float-right d-inline" href="{{ path('products_edit', {'id': product.id}) }}">Modifier les informations du produit</a>
 
     {{ include('products/_delete_form.html.twig') }}
+
+</div>
 {% endblock %}

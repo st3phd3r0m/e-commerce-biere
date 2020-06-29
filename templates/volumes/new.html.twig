@@ -1,11 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Volumes{% endblock %}
+{% block title %}Ajout d'un volume en bdd{% endblock %}
 
 {% block body %}
-    <h1>Create new Volumes</h1>
+<div class="p-5">
+    <a class="btn btn-primary float-right" href="{{ path('volumes_index') }}">Retour à la liste des volumes</a>
+    <h1>Ajout d'un volume en bdd</h1>
 
     {{ include('volumes/_form.html.twig') }}
+</div>
 
-    <a href="{{ path('volumes_index') }}">back to list</a>
+
+    
 {% endblock %}

@@ -1,11 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Flavors{% endblock %}
+{% block title %}Ajout d'une nouvelle saveur en bdd{% endblock %}
 
-{% block body %}
-    <h1>Create new Flavors</h1>
+{% block body %}    
+<!-- Début du main -->
 
-    {{ include('flavors/_form.html.twig') }}
+<main id="layoutSidenav_content">
+    <div class="container-fluid">
 
-    <a href="{{ path('flavors_index') }}">back to list</a>
+        <ul class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('orders_index') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Saveurs</li>
+        </ul>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-cookie-bite"></i>
+                Tableau des Saveurs
+            </div>
+            <div class="card-body">
+                <div class="p-5">
+                    <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à liste des saveurs</a>
+                    <h1>Ajout d'une nouvelle saveur en bdd</h1>
+
+                    {{ include('flavors/_form.html.twig') }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+        
+
 {% endblock %}

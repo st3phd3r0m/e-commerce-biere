@@ -1,11 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Categories{% endblock %}
+{% block title %}Ajout d'une nouvelle catégorie en bdd{% endblock %}
 
 {% block body %}
-    <h1>Create new Categories</h1>
+<div class="p-5">
+    <a class="btn btn-primary float-right" href="{{ path('categories_index') }}">Retour à la liste des catégories</a>
+    <h1>Ajout d'une nouvelle catégorie en bdd</h1>
 
     {{ include('categories/_form.html.twig') }}
 
-    <a href="{{ path('categories_index') }}">back to list</a>
+</div>
+
+
+    
 {% endblock %}

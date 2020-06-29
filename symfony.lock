@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "bluemmb/faker-picsum-photos-provider": {
         "version": "v1.0"
     },
@@ -102,6 +105,12 @@
     "fzaninotto/faker": {
         "version": "v1.9.1"
     },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.41"
+    },
+    "imagine/imagine": {
+        "version": "1.2.3"
+    },
     "jms/metadata": {
         "version": "2.3.0"
     },
@@ -119,6 +128,19 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.4"
+    },
+    "liip/imagine-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "5a5bdc2d0e2533ed6935d5ae562f2b318a8fc1ee"
+        },
+        "files": [
+            "./config/packages/liip_imagine.yaml",
+            "./config/routes/liip_imagine.yaml"
+        ]
     },
     "mmo/faker-images": {
         "version": "v0.1.0"
@@ -169,6 +191,18 @@
         },
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.2",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
         ]
     },
     "symfony/apache-pack": {
@@ -466,6 +500,9 @@
     },
     "symfony/string": {
         "version": "v5.1.2"
+    },
+    "symfony/templating": {
+        "version": "v4.4.10"
     },
     "symfony/test-pack": {
         "version": "v1.0.6"

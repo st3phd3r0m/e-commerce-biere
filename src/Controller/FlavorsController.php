@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/flavors")
+ * @Route("/admin/dashboard/flavors")
  */
 class FlavorsController extends AbstractController
 {
@@ -39,22 +39,15 @@ class FlavorsController extends AbstractController
             $entityManager->persist($flavor);
             $entityManager->flush();
 
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'La nouvelle saveur a bien été ajoutée en bdd.');
+
             return $this->redirectToRoute('flavors_index');
         }
 
         return $this->render('flavors/new.html.twig', [
             'flavor' => $flavor,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="flavors_show", methods={"GET"})
-     */
-    public function show(Flavors $flavor): Response
-    {
-        return $this->render('flavors/show.html.twig', [
-            'flavor' => $flavor,
         ]);
     }
 
@@ -68,6 +61,9 @@ class FlavorsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'La saveur a bien été modifiée dans la bdd.');
 
             return $this->redirectToRoute('flavors_index');
         }
@@ -83,10 +79,13 @@ class FlavorsController extends AbstractController
      */
     public function delete(Request $request, Flavors $flavor): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$flavor->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $flavor->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($flavor);
             $entityManager->flush();
+
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'La saveur a bien été supprimée de la bdd.');
         }
 
         return $this->redirectToRoute('flavors_index');

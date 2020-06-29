@@ -6,6 +6,7 @@ use App\Repository\VolumesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=VolumesRepository::class)
@@ -28,6 +29,12 @@ class Volumes
      * @ORM\OneToMany(targetEntity=Products::class, mappedBy="volume")
      */
     private $products;
+
+    /**
+     * @Gedmo\Slug(fields={"volume"})
+     * @ORM\Column(length=255, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -78,6 +85,18 @@ class Volumes
                 $product->setVolume(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

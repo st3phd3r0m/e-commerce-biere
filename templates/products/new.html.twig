@@ -1,11 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-admin.html.twig' %}
 
-{% block title %}New Products{% endblock %}
+{% block title %}Ajout d'un article de vente{% endblock %}
 
 {% block body %}
-    <h1>Create new Products</h1>
+
+<div class="p-5">
+    <a class="btn btn-primary float-right" href="{{ path('products_index') }}">Retour à la liste des articles de vente</a>
+    <h1>Ajout d'un article de vente</h1>
 
     {{ include('products/_form.html.twig') }}
 
-    <a href="{{ path('products_index') }}">back to list</a>
+</div>
+
+
+
 {% endblock %}

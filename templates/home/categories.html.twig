@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Accueil{% endblock %}
+
+{% block body %}
+    <main>
+
+        <div class="container-fluid p-5">
+
+            {% if categorie is defined %}
+                <h1 class="mb-5">Nos bières <em>{{ categorie.name }}</em> </h1>
+            {% elseif flavor is defined %}
+                <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
+            {% elseif volume is defined %}
+                <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
+            {% else %}
+                <h1>Nos produits en stock !</h1>
+            {% endif %}  
+
+            <div class="py-5">
+                {{ knp_pagination_render(products) }}
+            </div>  
+
+            <div class="row">
+                {% set col = 2 %}
+
+                {% for product in products %} 
+                    {{ include('home/_listProducts.html.twig') }}
+                {% endfor %}
+            </div>
+
+            <div class="py-5">
+                {{ knp_pagination_render(products) }}
+            </div>    
+
+        </div>
+    </main>
+{% endblock %}
