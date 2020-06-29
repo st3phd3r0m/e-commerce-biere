@@ -85,21 +85,21 @@
         <div class="titleBlue"><h2>Avis</h2></div>
         {% for comment in product.comments|sort((a, b) => a.createdAt > b.createdAt) %}
             <div>
-                <small>Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</small>
-                <p>{{ comment.comment }}</p> 
+                <p class="font-italic">Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</p>
+                <p class="p-2">{{ comment.comment }}</p> 
             </div>
             <hr>
          {% endfor %}
 
         <h3>Postez votre avis</h3>
         {# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
-        {# {% if app.user %} #}
-        {# {{ app.user.firstname }} #}
-            {# {{ form(formComment) }} #}
-        {# {% else %} #}
+        {% if app.user %}
+            <p>{{ app.user.firstname }},</p>
+            {{ form(formComment) }}
+        {% else %}
             {# Sinon, on l'invite à se connecter ou à s'incrire #}
             {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
-        {# {% endif %} #}
+        {% endif %}
     </div>
 
     <div class="container">
