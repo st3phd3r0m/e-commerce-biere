@@ -4,7 +4,11 @@
 
 {% block body %}
 
+<<<<<<< HEAD
 <main>
+=======
+<main class="container-flex">
+>>>>>>> 2956b7cd62f6229df430af3fae10d3f540faa539
 
     <!-- Diaporama -->
     <div class="slider">
@@ -20,13 +24,12 @@
     </div> <!-- Fin Diaporama -->
 
 
-
-
     <!--Services-->
     <div class="services">
-        <img src="{{asset('Css/images/Services.png')}}" alt="Services">
+        <img class="img-fluid" src="{{asset('Css/images/Services.png')}}" alt="Services">
     </div> <!--Fin Services-->
 
+<<<<<<< HEAD
 
     <div class="container-fluid p-5">
 
@@ -37,37 +40,56 @@
                 <div class="row">
                     <img class="col-6" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
                     <img class="col-6" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen">
+=======
+  
+
+    <!--Section En ce moment-->
+    <section class="newProducts">
+        <div class="row"><h1>En ce moment !</h1></div>
+        <div class="row"><h2 class="mb-0">Nouveauté</h2></div>
+        <div class="row ligneBleu"></div>
+            {# <div class="row">
+                <img class="col-6" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
+                <img class="col-6" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen">
+                <!--Sélection nouveauté produits-->
+                {% for product in productsNew %} 
+                    {% set col = 4 %}
+                    {{ include('home/_listProducts.html.twig') }}
+                {% endfor %}
+            </div> #}
+            <div class="row">
+                <div class="col-6 p-0">
+                    <img class="img-fluid" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
+                </div>
+                <div class="col-6">
+                    <div class="row justify-content-center"><img class="img-fluid w-100" style="object-fit: cover; max-height: 174px" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></div>
+                    <div class="row">
+>>>>>>> 2956b7cd62f6229df430af3fae10d3f540faa539
                     <!--Sélection nouveauté produits-->
                     {% for product in productsNew %} 
                         {% set col = 4 %}
                         {{ include('home/_listProducts.html.twig') }}
                     {% endfor %}
+                    </div>
                 </div>
-        </section>
-        <!--Fin Section En ce moment-->
-
-
-
-
-        <!--Section Les meilleures ventes-->
-        <section class="bestsellers">
-            <h1>Les meilleures ventes !</h1>
-            <div class="row"><!--Sélection meilleures ventes produits-->
-                {% set col = 2 %}
-                {% for product in productsBestSales %} 
-                    {{ include('home/_listProducts.html.twig') }}
-                {% endfor %}
-
             </div>
-        </section>
-        <!--Fin Section Les meilleures ventes-->
+    </section>
+    <!--Fin Section En ce moment-->
 
 
 
-
-        
-
-    </div>    
+    <!--Section Les meilleures ventes-->
+    <section class="bestsellers">
+        <div class="row"><h1>Les meilleures ventes !</h1></div>
+        <div class="row"><!--Sélection meilleures ventes produits-->
+            {% set col = 2 %}
+            {% for product in productsBestSales %} 
+                {{ include('home/_listProducts.html.twig') }}
+            {% endfor %}
+        </div>
+    </section>
+    <!--Fin Section Les meilleures ventes-->
+      
 </main>
 {% endblock %}
 
