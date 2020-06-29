@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('cart_delete', {'id': cart.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('cart_delete', {'id': cart.id}) }}" onsubmit="return confirm('Etes-vous sûre de vouloir supprimer ce panier ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ cart.id) }}">
 

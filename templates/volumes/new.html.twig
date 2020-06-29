@@ -3,12 +3,29 @@
 {% block title %}Ajout d'un volume en bdd{% endblock %}
 
 {% block body %}
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('volumes_index') }}">Retour à la liste des volumes</a>
-    <h1>Ajout d'un volume en bdd</h1>
+    <!-- Début du main -->
+    <main id="layoutSidenav_content">
+        <div class="container-fluid">
 
-    {{ include('volumes/_form.html.twig') }}
-</div>
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Volumes</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-thermometer-full"></i>
+                      Ajout d'un volume en bdd
+                </div>
+                <div class="card-body">
+
+                    <a class="btn btn-primary float-right" href="{{ path('volumes_index') }}">Retour à la liste des volumes</a>
+
+                    {{ include('volumes/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>                
 
 
     

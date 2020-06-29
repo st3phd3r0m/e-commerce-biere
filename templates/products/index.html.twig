@@ -4,126 +4,122 @@
 
 {% block body %}
 
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
 
 
+    {# DEBUT DU MAIN #}
+    <main id="layoutSidenav_content">
 
+        <div class="container-fluid">
+        
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Produits</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-beer"></i>
+                    Tableau des produits
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
 
-                {# DEBUT DU MAIN #}
-                <main id="layoutSidenav_content">
+                        {# Début tableau #}
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            {# DEBUT THEAD #}
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{ knp_pagination_sortable(products, '#', 'id') }}</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'name', 'Nom du produit') }}</th>
+                                    <th scope="col">Image d'illustration</th>
+                                    <th scope="col">Catégorie</th>
+                                    <th scope="col">Saveur</th>
+                                    <th scope="col">Volume</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'degree', 'Degré d\'alcool') }}</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'price', 'Prix unitaire') }}</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'quantity', 'Quantité en stock') }}</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'createdAt', 'Produit créé le') }}</th>
+                                    <th scope="col">{{ knp_pagination_sortable(products, 'updatedAt', 'Produit modifié le') }}</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            {# FIN THEAD #}
 
-                    <div class="container-fluid">
-                    
-                        <ul class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ path('orders_index') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Produits</li>
-                        </ul>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-beer"></i>
-                                Tableau des produits
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
+                            {# DEBUT TBODY #}
+                            <tbody>
 
-                                    {# Début tableau #}
-                                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
-                                        {# DEBUT THEAD #}
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nom du produit</th>
-                                                <th scope="col">Image d'illustration</th>
-                                                <th scope="col">Catégorie</th>
-                                                <th scope="col">Saveur</th>
-                                                <th scope="col">Volume</th>
-                                                <th scope="col">Degré d'alcool</th>
-                                                <th scope="col">Prix unitaire</th>
-                                                <th scope="col">Quantité en stock</th>
-                                                <th scope="col">Produit créé le</th>
-                                                <th scope="col">Produit mis à jour le</th>
-                                                <th scope="col">actions</th>
-                                            </tr>
-                                        </thead>
-                                        {# FIN THEAD #}
+                                {% for product in products %}
+                                    <tr>
+                                        <th scope="row">{{ product.id }}</th>
+                                        <td>{{ product.name }}</td>                
+                                        <td>
+                                        {% if product.image is not empty %}
+                                            <img src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
+                                        {% endif %}
+                                        </td>
+                                        <td>{{ product.category.name }}</td>   
+                                        <td>{{ product.flavor.name }}</td>   
+                                        <td>{{ product.volume.volume }}</td>   
+                                        <td>{{ product.degree }}&deg;</td>
+                                        <td>{{ product.price }}&euro; </td>
+                                        <td>{{ product.quantity }}</td>
+                                        <td>{{ product.createdAt | date('d.m.Y') }}</td>
+                                        <td>{{ product.updatedAt | date('d.m.Y') }}</td>
+                                        <td>
 
-                                        {# DEBUT TBODY #}
-                                        <tbody>
+                                            <a class="btn btn-primary" role="button" href="{{ path('products_show', {'id': product.id}) }}" title="Détail du produit">
+                                                <svg class="bi bi-eye" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                                                <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                                </svg>
+                                            </a>
 
-                                            {% for product in products %}
-                                                <tr>
-                                                    <th scope="row">{{ product.id }}</th>
-                                                    <td>{{ product.name }}</td>                
-                                                    <td>
-                                                    {% if product.image is not empty %}
-                                                        <img src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
-                                                    {% endif %}
-                                                    </td>
-                                                    <td>{{ product.category.name }}</td>   
-                                                    <td>{{ product.flavor.name }}</td>   
-                                                    <td>{{ product.volume.volume }}</td>   
-                                                    <td>{{ product.degree }}&deg;</td>
-                                                    <td>{{ product.price }}&euro; </td>
-                                                    <td>{{ product.quantity }}</td>
-                                                    <td>{{ product.createdAt | date('d.m.Y') }}</td>
-                                                    <td>{{ product.updatedAt | date('d.m.Y') }}</td>
-                                                    <td>
+                                            <a class="btn btn-secondary" role="button" href="{{ path('products_edit', {'id': product.id}) }}" title="Modifier le produit">
+                                                <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                                                <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                                                <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                                                </svg>
+                                            </a>
 
-                                                        <a class="btn btn-primary" role="button" href="{{ path('products_show', {'id': product.id}) }}" title="Détail du produit">
-                                                            <svg class="bi bi-eye" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
-                                                            <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                                                            </svg>
-                                                        </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="8">Pas de produit en base de données.</td>
+                                    </tr>
+                                {% endfor %}
 
-                                                        <a class="btn btn-secondary" role="button" href="{{ path('products_edit', {'id': product.id}) }}" title="modifier le produit">
-                                                            <svg class="bi bi-pen" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
-                                                            <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
-                                                            <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
-                                                            </svg>
-                                                        </a>
+                                <a class="btn btn-success float-right" href="{{ path('products_new') }}">Ajouter un nouveau produit</a>
 
-
-                                                        {{ include('products/_delete_form.html.twig') }}
-                                                    </td>
-                                                </tr>
-                                            {% else %}
-                                                <tr>
-                                                    <td colspan="8">Pas de produit en base de données.</td>
-                                                </tr>
-                                            {% endfor %}
-
-                                            <a class="btn btn-success float-right" href="{{ path('products_new') }}">Ajouter un nouveau produit</a>
-
-                                            <div class="py-1">
-                                            {{ knp_pagination_render(products) }}
-                                            </div>
-
-                                        </tbody>
-                                        {# FIN TBODY #}
-
-
-                                    </table>
-
-                                    <a class="btn btn-success float-right" href="{{ path('products_new') }}">Ajouter un nouveau produit</a>
-
-                                    <div class="py-1">
-                                    {{ knp_pagination_render(products) }}
-                                    </div>
+                                <div class="py-1">
+                                {{ knp_pagination_render(products) }}
                                 </div>
-                            </div>
+
+                            </tbody>
+                            {# FIN TBODY #}
+
+
+                        </table>
+
+                        <a class="btn btn-success float-right" href="{{ path('products_new') }}">Ajouter un nouveau produit</a>
+
+                        <div class="py-1">
+                        {{ knp_pagination_render(products) }}
                         </div>
                     </div>
-                </main>
-                {# FIN DU MAIN #}
-
-
-
+                </div>
+            </div>
         </div>
+    </main>
+    {# FIN DU MAIN #}
+
+
+
+</div>
        
 {% endblock %}

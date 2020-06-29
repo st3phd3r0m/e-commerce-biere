@@ -4,13 +4,30 @@
 
 {% block body %}    
 
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à liste des saveurs</a>
-    <h1>Ajout d'une nouvelle saveur en bdd</h1>
+    <!-- Début du main -->
+    <main id="layoutSidenav_content">
+        <div class="container-fluid">
 
-    {{ include('flavors/_form.html.twig') }}
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Saveurs</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-cookie-bite"></i>
+                    Tableau des Saveurs
+                </div>
+                <div class="card-body">
+                    <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à liste des saveurs</a>
+                    <h1>Ajout d'une nouvelle saveur en bdd</h1>
 
-</div>
+                    {{ include('flavors/_form.html.twig') }}
+
+                </div>
+            </div>    
+        </div>
+    </main>
+</div>            
 
 
 

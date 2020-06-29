@@ -81,7 +81,7 @@ class OrdersType extends AbstractType
                 'label' => 'Moyens de paiement',
                 'attr' => ['class' => 'custom-select'],
                 'choices' => [
-                    'Carte banquaire' => 'carte banquaire',
+                    'Carte bancaire' => 'carte bancaire',
                     'Stripe' => 'stripe'
                 ],
                 'constraints' => [
