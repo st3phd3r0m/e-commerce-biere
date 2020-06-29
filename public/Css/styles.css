@@ -1,13 +1,29 @@
 /* Généralités */
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     background-color: #f9f9f9;
+    color : #646464; 
+}
+
+a {
+    color : #646464; 
 }
 
 .bouton{
     color: white;
     background-color: #2FB5F4;
 }
+
+h1{
+    font-weight: bold;
+}
+
+h2{
+    color : white;
+    background-color: #2FB5F4;
+}
+
 /* Fin Généralités */
 
 /* header */
@@ -28,6 +44,7 @@ body {
 }
 /* Fin header */
 
+/*Page Index*/
 /* Slider */
 
 .slider {
@@ -94,14 +111,6 @@ main section {
     margin: auto;
 }
 
-main section h1{
-    color : #646464; 
-}
-
-main section h2{
-    color : white;
-    background-color: #2FB5F4;
-}
 
 /* Section En ce moment */
 .newProducts > div {
@@ -114,6 +123,36 @@ main section h2{
 
     
 /* Fin Section Les meilleures ventes */
+
+/*Fin Page Index*/
+
+/*Page détails produits*/
+.alert {
+    display: inline-block;
+}
+
+.bloc {
+    display: inline-block;
+     background-color: white;
+     border: 1px solid #e6e6e6;
+     border-radius: 30px;
+     padding: 10px;
+}
+
+.blocPrix {
+    background-color: white;
+     border: 1px solid #e6e6e6;
+     border-radius: 8px;
+     padding: 20px;
+     text-align: center;
+     margin-bottom: 16px;
+}
+
+.blocPrix > p{
+    margin : 0;
+    font-size: 22px;
+}
+/*Fin Page détails produits*/
 
 /* footer */
 .footer-contact{
