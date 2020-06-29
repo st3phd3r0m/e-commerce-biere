@@ -15,11 +15,7 @@ a {
     background-color: #2FB5F4;
 }
 
-h1{
-    font-weight: bold;
-    font-size: 18px;
-    margin: 5px 0;
-}
+
 
 .titleBlue{
     border-bottom: 5px solid #2FB5F4;
@@ -34,6 +30,11 @@ h1{
     padding: 10px 20px;
     display: inline-block;
     margin: 0;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: bold;
 }
 
 /* Fin Généralités */
@@ -147,6 +148,12 @@ main section {
 
 .rating__star{
     padding-right: 3px;
+}
+
+.productName{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 5px 0;
 }
 
 .quantity{
