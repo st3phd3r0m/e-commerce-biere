@@ -8,61 +8,99 @@
     <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
 
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('categories_index') }}"> {{ product.category.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+            </ol>
+        </nav>
+    </div>
 
-    <div class="container-fluid p-5">
-
-        <h1><strong>{{ product.name }}</strong>, {{ product.volume.volume }}, {{ product.degree }} &deg;</h1>
-
-        <small> Bière <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les {{ product.category.name }}">{{ product.category.name }}</a>, <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les {{ product.flavor.name }}">{{ product.flavor.name }}</a> </small>
-
+    <div class="container">
         <div class="row">
-            <article class="col-9">
+            <div class="col-6">
                 {% if product.image is not empty %}
-                <img class="d-block w-50 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
+                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
                 {% endif %}
+            </div>
 
-                <p>{{ product.description }}</p>
-            </article>
+            <div class="col-6">
+                <div class="rating">
+                    <div class="rating__star">☆</div>
+                    <div class="rating__star">☆</div>
+                    <div class="rating__star">☆</div>
+                    <div class="rating__star">☆</div>
+                    <div class="rating__star">☆</div>
+                    <div class="rating__label">
+                    10 notes clients</div>
+                </div>
+                <h1 class="productName">{{ product.name }}</h1>
 
-            <aside class="col-3">
-
-                <p>Prix unitaire {{ product.price }} &euro; </p>
-
-                {% if product.quantity > 10 %}
-                    <p class="alert alert-success" role="alert">En stock !</p>
-                {% elseif product.quantity > 0 %}
-                    <p class="alert alert-success">Plus que {{ product.quantity }} en stock !</p>
-                {% else %}
-                    <p class="alert alert-warning">Produit indisponible pour le moment.</p>
-                {% endif %}   
-
-                <a class="btn btn-success float-right" href="">Ajouter au panier</a>
-
-            </aside>
+                    {% if product.quantity > 10 %}
+                        <div class="quantity quantity--green">En stock </div>
+                    {% elseif product.quantity > 0 %}
+                        <div class="quantity quantity--orange">Plus que {{ product.quantity }} en stock !</div>
+                    {% else %}
+                        <div class="quantity quantity--red">Produit indisponible pour le moment.</div>
+                    {% endif %}   
+                
+                <div class="product_attribut">Couleur : <span class="bloc">{{ product.category.name }}</span></div>
+                <div class="product_attribut">Saveur : <span class="bloc">{{ product.flavor.name }}</span></div>
+                <div class="product_attribut">Degré : <span class="bloc">{{ product.degree }}</span></div>
+                <div class="product_attribut">Contenance : <span class="bloc">{{ product.volume.volume }}</span></div>
+                <div class ="row blocPrix">
+                    <p class="col-6"> {{ product.price }} &euro;</p> 
+                    <div class="col-6">
+                        <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button>
+                    </div>
+                </div>
+                <div>Livraison : Livraison possible dans toute la France.</div>
+                <div>
+                    Paiement : <img class="w-50 p-3" src="{{ asset('Css/images/logo-stripe-payment.png')}}" alt="Logo Stripe">
+                </div>
+            </div>
         </div>
+    </div>
 
-        <a class="btn btn-primary float-right" href="{{ path('home') }}">Aller vers les produits</a>
+    <div class="container">
+        <div class="titleBlue"><h2>Description</h2></div>
+        <p>{{ product.description }}</p>
+            {# Possibilité d'ajouter une image secondaire ?
+            {% if product.secondary_image is not empty %}
+                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.secondary_image ) }}" alt="{{ product.name }}">
+            {% endif %}#}
+    </div>
 
-        <h2>Commentaires</h2>
-        {# {% for comment in post.comments|sort((a, b) => a.createdAt > b.createdAt) %} #}
-            {# <div>
-                <small>Commentaire posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</small>
+    <div class="container">
+        <div class="titleBlue"><h2>Avis</h2></div>
+        {% for comment in product.comments|sort((a, b) => a.createdAt > b.createdAt) %}
+            <div>
+                <small>Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</small>
                 <p>{{ comment.comment }}</p> 
             </div>
-            <hr> #}
-        {# {% endfor %} #}
+            <hr>
+         {% endfor %}
 
-        <h3>Postez votre commentaire</h3>
-        {# Si l'utilisateur est connecté, on lui offre la possibilité de commenter l'article #}
+        <h3>Postez votre avis</h3>
+        {# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
         {# {% if app.user %} #}
         {# {{ app.user.firstname }} #}
-            <p>Postez votre commentaire </p>
             {# {{ form(formComment) }} #}
         {# {% else %} #}
             {# Sinon, on l'invite à se connecter ou à s'incrire #}
             {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
         {# {% endif %} #}
-
     </div>
+
+    <div class="container">
+        <h3>Nos recommandations</h3>
+            <div class="row">
+                {% for product in productsBestSales %} 
+                    {% set col = 3 %}
+                    {{ include('home/_listProducts.html.twig') }}
+                {% endfor %}
+            </div>
 
 {% endblock %}
