@@ -20,12 +20,17 @@
                 <div class="d-block px-5">
                     <a class="navbar-brand" href="{{ path('home') }}">E-commerce</a>
                 </div>
-                <div class="w-50 input-group mb-3">
-                    <input type="text" class="form-control" placeholder="rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+                {# Formulaire de recherche #}
+                <form action="{{ path('results') }}" method="GET" class="w-50 input-group mb-3">
+                    <input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn my-2 my-sm-0 bouton" type="submit"><i class="las la-search"></i></button>
+                        <button class="btn my-2 my-sm-0 bouton"><i class="las la-search"></i></button>
                     </div>
-                </div>
+                </form> 
+                {# Fin formulaire de recherche #}
+
+
                 <div class="d-flex px-5">
                     <div class="d-block text-center mr-5">
                         <svg class="bi bi-person" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

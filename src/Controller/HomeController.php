@@ -97,6 +97,26 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/results", name="results", methods={"GET"})
+     * @return Response
+     */
+    public function search(Request $request, PaginatorInterface $paginator)
+    {
+        $expr = $request->query->get('search');
+        $products = $paginator->paginate(
+            $this->getDoctrine()->getRepository(Products::class)->search($expr),
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 12)/*limit per page*/
+        );
+
+        return $this->render('home/categories.html.twig',[
+            'products' => $products,
+            'expr' => $expr,
+            'numberOfResults' => $products->getTotalItemCount()
+        ]);
+    }
+
 
 
     /**
