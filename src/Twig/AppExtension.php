@@ -13,7 +13,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('allCategories', [$this, 'showCategories']),
-            new TwigFunction('allFlavors', [$this, 'showFlavors']),
+            new TwigFunction('allFlavors', [$this, 'showFlavors'])
         ];
     }
 
