@@ -3,38 +3,101 @@
 {% block title %}BierShop - Accueil{% endblock %}
 
 {% block body %}
-    <main>
-
-        <div class="container-fluid p-5">
-
-            {% if categorie is defined %}
-                <h1 class="mb-5">Nos bières <em>{{ categorie.name }}</em> </h1>
-            {% elseif flavor is defined %}
-                <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
-            {% elseif volume is defined %}
-                <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
-            {% elseif expr is defined %}
-                <h1 class="mb-5">{{ numberOfResults }} résultat{{ (numberOfResults>1)? 's' : '' }} pour l'expression <em>"{{ expr }}"</em></h1>
-            {% else %}
-                <h1>Nos produits en stock !</h1>
-            {% endif %}  
-
-            <div class="py-5">
-                {{ knp_pagination_render(products) }}
-            </div>  
-
-            <div class="row">
-                {% set col = 2 %}
-
-                {% for product in products %} 
-                    {{ include('home/_listProducts.html.twig') }}
-                {% endfor %}
+<div class="container">
+    {% if categorie is defined %}
+        <h1 class="mb-5">Nos bières <em>{{ categorie.name }}</em> </h1>
+    {% elseif flavor is defined %}
+        <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
+    {% elseif volume is defined %}
+        <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
+    {% elseif expr is defined %}
+        <h1 class="mb-5">{{ numberOfResults }} résultat{{ (numberOfResults>1)? 's' : '' }} pour l'expression <em>"{{ expr }}"</em></h1>
+    {% else %}
+        <h1>Nos produits en stock !</h1>
+    {% endif %}  
+    <div class="row">
+        <aside class="col-md-3">
+            <div class="card">
+                <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="false" class="collapsed">
+                            <i class="icon-control fas fa-caret-down float-right"></i>
+                            <h6 class="title">Prix</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse" id="collapse_3" style="">
+                        <div class="card-body">
+                            <input type="range" class="custom-range" min="0" max="100" name="">
+                            <div class="form-row">
+                            <div class="form-group col-md-6">
+                            <label>Min</label>
+                            <input class="form-control" placeholder="0€" type="number">
+                            </div>
+                            <div class="form-group text-right col-md-6">
+                            <label>Max</label>
+                            <input class="form-control" placeholder="120€" type="number">
+                            </div>
+                            </div> <!-- form-row.// -->
+                            <button class="btn btn-block btn-primary">Valider</button>
+                        </div><!-- card-body.// -->
+                    </div>
+                </article> <!-- filter-group .// -->
+                <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="false" class="collapsed">
+                            <i class="icon-control fas fa-caret-down float-right"></i>
+                            <h6 class="title">Degrés</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse" id="collapse_4" style="">
+                        <div class="card-body">
+                        <ul class="list-menu" style="list-style-type:none">
+                            <li><a href="#">Moins de 5°</a></li>
+                            <li><a href="#">5° à 8°</a></li>
+                            <li><a href="#">8° à 10°</a></li>
+                            <li><a href="#">Plus de 10°</a></li>
+                            </ul>
+                        </div><!-- card-body.// -->
+                    </div>
+                </article> <!-- filter-group .// -->
+                <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_5" aria-expanded="false" class="collapsed">
+                            <i class="icon-control fas fa-caret-down float-right"></i>
+                            <h6 class="title">Contenance</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content in collapse" id="collapse_5" style="">
+                        <div class="card-body">
+                             <ul class="list-menu" style="list-style-type:none">
+                            <li><a href="#">Moins de 33cl</a></li>
+                            <li><a href="#">33cl à 50cl</a></li>
+                            <li><a href="#">51cl à 75cl</a></li>
+                            <li><a href="#">Plus de 75cl</a></li>
+                            </ul>
+                        </div><!-- card-body.// -->
+                    </div>
+                </article> <!-- filter-group .// -->
             </div>
+        </aside>
+        <section class="col-md-9">     
 
-            <div class="py-5">
-                {{ knp_pagination_render(products) }}
-            </div>    
+                <div class="row py-0">
+                    {{ knp_pagination_render(products) }}
+                </div>  
 
-        </div>
-    </main>
+                <div class="row">
+                    {% set col = 3 %}
+
+                    {% for product in products %} 
+                        {{ include('home/_listProducts.html.twig') }}
+                    {% endfor %}
+                </div>
+
+                <div class="row py-0">
+                    {{ knp_pagination_render(products) }}
+                </div>    
+        </section>
+    </div>    
+</div>    
 {% endblock %}
