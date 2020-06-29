@@ -3,42 +3,44 @@
 {% block title %}Edition de commande{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="text-center">Edition de commande</h1>
+    <div class="container">
+        <h1 class="text-center">Edition de commande</h1>
 
-{# {{ form_start(formEditOrder, { attr: { 'novalidate': 'novalidate' } }) }}
-    <div class="row">
-            <div class="col-8">
-            
-                {# Référence commande #}
-                {# {{ form_row(formEditOrder.ref) }} #}
+    {# {{ form_start(formEditOrder, { attr: { 'novalidate': 'novalidate' } }) }}
+        <div class="row">
+                <div class="col-8">
+                
+                    {# Référence commande #}
+                    {# {{ form_row(formEditOrder.ref) }} #}
 
-                {# Date de création de commande #}
-                {# {{ form_row(formEditOrder.created_at) }} #}
+                    {# Date de création de commande #}
+                    {# {{ form_row(formEditOrder.created_at) }} #}
 
-            {# </div>
-            <div class="col-4"> #}
+                {# </div>
+                <div class="col-4"> #}
 
-                {# Status de la commande #}
-                {# {{ form_row(formEditOrder.status) }} #}
+                    {# Status de la commande #}
+                    {# {{ form_row(formEditOrder.status) }} #}
 
-                {# Total de la commande #}
-                {# {{ form_row(formEditOrder.amount) }} #}
+                    {# Total de la commande #}
+                    {# {{ form_row(formEditOrder.amount) }} #}
 
-                {# Adresse de livraison de la commande #}
-                {# {{ form_row(formEditOrder.delivery_point) }} #}
+                    {# Adresse de livraison de la commande #}
+                    {# {{ form_row(formEditOrder.delivery_point) }} #}
 
-                {# Moyens de paiement de la commande #}
-                {# {{ form_row(formEditOrder.payment) }} #}
+                    {# Moyens de paiement de la commande #}
+                    {# {{ form_row(formEditOrder.payment) }} #}
 
-                {# Bouton d'édition de commande' #}
-                {# {{ form_row(formEditPost.editer) }} #}
+                    {# Bouton d'édition de commande' #}
+                    {# {{ form_row(formEditPost.editer) }} #}
 
-            {# </div>
-        </div> #}
-    {{ include('orders/_form.html.twig', {'button_label': 'Valider'}) }}
+                {# </div>
+            </div> #}
+        {{ include('orders/_form.html.twig', {'button_label': 'Valider'}) }}
 
-    <a class="btn btn-primary" role="button" href="{{ path('orders_index') }}">Retour à la liste</a>
-{# {{ form_end(formEditOrder) }} #}
-</div>    
+        <a class="btn btn-primary" role="button" href="{{ path('orders_index') }}">Retour à la liste</a>
+    {# {{ form_end(formEditOrder) }} #}
+    </div>    
+
+</div>
 {% endblock %}
