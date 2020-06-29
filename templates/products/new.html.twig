@@ -4,13 +4,33 @@
 
 {% block body %}
 
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('products_index') }}">Retour à la liste des articles de vente</a>
-    <h1>Ajout d'un article de vente</h1>
 
-    {{ include('products/_form.html.twig') }}
+    <main id="layoutSidenav_content">
+
+        <div class="container-fluid">
+        
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Produits</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-beer"></i>
+                    Ajouter un produit
+                </div>
+                <div class="card-body">
+
+                    {{ include('products/_form.html.twig') }}
+
+                </div>
+
+            </div>
+        </div>
+        
+    </main>
 
 </div>
+
 
 
 

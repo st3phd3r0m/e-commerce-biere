@@ -1,13 +1,42 @@
 /* Généralités */
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
     background-color: #f9f9f9;
+    color : #646464; 
+}
+
+a {
+    color : #646464; 
 }
 
 .bouton{
     color: white;
     background-color: #2FB5F4;
 }
+
+
+
+.titleBlue{
+    border-bottom: 5px solid #2FB5F4;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.titleBlue h2{
+    color : white;
+    background-color: #2FB5F4;
+    font-size: 16px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 0;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
 /* Fin Généralités */
 
 /* header */
@@ -29,6 +58,7 @@ body {
 }
 /* Fin header */
 
+/*Page Index*/
 /* Slider */
 
 .slider {
@@ -95,31 +125,92 @@ main section {
     margin: auto;
 }
 
-main section h1{
-    color : #646464; 
-}
-
-main section h2{
-    color : white;
-    background-color: #2FB5F4;
-}
 
 /* Section En ce moment */
 .newProducts > div {
    display: flex;
 }
 
-.ligneBleu {
-    height: 5px;
-    background-color: #2FB5F4;
-}
-
 /* Fin Section En ce moment */
 
-/* Section Les meilleures ventes */
+/*Fin Page Index*/
 
-    
-/* Fin Section Les meilleures ventes */
+/*Page détails produits*/
+.breadcrumb{
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.rating {
+    display: flex;
+}
+
+.rating__star{
+    padding-right: 3px;
+}
+
+.productName{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.quantity{
+    margin-bottom: 15px;
+}
+
+.quantity--green {
+    color: rgb(5, 209, 5);
+}
+
+.quantity--orange {
+    color: orangered;
+}
+
+.quantity--red{
+    color: red;
+}
+
+.product_attribut{
+    margin-bottom: 5px;
+}
+
+.bloc {
+    display: inline-block;
+     background-color: white;
+     border: 1px solid #e6e6e6;
+     border-radius: 30px;
+     padding: 4px 12px;
+}
+
+.blocPrix {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.blocPrix p {
+    margin : 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.blocPrix .bouton {
+    border-radius: 30px;
+}
+
+
+/*Fin Page détails produits*/
 
 /* footer */
 .footer-contact{

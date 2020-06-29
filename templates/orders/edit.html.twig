@@ -3,44 +3,61 @@
 {% block title %}Edition de commande{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="text-center">Edition de commande</h1>
 
-    {# {{ form_start(formEditOrder, { attr: { 'novalidate': 'novalidate' } }) }}
-        <div class="row">
-                <div class="col-8">
-                
-                    {# Référence commande #}
-                    {# {{ form_row(formEditOrder.ref) }} #}
+    <!-- Début du main -->
+    <main id="layoutSidenav_content">
+        <div class="container-fluid">
 
-                    {# Date de création de commande #}
-                    {# {{ form_row(formEditOrder.created_at) }} #}
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Commandes</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-dolly mr-1"></i>
+                    Modification de la commande
+                </div>
+                <div class="card-body">
 
-                {# </div>
-                <div class="col-4"> #}
+                    {# {{ form_start(formEditOrder, { attr: { 'novalidate': 'novalidate' } }) }}
+                    <div class="row">
+                            <div class="col-8">
+                            
+                                {# Référence commande #}
+                                {# {{ form_row(formEditOrder.ref) }} #}
 
-                    {# Status de la commande #}
-                    {# {{ form_row(formEditOrder.status) }} #}
+                                {# Date de création de commande #}
+                                {# {{ form_row(formEditOrder.created_at) }} #}
 
-                    {# Total de la commande #}
-                    {# {{ form_row(formEditOrder.amount) }} #}
+                            {# </div>
+                            <div class="col-4"> #}
 
-                    {# Adresse de livraison de la commande #}
-                    {# {{ form_row(formEditOrder.delivery_point) }} #}
+                                {# Status de la commande #}
+                                {# {{ form_row(formEditOrder.status) }} #}
 
-                    {# Moyens de paiement de la commande #}
-                    {# {{ form_row(formEditOrder.payment) }} #}
+                                {# Total de la commande #}
+                                {# {{ form_row(formEditOrder.amount) }} #}
 
-                    {# Bouton d'édition de commande' #}
-                    {# {{ form_row(formEditPost.editer) }} #}
+                                {# Adresse de livraison de la commande #}
+                                {# {{ form_row(formEditOrder.delivery_point) }} #}
 
-                {# </div>
-            </div> #}
-        {{ include('orders/_form.html.twig', {'button_label': 'Valider'}) }}
+                                {# Moyens de paiement de la commande #}
+                                {# {{ form_row(formEditOrder.payment) }} #}
 
-        <a class="btn btn-primary" role="button" href="{{ path('orders_index') }}">Retour à la liste</a>
-    {# {{ form_end(formEditOrder) }} #}
-    </div>    
+                                {# Bouton d'édition de commande' #}
+                                {# {{ form_row(formEditPost.editer) }} #}
 
-</div>
+                            {# </div>
+                        </div> #}
+                    {{ include('orders/_form.html.twig', {'button_label': 'Valider'}) }}
+
+                    <a class="btn btn-primary" role="button" href="{{ path('orders_index') }}" title="Retour liste des commandes">Retour à la liste</a>
+                    {# {{ form_end(formEditOrder) }} #}
+
+                </div>    
+            </div>
+        </div>
+    </main>
+</div>        
+
 {% endblock %}

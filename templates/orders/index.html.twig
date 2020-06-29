@@ -4,18 +4,19 @@
 
 {% block body %}
 
-
     <!-- Début du main -->
     <main id="layoutSidenav_content">
         <div class="container-fluid">
+
             <ul class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="{{ path('orders_index') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
                 <li class="breadcrumb-item active">Commandes</li>
             </ul>
+            
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-dolly mr-1"></i>
-                    Tableau des commandes
+                    Liste des commandes
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -73,5 +74,7 @@
             </div>
         </div>
     </main>
+    
+</div> 
       
 {% endblock %}

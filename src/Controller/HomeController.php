@@ -97,6 +97,26 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/results", name="results", methods={"GET"})
+     * @return Response
+     */
+    public function search(Request $request, PaginatorInterface $paginator)
+    {
+        $expr = $request->query->get('search');
+        $products = $paginator->paginate(
+            $this->getDoctrine()->getRepository(Products::class)->search($expr),
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 12)/*limit per page*/
+        );
+
+        return $this->render('home/categories.html.twig',[
+            'products' => $products,
+            'expr' => $expr,
+            'numberOfResults' => $products->getTotalItemCount()
+        ]);
+    }
+
 
 
     /**
@@ -105,11 +125,12 @@ class HomeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function showProduct(string $slug, Request $request)
+    public function showProduct(ProductsRepository $productsRepository, string $slug, Request $request)
     {
 
         //Selectionne 1 donnée de la table "posts" via son Id. getRepository attend en paramètre, l'entité avec laquelle on souhaite travailler
         $product = $this->getDoctrine()->getRepository(Products::class)->findOneBy(['slug' => $slug]);
+        $productsBestSales = $productsRepository->findBy([], ['created_at' => 'DESC'], 8);
 
         // Erreur 404 si aucun article trouvé
         if (!$product) {
@@ -147,10 +168,10 @@ class HomeController extends AbstractController
 
         return $this->render('home/show.html.twig', [
             'product' => $product,
+            'productsBestSales' => $productsBestSales,        
             // 'formComment' => $form->createView()
         ]);
     }
-
 
     /**
      * @Route("/", name="home")
@@ -169,5 +190,6 @@ class HomeController extends AbstractController
             'productsNew' => $productsNew,
             'productsBestSales' => $productsBestSales
         ]);
+
     }
 }

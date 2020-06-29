@@ -12,6 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=ProductsRepository::class)
+ * @ORM\Table(indexes={@ORM\Index(name="search", columns={"name", "description"}, flags={"fulltext"})})
  * @Vich\Uploadable
  */
 class Products
