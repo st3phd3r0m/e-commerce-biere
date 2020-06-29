@@ -1,6 +1,9 @@
 <form method="post" action="{{ path('comments_delete', {'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+<<<<<<< HEAD
+    <button class="btn">Supprimer</button>
+=======
 
     <button class="btn btn-danger" title="Supprimer le commentaire">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -9,4 +12,5 @@
         </svg>
     </button>
 
+>>>>>>> dc4ccdd9117b5404e6e191616862de2d20043f28
 </form>
