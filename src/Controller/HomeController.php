@@ -112,9 +112,9 @@ class HomeController extends AbstractController
         $product = $this->getDoctrine()->getRepository(Products::class)->findOneBy(['slug' => $slug]);
 
         // Erreur 404 si aucun article trouvé
-        // if (!$product) {
-        //     throw $this->createNotFoundException('Cet article est inéxistant.');
-        // }
+        if (!$product) {
+            throw $this->createNotFoundException('Cet article est inéxistant.');
+        }
 
         //Ajout du formulaire
         //Instanciation de l'entité Comments

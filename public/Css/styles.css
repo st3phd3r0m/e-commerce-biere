@@ -14,6 +14,7 @@ body {
 .navbar{
     height: 100px;
     background: url("../Css/images/Biere_mousse.jpg") center;
+    background-size: cover;
     align-content: center;
 }
 
@@ -36,7 +37,7 @@ body {
 
 .slider img {
     width: 100%;
-    height: 70vh;
+    max-height: 70vh;
     object-fit: cover;
 }
 
@@ -106,6 +107,11 @@ main section h2{
 /* Section En ce moment */
 .newProducts > div {
    display: flex;
+}
+
+.ligneBleu {
+    height: 5px;
+    background-color: #2FB5F4;
 }
 
 /* Fin Section En ce moment */
