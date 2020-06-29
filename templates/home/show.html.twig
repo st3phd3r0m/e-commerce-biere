@@ -13,7 +13,7 @@
 
         <h1><strong>{{ product.name }}</strong>, {{ product.volume.volume }}, {{ product.degree }} &deg;</h1>
 
-        <small> Bière <a href="" title="Aller vers les {{ product.category.name }}">{{ product.category.name }}</a>, <a href="" title="Aller vers les {{ product.flavor.name }}">{{ product.flavor.name }}</a> </small>
+        <small> Bière <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les {{ product.category.name }}">{{ product.category.name }}</a>, <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les {{ product.flavor.name }}">{{ product.flavor.name }}</a> </small>
 
         <div class="row">
             <article class="col-9">

@@ -13,6 +13,8 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+
+        {# DEBUT HEADER #}
         <header class="container-fluid p-0">
             <nav class="row navbar align-content-center">
                 <div class="col">
@@ -38,26 +40,35 @@
                 </div>
             </nav>
             <div class="row">
-                <div class="col-2">
-                    <p class="ml-5 mb-0 py-2 text-center cat">Toutes nos catégories :</p>
+                <div class="col-3">
+                    <p class="ml-5 mb-0 py-2 text-center cat">Nos catégories de bière et saveurs :</p>
                 </div>
-                <div class="col-10 p-0">
-
-                    {# {{ render(controller('App\\Controller\\HomeController::showCategories')) }} #}
-
+                <div class="col-9 p-0">
 
                     <ul class="liste m-auto p-0">
-                        <li><a class="nav-link" href="#">Brune</a></li>
-                        <li><a class="nav-link" href="#">Blonde</a></li>
-                        <li><a class="nav-link" href="#">Ambrée</a></li>
-                        <li><a class="nav-link" href="#">Blanche</a></li>
+                        {% for category in allCategories() %} 
+                            <li>
+                                <a class="nav-link" href="{{ path('home_categorie', { slug: category.slug }) }}">{{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        {% for flavor in allFlavors() %} 
+                            <li>
+                                <a class="nav-link" href="{{ path('home_flavor', { slug: flavor.slug }) }}">{{ flavor.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
+
                 </div>
             </div>
         </header>
+        {# FIN HEADER #}
 
+    
         {% block body %}{% endblock %}
 
+        {# DEBUT FOOTER #}
         <footer class="container-fluid">
             <div class="row d-block">
                 <div class="row d-block text-center">
@@ -91,7 +102,7 @@
                     </div>
                     <div class="col">
                         <h4>Suivez-nous</h4>
-                        <p><i class="lab la-facebook-f"></i><i class="lab la-youtube"></i><i class="lab la-twitter"></i></p>
+                        <p><i class="lab la-facebook-f"></i><i class="lab la-youtube mx-3"></i><i class="lab la-twitter"></i></p>
                         <div class="col input-group mb-3">
                             <input type="text" class="form-control" placeholder="rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
@@ -105,6 +116,8 @@
                 </div>
             </div>
         </footer>
+        {# FIN FOOTER  #}
+
 
          <!-- JS, Popper.js, and jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

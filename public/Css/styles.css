@@ -121,6 +121,10 @@ main section h2{
     background-color: #232323;
 }
 
+.footer-contact i{
+    font-size: 1.5em;
+}
+
 .copyright{
     color: white;
     background-color:#2FB5F4 ;
