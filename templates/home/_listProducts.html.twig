@@ -42,13 +42,15 @@
     {% if product.image is not empty %}
         <a class="card-img-top" href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}"><img class="d-block w-100 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}"></a>
     {% endif %}
-    <div class="card-body mx-0">
+    <div class="card-body mx-0 p-2">
         <p class="card-title">{{ product.name }}</p>
         <p class="card-text">
         <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les bières {{ product.category.name }}">{{ product.category.name }}</a> |
         <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">{{ product.flavor.name }}</a>
+        | {{ product.volume.volume }} | {{ product.degree }} &deg
         </p>
-        <h5>{{ product.price }} &euro; </h5>
+        <p></p>
+        <p class="m-0 text-center" style="font-size:2em; font-weight: bold; color: #2FB5F4;">{{ product.price }} &euro; </p>
     </div>
     <div class="justify-content-center text-center">
         {% if product.quantity > 10 %}

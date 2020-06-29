@@ -30,17 +30,8 @@
     <!--Section En ce moment-->
     <section class="newProducts">
         <div class="row"><h1>En ce moment !</h1></div>
-        <div class="row"><h2 class="mb-0">Nouveauté</h2></div>
-        <div class="row ligneBleu"></div>
-            {# <div class="row">
-                <img class="col-6" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
-                <img class="col-6" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen">
-                <!--Sélection nouveauté produits-->
-                {% for product in productsNew %} 
-                    {% set col = 4 %}
-                    {{ include('home/_listProducts.html.twig') }}
-                {% endfor %}
-            </div> #}
+        <div class="row"><h2 class="mb-0 px-5">Nouveauté</h2></div>
+        <div class="row ligneBleu mb-2"></div>
             <div class="row">
                 <div class="col-6 p-0">
                     <img class="img-fluid" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
