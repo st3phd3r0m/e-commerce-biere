@@ -7,6 +7,14 @@
     {% for message in app.flashes('success') %}
     <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
+    {% for message in app.flashes('invalidQuantity') %}
+    <div class="alert alert-warning" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('successCart') %}
+    <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
+
 
     <div class="container">
         <nav aria-label="breadcrumb">
@@ -45,7 +53,7 @@
 
 
                     {% if product.quantity > 10 %}
-                        <div class="quantity quantity--green">En stock </div>
+                        <div class="quantity quantity--green">En stock !</div>
                     {% elseif product.quantity > 0 %}
                         <div class="quantity quantity--orange">Plus que {{ product.quantity }} en stock !</div>
                     {% else %}
@@ -57,7 +65,15 @@
                         <div class ="row blocPrix">
                             <p class="col-6"> {{ product.price }} &euro;</p> 
                             <div class="col-6">
-                                <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button>
+                                {# <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button> #}
+
+                                <form action="{{ path('visitor_cart_add') }}" method="GET">
+                                    <input type="number" name="quantity" class="form-control mb-3 w-50 mx-auto" min="1" max="{{ product.quantity }}" value='1'>
+                                    <input type="hidden" name="product_id" value="{{ product.id }}" class="form-control">
+                                    <input type="hidden" name="slug" value="{{ product.slug }}" class="form-control">
+                                    <button class="btn my-2 my-sm-0 bouton mt-3">Ajouter au panier</button>
+                                </form> 
+
                             </div>
                         </div>
 
