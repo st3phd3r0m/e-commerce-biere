@@ -236,7 +236,7 @@ class Users implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getIsVerified(): ?bool
+    public function isVerified(): ?bool
     {
         return $this->is_verified;
     }
