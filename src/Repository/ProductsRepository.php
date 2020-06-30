@@ -27,6 +27,22 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+
+    public function isUserBuyer(string $firstname, string $lastname, int $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->innerJoin('p.carts', 'c')
+            ->innerJoin('c.orders', 'o')
+            ->innerJoin('o.user', 'u')
+            ->where('u.firstname = :firstname AND u.lastname = :lastname AND p.id = :id')
+            ->setParameter('firstname', $firstname)
+            ->setParameter('lastname', $lastname)
+            ->setParameter('id', $id)
+            ->getQuery()->getResult();
+    }
+
+
     // /**
     //  * @return Products[] Returns an array of Products objects
     //  */
