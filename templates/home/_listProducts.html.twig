@@ -1,4 +1,4 @@
-{# 
+{#
 <card class="col-{{ col }} border-bottom mb-1">
     <h2>
         <a href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}">
@@ -9,13 +9,13 @@
         , {{ product.volume.volume }}, {{ product.degree }} &deg;
     </h2>
 
-    <small> Bière 
+    <small> Bière
     <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les bières {{ product.category.name }}">
     {{ product.category.name }}
-    </a>, 
+    </a>,
     <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">
     {{ product.flavor.name }}
-    </a> 
+    </a>
     </small>
 
 
@@ -33,8 +33,8 @@
         <p class="alert alert-success">Plus que {{ product.quantity }} en stock !</p>
     {% else %}
         <p class="alert alert-warning">Produit indisponible pour le moment.</p>
-    {% endif %}   
-    
+    {% endif %}
+
 </card> #}
 
 
@@ -49,7 +49,6 @@
         <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">{{ product.flavor.name }}</a>
         | {{ product.volume.volume }} | {{ product.degree }} &deg;
         </p>
-        <p></p>
         <p class="m-0 text-center" style="font-size:2em; font-weight: bold; color: #2FB5F4;">{{ product.price }} &euro; </p>
     </div>
     <div class="justify-content-center text-center">
@@ -59,9 +58,8 @@
             <p class="alert alert-warning w-100 mb-0" role="alert">Plus que {{ product.quantity }} en stock !</p>
         {% else %}
             <p class="alert alert-danger w-100 mb-0" role="alert">Produit indisponible !</p>
-        {% endif %} 
+        {% endif %}
     </div>
 </div>
 
 
-        
