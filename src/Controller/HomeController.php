@@ -21,7 +21,7 @@ class HomeController extends AbstractController
 {
 
     /**
-     * 
+     *
      * @Route("/volume/{slug}", name="home_volume")
      * @param string $slug
      * @param Request $request
@@ -47,7 +47,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * 
+     *
      * @Route("/flavor/{slug}", name="home_flavor")
      * @param string $slug
      * @param Request $request
@@ -73,19 +73,25 @@ class HomeController extends AbstractController
     }
 
     /**
-     * 
+     *
      * @Route("/categorie/{slug}", name="home_categorie")
      * @param string $slug
      * @param Request $request
      * @return Response
      */
-    public function showCategory(string $slug, PaginatorInterface $paginator, Request $request)
+    public function showCategory(Categories $categorie, PaginatorInterface $paginator, Request $request)
     {
 
-        $categorie = $this->getDoctrine()->getRepository(Categories::class)->findOneBy(['slug' => $slug]);
+        $products = $this->getDoctrine()->getRepository(Products::class)->filterProducts(
+			$categorie,
+			$request->query->get('minPrice'),
+			$request->query->get('maxPrice'),
+			$request->query->get('degree'),
+			$request->query->get('volume')
+		);
 
-        $products = $paginator->paginate(
-            $categorie->getProducts(),
+        $productsPaginate = $paginator->paginate(
+			$products,
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
@@ -94,7 +100,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/categories.html.twig', [
             'categorie' => $categorie,
-            'products' => $products
+            'products' => $productsPaginate
         ]);
     }
 
@@ -170,7 +176,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/show.html.twig', [
             'product' => $product,
-            'productsBestSales' => $productsBestSales,        
+            'productsBestSales' => $productsBestSales,
             'formComment' => $form->createView()
         ]);
     }
