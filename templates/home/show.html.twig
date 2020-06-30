@@ -94,8 +94,14 @@
         <h3>Postez votre avis</h3>
         {# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
         {% if app.user %}
-            <p>{{ app.user.firstname }},</p>
-            {{ form(formComment) }}
+            <p class="font-weight-bold font-italic pl-5 pt-5">Bonjour {{ app.user.firstname }},</p>
+
+            {% if formComment is defined %}
+                {{ form(formComment) }}
+            {% else %}
+                <p class="font-weight-bold font-italic pl-5 pb-5">n'ayant pas acheté ce produit, vous ne pouvez pas commenter ce produit.</p>
+            {% endif %}    
+
         {% else %}
             {# Sinon, on l'invite à se connecter ou à s'incrire #}
             {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
