@@ -4,14 +4,33 @@
 
 {% block body %}
 
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('categories_index') }}">Retour à la lite des catégories</a>
+<!-- Début du main -->
+<main id="layoutSidenav_content">
+    <div class="container-fluid">
 
-    <h1>Modifier la catégorie #{{ category.id }}</h1>
+        <ul class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Catégories</li>
+        </ul>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-wine-bottle"></i>
+                Edition de la catégorie
+            </div>
+            <div class="card-body">
 
-    {{ include('categories/_form.html.twig', {'button_label': 'Update'}) }}
+                <a class="btn btn-primary float-right" href="{{ path('categories_index') }}">Retour à la liste des catégories</a>
 
-    {{ include('categories/_delete_form.html.twig') }}
+
+                {{ include('categories/_form.html.twig', {'button_label': 'Update'}) }}
+
+                {{ include('categories/_delete_form.html.twig') }}
+
+            </div>
+        </div>
+    </div>
+</main>        
+
 
 </div>
 

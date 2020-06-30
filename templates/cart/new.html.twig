@@ -3,11 +3,31 @@
 {% block title %}Nouveau panier{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="text-center">Création d'un nouveau panier</h1>
 
-    {{ include('cart/_form.html.twig') }}
+<!-- Début du main -->
+<main id="layoutSidenav_content">
+    <div class="container-fluid">
 
-    <a class="btn btn-primary" role="button" href="{{ path('cart_index') }}">Retour à la liste</a>
-</div>    
+        <ul class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active">Paniers</li>
+        </ul>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-cart-plus"></i></i>
+                Création d'un nouveau panier
+            </div>
+            <div class="card-body">
+
+                {{ include('cart/_form.html.twig') }}
+
+                <a class="btn btn-primary" role="button" href="{{ path('cart_index') }}">Retour à la liste</a>
+            </div>  
+        </div>    
+    </div>
+</main>
+
+</div>
+
+
 {% endblock %}

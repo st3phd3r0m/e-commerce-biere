@@ -9,6 +9,7 @@ use App\Entity\Products;
 use App\Entity\Volumes;
 use App\Form\CommentsType;
 use App\Repository\CategoriesRepository;
+use App\Repository\CommentsRepository;
 use App\Repository\ProductsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,6 +98,27 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/results", name="results", methods={"GET"})
+     * @return Response
+     */
+    public function search(Request $request, PaginatorInterface $paginator)
+    {
+        $expr = $request->query->get('search');
+
+        $products = $paginator->paginate(
+            $this->getDoctrine()->getRepository(Products::class)->search($expr),
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 12)/*limit per page*/
+        );
+
+        return $this->render('home/categories.html.twig',[
+            'products' => $products,
+            'expr' => $expr,
+            'numberOfResults' => $products->getTotalItemCount()
+        ]);
+    }
+
 
 
     /**
@@ -109,7 +131,7 @@ class HomeController extends AbstractController
     {
 
         //Selectionne 1 donnée de la table "posts" via son Id. getRepository attend en paramètre, l'entité avec laquelle on souhaite travailler
-        $product = $this->getDoctrine()->getRepository(Products::class)->findOneBy(['slug' => $slug]);
+        $product = $productsRepository->findOneBy(['slug' => $slug]);
         $productsBestSales = $productsRepository->findBy([], ['created_at' => 'DESC'], 8);
 
         // Erreur 404 si aucun article trouvé
@@ -119,37 +141,37 @@ class HomeController extends AbstractController
 
         //Ajout du formulaire
         //Instanciation de l'entité Comments
-        // $comment = new Comments;
+        $comment = new Comments;
         //Création du formulaire avec pour parametres :
         // -Le formulaire genere en ligne de commande
         //-l'objet de l'intance ci-dessus
-        // $form = $this->createForm(CommentsType::class, $comment);
+        $form = $this->createForm(CommentsType::class, $comment);
 
         //Manipulation de la requete pour hydration automatique
-        // $form->handleRequest($request);
+        $form->handleRequest($request);
 
         //Si le formulaire est envoyé et celui-ci est valide !
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $comment->setCreatedAt(new \DateTime('now'));
-        //     $comment->setProduct($product);
-        //     $comment->setUser($this->getUser());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCreatedAt(new \DateTime('now'));
+            $comment->setProduct($product);
+            $comment->setUser($this->getUser());
 
-        //     $doctrine = $this->getDoctrine()->getManager();
-        //     $doctrine->persist($comment);
-        //     $doctrine->flush();
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($comment);
+            $doctrine->flush();
 
-        //     //Permet de vider les champs d'un formulaire
-        //     $comment = new Comments;
-        //     $form = $this->createForm(CommentType::class, $comment);
+            //Permet de vider les champs d'un formulaire
+            $comment = new Comments;
+            $form = $this->createForm(CommentsType::class, $comment);
 
-        //     //Envoi d'un message de succès
-        //     $this->addFlash('success', 'Votre commentaire a bien été posté.');
-        // }
+            //Envoi d'un message de succès
+            $this->addFlash('success', 'Votre commentaire a bien été posté.');
+        }
 
         return $this->render('home/show.html.twig', [
             'product' => $product,
             'productsBestSales' => $productsBestSales,        
-            // 'formComment' => $form->createView()
+            'formComment' => $form->createView()
         ]);
     }
 

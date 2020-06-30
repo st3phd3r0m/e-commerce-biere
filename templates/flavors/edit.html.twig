@@ -3,15 +3,25 @@
 {% block title %}Modifier la saveur #{{ flavor.id }} {% endblock %}
 
 {% block body %}
+    <!-- Début du main -->
+    <main id="layoutSidenav_content">
+        <div class="container-fluid">
 
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à la lite des saveurs</a>
-    <h1>Modifier la saveur #{{ flavor.id }}</h1>
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Saveurs</li>
+            </ul>
+            <div class="card mb-4">
+                <a class="btn btn-primary float-right" href="{{ path('flavors_index') }}">Retour à la lite des saveurs</a>
+                <h1>Modifier la saveur #{{ flavor.id }}</h1>
 
-    {{ include('flavors/_form.html.twig', {'button_label': 'Update'}) }}
+                {{ include('flavors/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('flavors/_delete_form.html.twig') }}
+                {{ include('flavors/_delete_form.html.twig') }}
 
-</div>
+            </div>
+        </div>
+    </main>
+</div>            
 
 {% endblock %}

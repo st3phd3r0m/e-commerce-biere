@@ -4,16 +4,33 @@
 
 {% block body %}
 
-<div class="p-5">
-    <a class="btn btn-primary float-right" href="{{ path('volumes_index') }}">Retour à la lite des volumes</a>
 
-    <h1>Modifier la volume #{{ volume.id }}</h1>
+    <!-- Début du main -->
+    <main id="layoutSidenav_content">
+        <div class="container-fluid">
 
-    {{ include('volumes/_form.html.twig', {'button_label': 'Update'}) }}
+            <ul class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Volumes</li>
+            </ul>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-thermometer-full"></i>
+                    Edition d'un volume
+                </div>
+                <div class="card-body">
 
-    {{ include('volumes/_delete_form.html.twig') }}
+                    <a class="btn btn-primary float-right" href="{{ path('volumes_index') }}">Retour à la lite des volumes</a>
 
-</div>
+                    {{ include('volumes/_form.html.twig', {'button_label': 'Update'}) }}
+
+                    {{ include('volumes/_delete_form.html.twig') }}
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>                
 
 
 {% endblock %}

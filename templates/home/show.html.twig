@@ -38,6 +38,12 @@
                 </div>
                 <h1 class="productName">{{ product.name }}</h1>
 
+                    <div class="product_attribut">Couleur : <span class="bloc">{{ product.category.name }}</span></div>
+                    <div class="product_attribut">Saveur : <span class="bloc">{{ product.flavor.name }}</span></div>
+                    <div class="product_attribut">Degré : <span class="bloc">{{ product.degree }}</span></div>
+                    <div class="product_attribut">Contenance : <span class="bloc">{{ product.volume.volume }}</span></div>
+
+
                     {% if product.quantity > 10 %}
                         <div class="quantity quantity--green">En stock </div>
                     {% elseif product.quantity > 0 %}
@@ -46,20 +52,22 @@
                         <div class="quantity quantity--red">Produit indisponible pour le moment.</div>
                     {% endif %}   
                 
-                <div class="product_attribut">Couleur : <span class="bloc">{{ product.category.name }}</span></div>
-                <div class="product_attribut">Saveur : <span class="bloc">{{ product.flavor.name }}</span></div>
-                <div class="product_attribut">Degré : <span class="bloc">{{ product.degree }}</span></div>
-                <div class="product_attribut">Contenance : <span class="bloc">{{ product.volume.volume }}</span></div>
-                <div class ="row blocPrix">
-                    <p class="col-6"> {{ product.price }} &euro;</p> 
-                    <div class="col-6">
-                        <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button>
-                    </div>
-                </div>
-                <div>Livraison : Livraison possible dans toute la France.</div>
-                <div>
-                    Paiement : <img class="w-50 p-3" src="{{ asset('Css/images/logo-stripe-payment.png')}}" alt="Logo Stripe">
-                </div>
+                    {% if product.quantity > 0 %}
+
+                        <div class ="row blocPrix">
+                            <p class="col-6"> {{ product.price }} &euro;</p> 
+                            <div class="col-6">
+                                <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button>
+                            </div>
+                        </div>
+
+                        <div>Livraison : Livraison possible dans toute la France.</div>
+                        <div>
+                            Paiement : <img class="w-50 p-3" src="{{ asset('Css/images/logo-stripe-payment.png')}}" alt="Logo Stripe">
+                        </div>                    
+
+                    {% endif %} 
+
             </div>
         </div>
     </div>
@@ -77,21 +85,21 @@
         <div class="titleBlue"><h2>Avis</h2></div>
         {% for comment in product.comments|sort((a, b) => a.createdAt > b.createdAt) %}
             <div>
-                <small>Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</small>
-                <p>{{ comment.comment }}</p> 
+                <p class="font-italic">Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</p>
+                <p class="p-2">{{ comment.comment }}</p> 
             </div>
             <hr>
          {% endfor %}
 
         <h3>Postez votre avis</h3>
         {# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
-        {# {% if app.user %} #}
-        {# {{ app.user.firstname }} #}
-            {# {{ form(formComment) }} #}
-        {# {% else %} #}
+        {% if app.user %}
+            <p>{{ app.user.firstname }},</p>
+            {{ form(formComment) }}
+        {% else %}
             {# Sinon, on l'invite à se connecter ou à s'incrire #}
             {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
-        {# {% endif %} #}
+        {% endif %}
     </div>
 
     <div class="container">
