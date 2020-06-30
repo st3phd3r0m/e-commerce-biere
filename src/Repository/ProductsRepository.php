@@ -7,6 +7,7 @@ use App\Entity\Flavors;
 use App\Entity\Products;
 use App\Entity\Volumes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\AST\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -98,17 +99,17 @@ class ProductsRepository extends ServiceEntityRepository
 			switch ($volume) {
 				case 1:
 					$minVolume = 0;
-					$maxVolume = 33;
+					$maxVolume = 32.9;
 					break;
 
 				case 2:
-					$minVolume = 33.1;
-					$maxVolume = 50;
+					$minVolume = 33;
+					$maxVolume = 49.9;
 					break;
 
 				case 3:
-					$minVolume = 50.1;
-					$maxVolume = 75;
+					$minVolume = 50;
+					$maxVolume = 74.9;
 					break;
 
 				case 4:
@@ -119,7 +120,7 @@ class ProductsRepository extends ServiceEntityRepository
 
 
 
-			$query->innerJoin(Volumes::class,"v")
+			$query->innerJoin(Volumes::class,"v","WITH","v.id=p.volume")
 			->andWhere('v.volume BETWEEN :minVolume AND :maxVolume')
 			->setParameter('minVolume', $minVolume)
 			->setParameter('maxVolume', $maxVolume);
