@@ -74,10 +74,40 @@ class ProductsRepository extends ServiceEntityRepository
 				->setParameter('maxDegree', $maxDegree);
 		}
 
-		// A voir ;)
+		
 		if ($volume !== null) {
-			$query->andWhere('p.volume < :volume')
-				->setParameter('volume', $volume);
+
+			$minVolume = 0;
+			$maxVolume = 999999;
+
+			switch ($volume) {
+				case 1:
+					$minVolume = 0;
+					$maxVolume = 33;
+					break;
+
+				case 2:
+					$minVolume = 33.1;
+					$maxVolume = 50;
+					break;
+
+				case 3:
+					$minVolume = 50.1;
+					$maxVolume = 75;
+					break;
+
+				case 4:
+					$minVolume = 75;
+					$maxVolume = 999999;
+					break;
+			}
+
+
+
+			$query->innerJoin(Volumes::class,"v")
+			->andWhere('v.volume BETWEEN :minVolume AND :maxVolume')
+			->setParameter('minVolume', $minVolume)
+			->setParameter('maxVolume', $maxVolume);
 		}
 
 		$query->andWhere('p.category = :category')

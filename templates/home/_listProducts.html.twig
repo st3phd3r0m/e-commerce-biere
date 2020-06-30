@@ -47,7 +47,7 @@
         <p class="card-text">
         <a href="{{ path('home_categorie', { slug: product.category.slug }) }}" title="Aller vers les bières {{ product.category.name }}">{{ product.category.name }}</a> |
         <a href="{{ path('home_flavor', { slug: product.flavor.slug }) }}" title="Aller vers les bières {{ product.flavor.name }}">{{ product.flavor.name }}</a>
-        | {{ product.volume.volume }} | {{ product.degree }} &deg;
+        | {{ product.volume.volume }}cl | {{ product.degree }} &deg;
         </p>
         <p class="m-0 text-center" style="font-size:2em; font-weight: bold; color: #2FB5F4;">{{ product.price }} &euro; </p>
     </div>

@@ -21,7 +21,7 @@ class Volumes
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="integer")
      */
     private $volume;
 
