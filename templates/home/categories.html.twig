@@ -14,8 +14,6 @@
         <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
     {% elseif volume is defined %}
         <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
-    {% elseif expr is defined %}
-        <h1 class="mb-5">{{ numberOfResults }} résultat{{ (numberOfResults>1)? 's' : '' }} pour l'expression <em>"{{ expr }}"</em></h1>
     {% else %}
         <h1>Nos produits en stock !</h1>
     {% endif %}  

@@ -119,7 +119,7 @@ class HomeController extends AbstractController
             $request->query->getInt('limit', 12)/*limit per page*/
         );
 
-        return $this->render('home/categories.html.twig', [
+        return $this->render('home/results.html.twig', [
             'products' => $products,
             'expr' => $expr,
             'numberOfResults' => $products->getTotalItemCount()
