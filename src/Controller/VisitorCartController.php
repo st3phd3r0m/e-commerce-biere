@@ -142,6 +142,7 @@ class VisitorCartController extends AbstractController
      */
     public function cartPayment()
     {
+        // dd($this->session);
         //On appel la variable globale de session
         $cart = $this->session->get('cart');
 
