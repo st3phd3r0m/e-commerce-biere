@@ -42,10 +42,12 @@ var range = document.getElementById('range');
 var slider = document.getElementById('slider');
 
 noUiSlider.create(slider, {
+    // Position des curseurs au chargement de la page
     start: [20, 80],
     connect: true,
+    // Fourchette de prix min/max des produits
     range: {
         'min': 0,
         'max': 100
-    }
+    },  
 });

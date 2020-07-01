@@ -33,4 +33,30 @@ class SecurityController extends AbstractController
     {
         return $this->render('security/login.html.twig');
     }
+
+    /**
+     * @Route("/customer/login", name="app_customer_login")
+     */
+    public function customerLogin(AuthenticationUtils $authenticationUtils): Response
+    {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/customerLogin.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * @Route("/customer/logout", name="app_customer_logout")
+     */
+    public function customerLogout()
+    {
+        return $this->render('security/customerLogin.html.twig');
+    }
+
 }
