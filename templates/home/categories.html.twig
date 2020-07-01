@@ -29,11 +29,9 @@
                     </header>
                     <div class="filter-content collapse" id="collapse_1">
                         <div class="card-body">
-
+                            {# Slider prix #}
                             <div id="slider"></div>
                             <form class="form-row" method="get" action="{{ path('home_categorie', { slug: categorie.slug } | merge(app.request.query.all)) }}">  
-
-                            {# <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50"> #}
                                 <div class="form-group col-md-6">
                                     <label>Min</label>
                                     <input class="form-control" id="minPrice" value="50€" type="string" name="minPrice">
