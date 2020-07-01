@@ -47,7 +47,7 @@ noUiSlider.create(slider, {
     connect: true,
     // Fourchette de prix min/max des produits
     range: {
-        'min': 'minPrice',
-        'max': 'maxPrice'
+        'min': 0,
+        'max': 100
     },  
 });
