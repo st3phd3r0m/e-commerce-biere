@@ -2,6 +2,10 @@
 
 {% block title %}BierShop - Accueil{% endblock %}
 
+{% block stylesheets %}
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.css">
+{% endblock %}
+
 {% block body %}
 <div class="container">
     {% if categorie is defined %}
@@ -10,8 +14,6 @@
         <h1 class="mb-5">Nos bières <em>{{ flavor.name }}</em> </h1>
     {% elseif volume is defined %}
         <h1 class="mb-5">Nos bières de <em>{{ volume.volume }}</em> </h1>
-    {% elseif expr is defined %}
-        <h1 class="mb-5">{{ numberOfResults }} résultat{{ (numberOfResults>1)? 's' : '' }} pour l'expression <em>"{{ expr }}"</em></h1>
     {% else %}
         <h1>Nos produits en stock !</h1>
     {% endif %}  
@@ -25,20 +27,20 @@
                             <h6 class="title">Prix</h6>
                         </a>
                     </header>
-                    <div class="filter-content collapse" id="collapse_1" style="">
+                    <div class="filter-content collapse" id="collapse_1">
                         <div class="card-body">
-                            <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50">
-                            
-                            {# <div id="slider"></div> #}
-     
-                            <form class="form-row" method="get">
+
+                            <div id="slider"></div>
+                            <form class="form-row" method="get" action="{{ path('home_categorie', { slug: categorie.slug } | merge(app.request.query.all)) }}">  
+
+                            {# <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50"> #}
                                 <div class="form-group col-md-6">
                                     <label>Min</label>
-                                    <input class="form-control" placeholder="0€" value="" type="string" name="minPrice">
+                                    <input class="form-control" id="minPrice" value="50€" type="string" name="minPrice">
                                 </div>
                                 <div class="form-group text-right col-md-6">
                                     <label>Max</label>
-                                    <input class="form-control" placeholder="120€" value"" type="string" name="maxPrice">
+                                    <input class="form-control" id="maxPrice" value="150€" type="string" name="maxPrice">
                                 </div>
                                 <button class="btn btn-block bouton" type="submit">Filtrer</button>
                             </form> <!-- form-row.// -->
@@ -53,19 +55,19 @@
                             <h6 class="title">Degrés</h6>
                         </a>
                     </header>
-                    <div class="filter-content in collapse" id="collapse_2" style="">
+                    <div class="filter-content in collapse" id="collapse_2">
                         <div class="card-body">
                         <ul class="list-menu" style="list-style-type:none">
                         {% if categorie is defined %}
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 1 }) }}">Moins de 5°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 2 }) }}">5° à 8°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 3 }) }}">8° à 10°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 4 }) }}">Plus de 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, degree: 1  } + app.request.query.all) }}">Moins de 5°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, degree: 2  } + app.request.query.all) }}">5° à 8°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, degree: 3  } + app.request.query.all) }}">8° à 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, degree: 4  } + app.request.query.all) }}">Plus de 10°</a></li>
                         {% elseif flavor is defined %} 
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 1 }) }}">Moins de 5°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 2 }) }}">5° à 8°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 3 }) }}">8° à 10°</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 4 }) }}">Plus de 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, degree: 1  } + app.request.query.all) }}">Moins de 5°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, degree: 2  } + app.request.query.all) }}">5° à 8°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, degree: 3  } + app.request.query.all) }}">8° à 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, degree: 4  } + app.request.query.all) }}">Plus de 10°</a></li>
                         {% endif %}   
                             </ul>
                         </div><!-- card-body.// -->
@@ -78,19 +80,19 @@
                             <h6 class="title">Contenance</h6>
                         </a>
                     </header>
-                    <div class="filter-content in collapse" id="collapse_3" style="">
+                    <div class="filter-content in collapse" id="collapse_3">
                         <div class="card-body">
                              <ul class="list-menu" style="list-style-type:none">
                             {% if categorie is defined %}
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, volume: 1 } + app.request.query.all) }}">Moins de 33cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, volume: 2 } + app.request.query.all) }}">33cl à 50cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, volume: 3 } + app.request.query.all) }}">51cl à 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug, volume: 4 } + app.request.query.all) }}">Plus de 75cl</a></li>
                             {% elseif flavor is defined %}
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, volume: 1 } + app.request.query.all) }}">Moins de 33cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, volume: 2 } + app.request.query.all) }}">33cl à 50cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, volume: 3 } + app.request.query.all) }}">51cl à 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug, volume: 4 } + app.request.query.all) }}">Plus de 75cl</a></li>
                             {% endif %} 
                             </ul>
                         </div><!-- card-body.// -->
@@ -120,6 +122,6 @@
 </div>    
 {% endblock %}
 {% block javascripts %}
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.0/nouislider.min.js"></script>
     <script src="{{ asset('js/sliderfiltre.js') }}"></script>
 {% endblock %}

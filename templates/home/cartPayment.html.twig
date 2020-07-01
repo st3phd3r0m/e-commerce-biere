@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Votre paiement{% endblock %}
+
+{% block body %}
+
+
+
+   <main id="layoutSidenav_content">
+
+    <div id="cb" class="my-5 bg-white w-1/2 mx-auto rounded-lg p-6">
+            <div id="errors"></div>
+            <input type="hidden" class="form-control mb-3" id="cardholder-name" value="{{ app.user.username }}" placeholder="Votre nom et prénom">
+            <div id="card-elements"></div>
+            <div id="card-errors" role="alert"></div>
+            <div class="mt-5">
+                <button id="card-button" type="button" data-secret="{{ stripe.client_secret }}" class="bg-blue-500 text-white rounded py-3 px-6 text-center w-full mt-8" title="Payer">Régler mon panier</button>
+                <small class="text-gray-500 text-center mt-4 w-full block">Le paiement s'effectue en toute sécurité via notre partenaire <a href="https://www.stripe.com/fr" title="Stripe">Stripe</a>.</small>
+            </div>
+        </div>
+
+    </main>
+
+   
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+window.onload = () => {
+    // Variables
+    let stripe = Stripe('pk_test_51H02NpD7y6oTPe9NvLSYF5bUs6byXcjWEQHhYjhMKxegGDQma8k5glBZz7ECrBZfYYADelw94Aqn4qO92lNIYQqk00MlGYRpHy')
+    let elements = stripe.elements()
+    let redirect = "/cart/payment/end"
+
+    // Objets de la page
+    let cardHolderName = document.getElementById("cardholder-name")
+    let cardButton = document.getElementById("card-button")
+    let clientSecret = cardButton.dataset.secret;
+
+    // Crée les éléments du formulaire de carte bancaire
+    let card = elements.create("card")
+    card.mount("#card-elements")
+
+    // On gère la saisie
+    card.addEventListener("change", (event) => {
+        let displayError = document.getElementById("card-errors")
+        if(event.error){
+            displayError.textContent = event.error.message;
+        }else{
+            displayError.textContent = "";
+        }
+    })
+
+    // On gère le paiement
+    cardButton.addEventListener("click", () => {
+        stripe.handleCardPayment(
+            clientSecret, card, {
+                payment_method_data: {
+                    billing_details: { name: cardHolderName.value }
+                }
+            }
+        ).then((result) => {
+            if(result.error){
+                document.getElementById("errors").innerText = result.error.message
+            }else{
+                document.location.href = redirect
+            }
+        })
+    })
+}
+</script>
+
+{% endblock %}

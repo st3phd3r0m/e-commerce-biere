@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
 
 
 /**
@@ -127,11 +129,34 @@ class VisitorCartController extends AbstractController
             } else {
                 //Si la quantité demandée est nulle, on supprime la ligne de l'article correspondant
                 return $this->redirectToRoute('visitor_cart_remove', ['id' => $id]);
-
             }
         }
 
 
         return $this->render('home/cartSummary.html.twig', []);
+    }
+
+
+    /**
+     * @Route("/payment", name="visitor_cart_payment", methods={"GET"})
+     */
+    public function cartPayment()
+    {
+        //On appel la variable globale de session
+        $cart = $this->session->get('cart');
+
+
+        $total = 999;
+
+        // Stripe - Create a PaymentIntent on the server
+        Stripe::setApiKey('sk_test_51H02NpD7y6oTPe9NYnY22AFmxD034fdn0ndOVbOe63fGV5hQLUfHVhlIi59PGsFQWVvyfefK3c6MNKoBihYojpBT00Qo2t4tvx');
+
+        // Prix en centimes !!!
+        $intent = PaymentIntent::create([
+            'amount' => $total * 100,
+            'currency' => 'eur'
+        ]);
+
+        return $this->render('home/cartPayment.html.twig', ['stripe' => $intent]);
     }
 }
