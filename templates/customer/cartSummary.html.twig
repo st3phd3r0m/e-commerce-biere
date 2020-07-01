@@ -15,21 +15,16 @@
     <main id="layoutSidenav_content">
 
         <div class="container-fluid">
-        
+
             <a class="btn btn-primary float-right" href="{{ path('home') }}">Continuer mes achats</a>
+            
+            {% if app.session.get('cart') is empty %}
+            <p class="m-5 font-weight-bold text-center">Votre panier est vide.</p>
+            {% else %}
 
-        {% if app.session.get('cart') is empty %}
+            <h2 class="m-5">Votre panier</h2>
 
-                <ul class="breadcrumb mb-4">
-                    <li class="breadcrumb-item">Votre panier est vide.</li>
-                    {# <li class="breadcrumb-item active">Produits</li> #}
-                </ul>
-        {% else %}
 
-                <ul class="breadcrumb mb-4">
-                    <li class="breadcrumb-item">Votre panier</li>
-                    {# <li class="breadcrumb-item active">Produits</li> #}
-                </ul>
 
 
             <div class="card mb-4">
@@ -109,7 +104,7 @@
                                         <td>
                                             {% if app.user %}
 
-                                            <a class="btn btn-success float-right" href="{{ path('visitor_cart_payment') }}">Valider votre panier</a>
+                                            <a class="btn btn-success float-right" href="{{ path('customer_details') }}">Valider votre panier</a>
 
                                             {% else %}
 
