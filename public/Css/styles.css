@@ -68,6 +68,11 @@ h3 {
     display: flex;
     list-style-type: none;
 }
+
+.articleInCart {
+    position: relative;
+    right: 20px;
+}
 /* Fin header */
 
 /*Page Index*/

@@ -27,18 +27,22 @@
                     </header>
                     <div class="filter-content collapse" id="collapse_1" style="">
                         <div class="card-body">
-                            <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50" name="">
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label>Min</label>
-                                        <input class="form-control" placeholder="0€" type="number">
-                                    </div>
-                                    <div class="form-group text-right col-md-6">
-                                        <label>Max</label>
-                                        <input class="form-control" placeholder="120€" type="number">
-                                    </div>
-                                </div> <!-- form-row.// -->
-                            <button class="btn btn-block bouton">Valider</button>
+                            <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50">
+                            
+                            {# <div id="slider"></div> #}
+     
+                            <form class="form-row" method="get">
+                                <div class="form-group col-md-6">
+                                    <label>Min</label>
+                                    <input class="form-control" placeholder="0€" value="" type="string" name="minPrice">
+                                </div>
+                                <div class="form-group text-right col-md-6">
+                                    <label>Max</label>
+                                    <input class="form-control" placeholder="120€" value"" type="string" name="maxPrice">
+                                </div>
+                                <button class="btn btn-block bouton" type="submit">Filtrer</button>
+                            </form> <!-- form-row.// -->
+                            
                         </div><!-- card-body.// -->
                     </div>
                 </article> <!-- filter-group .// -->
@@ -52,10 +56,17 @@
                     <div class="filter-content in collapse" id="collapse_2" style="">
                         <div class="card-body">
                         <ul class="list-menu" style="list-style-type:none">
-                            <li><a href="#">Moins de 5°</a></li>
-                            <li><a href="#">5° à 8°</a></li>
-                            <li><a href="#">8° à 10°</a></li>
-                            <li><a href="#">Plus de 10°</a></li>
+                        {% if categorie is defined %}
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 1 }) }}">Moins de 5°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 2 }) }}">5° à 8°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 3 }) }}">8° à 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { degree: 4 }) }}">Plus de 10°</a></li>
+                        {% elseif flavor is defined %} 
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 1 }) }}">Moins de 5°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 2 }) }}">5° à 8°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 3 }) }}">8° à 10°</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { degree: 4 }) }}">Plus de 10°</a></li>
+                        {% endif %}   
                             </ul>
                         </div><!-- card-body.// -->
                     </div>
@@ -70,10 +81,17 @@
                     <div class="filter-content in collapse" id="collapse_3" style="">
                         <div class="card-body">
                              <ul class="list-menu" style="list-style-type:none">
-                            <li><a href="#">Moins de 33cl</a></li>
-                            <li><a href="#">33cl à 50cl</a></li>
-                            <li><a href="#">51cl à 75cl</a></li>
-                            <li><a href="#">Plus de 75cl</a></li>
+                            {% if categorie is defined %}
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
+                            {% elseif flavor is defined %}
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
+                            {% endif %} 
                             </ul>
                         </div><!-- card-body.// -->
                     </div>
@@ -100,4 +118,8 @@
         </section>
     </div>    
 </div>    
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('js/sliderfiltre.js') }}"></script>
 {% endblock %}

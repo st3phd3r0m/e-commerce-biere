@@ -75,14 +75,14 @@ class HomeController extends AbstractController
 
     /**
      *
-     * @Route("/categorie/{slug}", name="home_categorie")
+     * @Route("/categorie/{slug}", name="home_categorie", methods={"GET"})
      * @param string $slug
      * @param Request $request
      * @return Response
      */
     public function showCategory(Categories $categorie, PaginatorInterface $paginator, Request $request)
     {
-
+        
         $products = $this->getDoctrine()->getRepository(Products::class)->filterProducts(
 			$categorie,
 			$request->query->get('minPrice'),
