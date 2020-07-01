@@ -10,12 +10,24 @@ a {
     color : #646464; 
 }
 
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+
 .bouton{
     color: white;
     background-color: #2FB5F4;
 }
 
+.bouton > a {
+    color: white;
+    text-decoration: none;
+}
 
+.bouton > a:hover{
+    color: black;
+}
 
 .titleBlue{
     border-bottom: 5px solid #2FB5F4;
@@ -208,7 +220,6 @@ main section {
 .blocPrix .bouton {
     border-radius: 30px;
 }
-
 
 /*Fin Page détails produits*/
 
