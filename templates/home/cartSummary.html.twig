@@ -79,17 +79,16 @@
                                         <td>{{ cart['product'].price }}&euro;</td>   
                                         <td class="w-25">
 
-                                            <a class="rounded-circle text-white bg-success p-3"  role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'decr' } ) }}" title="Enlever un produit">-</a>
+                                            <a class="{{ (cart['quantity']==1)?'removeCartLine':'' }} rounded-circle text-white bg-success p-3 text-decoration-none font-weight-bold"  role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'decr' } ) }}" title="Enlever un produit">-</a>
                                         
-                                            <span class="p-3">{{ cart['quantity'] }}</span>
+                                            <span class="p-3 font-weight-bold">{{ cart['quantity'] }}</span>
                                             
-                                        
-                                            <a class="rounded-circle text-white bg-success p-3" role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'incr' } ) }}" title="Ajouter un produit">+</a>
+                                            <a class="rounded-circle text-white bg-success p-3 text-decoration-none font-weight-bold" role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'incr' } ) }}" title="Ajouter un produit">+</a>
                                         
                                         </td>   
                                         <td>{{ cart['product'].price * cart['quantity'] }}&euro;</td>
                                         <td>
-                                            <a class="btn btn-danger" role="button" href="{{ path('visitor_cart_remove', { id: cart['product'].id } ) }}" title="Retirer le produit du panier">
+                                            <a class="removeCartLine btn btn-danger" role="button" href="{{ path('visitor_cart_remove', { id: cart['product'].id } ) }}" title="Retirer le produit du panier">
                                                 <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -105,8 +104,8 @@
                                     <tr>
                                         <th scope="row"></th>
                                         <td colspan="4"></td>     
-                                        <td> Total : </td>   
-                                        <td>{{ total }}&euro;</td>
+                                        <td class="font-weight-bold"> Total : </td>   
+                                        <td class="font-weight-bold">{{ total }}&euro;</td>
                                         <td>
                                             <a class="btn btn-success float-right" href="">Valider votre panier</a>
                                         </td>
@@ -128,4 +127,9 @@
     </main>
 
    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/confirmCartLineDeletion.js') }}"></script>
+
 {% endblock %}
