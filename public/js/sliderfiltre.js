@@ -47,7 +47,7 @@ if(slider) {
     const range = noUiSlider.create(slider, {
 
         // Position des curseurs au chargement de la page
-        start: [20, 80],
+        start: [50, 150],
         // Déplacement du curseurs par 1€
         step: 1,
         connect: true,
@@ -55,7 +55,7 @@ if(slider) {
         // Fourchette de prix min/max des produits
         range: {
             'min': 0,
-            'max': 100
+            'max': 210
         }, 
     });
     const min = document.getElementById('minPrice')
