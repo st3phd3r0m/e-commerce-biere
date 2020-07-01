@@ -41,13 +41,33 @@ var range = document.getElementById('range');
 // });
 var slider = document.getElementById('slider');
 
-noUiSlider.create(slider, {
-    // Position des curseurs au chargement de la page
-    start: [20, 80],
-    connect: true,
-    // Fourchette de prix min/max des produits
-    range: {
-        'min': 0,
-        'max': 100
-    },  
-});
+if(slider) {
+
+    
+    const range = noUiSlider.create(slider, {
+
+        // Position des curseurs au chargement de la page
+        start: [0, 80],
+        // Déplacement du curseurs par 1€
+        step: 1,
+        connect: true,
+
+        // Fourchette de prix min/max des produits
+        range: {
+            'min': 0,
+            'max': 100
+        }, 
+    });
+    const min = document.getElementById('minPrice')
+    const max = document.getElementById('maxPrice')
+    range.on('slide', function (values, handle) {
+        if (handle ===0) {
+            min.value = Math.round(values[0])
+        }
+        if (handle ===0) {
+            max.value = Math.round(values[1])
+        }
+        console.log(values, handle)
+    })
+}
+

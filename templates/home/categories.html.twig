@@ -27,7 +27,7 @@
                             <h6 class="title">Prix</h6>
                         </a>
                     </header>
-                    <div class="filter-content collapse" id="collapse_1" style="">
+                    <div class="filter-content collapse" id="collapse_1">
                         <div class="card-body">
 
                             <div id="slider"></div>
@@ -36,11 +36,11 @@
                             {# <input type="range" class="custom-range" id="formControlRange" min="1" max="100" value="50"> #}
                                 <div class="form-group col-md-6">
                                     <label>Min</label>
-                                    <input class="form-control" value="0€" type="string" name="minPrice">
+                                    <input class="form-control" id="minPrice" value="0€" type="string" name="minPrice">
                                 </div>
                                 <div class="form-group text-right col-md-6">
                                     <label>Max</label>
-                                    <input class="form-control" value="100€" type="string" name="maxPrice">
+                                    <input class="form-control" id="maxPrice" value="100€" type="string" name="maxPrice">
                                 </div>
                                 <button class="btn btn-block bouton" type="submit">Filtrer</button>
                             </form> <!-- form-row.// -->
@@ -55,7 +55,7 @@
                             <h6 class="title">Degrés</h6>
                         </a>
                     </header>
-                    <div class="filter-content in collapse" id="collapse_2" style="">
+                    <div class="filter-content in collapse" id="collapse_2">
                         <div class="card-body">
                         <ul class="list-menu" style="list-style-type:none">
                         {% if categorie is defined %}
@@ -80,7 +80,7 @@
                             <h6 class="title">Contenance</h6>
                         </a>
                     </header>
-                    <div class="filter-content in collapse" id="collapse_3" style="">
+                    <div class="filter-content in collapse" id="collapse_3">
                         <div class="card-body">
                              <ul class="list-menu" style="list-style-type:none">
                             {% if categorie is defined %}
