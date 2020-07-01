@@ -84,10 +84,10 @@
                             <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
                             <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
                             {% elseif flavor is defined %}
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
-                            <li><a href="{{ path('home_categorie', { slug: categorie.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 1 }) }}">Moins de 33cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 2 }) }}">33cl à 50cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 3 }) }}">51cl à 75cl</a></li>
+                            <li><a href="{{ path('home_categorie', { slug: flavor.slug } + { volume: 4 }) }}">Plus de 75cl</a></li>
                             {% endif %} 
                             </ul>
                         </div><!-- card-body.// -->
