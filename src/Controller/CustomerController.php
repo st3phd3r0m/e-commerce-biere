@@ -148,7 +148,11 @@ class CustomerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('customer_purchase_summary');
+            if ($cart = $this->session->get('cart')){
+                return $this->redirectToRoute('customer_purchase_summary');
+            }
+            return $this->redirectToRoute('customer_details');
+            
         }
 
         return $this->render('customer/changeDetails.html.twig', [
@@ -156,7 +160,6 @@ class CustomerController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 
 
     /**
@@ -174,6 +177,5 @@ class CustomerController extends AbstractController
     {
         return $this->render('customer/purchaseSummary.html.twig');
     }
-
 
 }

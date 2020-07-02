@@ -30,10 +30,10 @@
         <div class="titleBlue"><h2>Nouveauté</h2></div>
             <div class="row">
                 <div class="col-6 p-0">
-                    <img class="img-fluid" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn">
+                    <a href="https://brooklynbrewery.com/" title="lien vers brooklynbrewery.com"><img class="img-fluid" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn"></a>
                 </div>
                 <div class="col-6">
-                    <div class="row justify-content-center"><img class="img-fluid w-100" style="object-fit: cover; max-height: 175px" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></div>
+                    <div class="row justify-content-center"><a class="w-100" href="https://www.grimbergenbeer.com/fr-ch/" title="lien vers grimbergen.com"><img class="img-fluid w-100" style="object-fit: cover; max-height: 175px" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></a></div>
                     <div class="row">
                     <!--Sélection nouveauté produits-->
                     {% for product in productsNew %} 
