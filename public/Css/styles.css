@@ -60,6 +60,7 @@ h3 {
     background: url("../Css/images/Biere_mousse.jpg") center;
     background-size: cover;
     align-content: center;
+    padding: 4rem 1rem;
 }
 
 .cat{
@@ -136,6 +137,7 @@ h3 {
 .services {
     width: 80%;
     margin: auto;
+    margin-top: 20px;
 }
 
 /* Fin Services */
