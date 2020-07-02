@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Historique de vos commandes{% endblock %}
+
+{% block body %}
+
+    <main id="layoutSidenav_content">
+
+        <div class="container-fluid">
+        
+            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>            
+
+            <h2 class="m-5">Historique de vos commandes</h2>
+
+            <div class="card my-4 mx-2">
+                <div class="card-header">
+                    <i class="fas fa-beer"></i>
+                    Vos commandes précédentes
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        {# Début tableau #}
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            {# DEBUT THEAD #}
+                            <thead>
+                                <tr>
+                                    <th scope="col">Ref</th>
+                                    <th scope="col">Articles</th>
+                                    <th scope="col">Point de livraison</th>
+                                    <th scope="col">Paiement</th>
+                                    <th scope="col">Montant de la commande</th>
+                                    <th scope="col">Date de la commande</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            {# FIN THEAD #}
+
+                            {# DEBUT TBODY #}
+                            <tbody>
+
+                                {% for order in orders %}
+                                    <tr>
+                                        <th scope="row">{{ order.ref }}</th>
+                                        <td class="text-left w-25">
+                                            <ul class="m-0 p-0 pl-1">
+                                                {% for cart in order.carts %}
+                                                <li>
+                                                    Ref_{{ cart.product.id }}, prix unitaire : {{  cart.unitPrice }}&euro; , nbr : {{ cart.quantity }}, montant : {{  cart.unitPrice * cart.quantity }}&euro;
+                                                </li>
+                                                {% endfor %}                                            
+                                            </ul>
+
+                                        </td>     
+                                        <td>{{ order.deliveryPoint }}</td>
+                                        <td>{{ order.payment }}</td>
+                                        <td>{{ order.amount }} &euro;</td>
+                                        <td>{{ order.createdAt | date('d.m.Y')  }}</td>
+                                        <td>{{ order.status }}</td>
+                                        <td>
+                                        
+                                            <a class="btn btn-primary" role="button" href="{{ path('customer_order_record', {'id': order.id }) }}" title="Voir le détail de la commande">
+                                                <svg class="bi bi-eye" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                                                <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                                </svg>
+                                            </a>
+                                        
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+                            {# FIN TBODY #}
+                        </table>
+
+
+
+
+                    </div>
+
+
+
+
+                </div>
+            </div>        
+
+        </div>
+    </main>
+
+   
+{% endblock %}
+
+
+
