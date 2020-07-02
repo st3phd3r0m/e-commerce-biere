@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Votre facture{% endblock %}
+
+{% block body %}
+
+   <main id="layoutSidenav_content">
+
+        <div class="container-fluid">
+        <div class="card my-4 mx-auto w-50">
+                <div class="card-header">
+                    <i class="fas fa-beer"></i>
+                    Votre facture
+                </div>
+                <div class="card-body">
+                    <div class="pt-3 pb-2">
+                        <p class="d-inline p-3"><span class="font-weight-bold">Prénom : </span> {{ app.user.firstname }}</p>
+                        <p class="d-inline p-3"><span class="font-weight-bold">Nom : </span> {{ app.user.lastname }}</p>   
+                        <p class="d-inline p-3"><span class="font-weight-bold">Adresse : </span> {{ app.user.adress }}</p> 
+                        <p class="d-inline px-3"><span class="font-weight-bold">Code postal :</span> {{ app.user.postalCode }}</p> 
+                        <p class="d-inline px-3"><span class="font-weight-bold">Ville : </span> {{ app.user.city }}</p>
+
+                    </div>
+                    <div class="pt-3">                        
+                        <p class="d-inline px-3"><span class="font-weight-bold">Numéro de commande : </span> {{ app.user. }}</p>
+                        <p class="d-inline px-3"><span class="font-weight-bold">Date de commande :</span> {{ app.user.orderDate }}</p> 
+
+                        <p class="d-inline px-3"><span class="font-weight-bold">Liste des articles :</span> {{ app.user.articlesList }}</p> 
+
+                        <p class="d-inline px-3"><span class="font-weight-bold">Mode de livraison :</span> {{ app.user.deliveryPoint }}</p> 
+                        <p class="d-inline px-3"><span class="font-weight-bold">Prix de la livraison:</span> {{ app.user.deliveryPrice }}</p> 
+
+                        <p class="d-inline px-3"><span class="font-weight-bold">P:</span> {{ app.user.deliveryPrice }}</p>
