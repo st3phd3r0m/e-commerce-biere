@@ -95,8 +95,8 @@ i {
 .fa-search{
   font-size: 1em;
 }
-abbr[title],
-abbr[data-original-title] {
+
+abbr[title], abbr[data-original-title] {
   text-decoration: underline;
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
@@ -4032,11 +4032,6 @@ input[type=button].btn-block {
 .navbar-text {
   display: inline-block;
   padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.navbar-collapse {
-  flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
 }
@@ -10265,4 +10260,9 @@ body {
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
+}  
+
+.navbar-collapse {
+  flex-basis: 100%;
+  padding-bottom: 0.5rem;
 }
