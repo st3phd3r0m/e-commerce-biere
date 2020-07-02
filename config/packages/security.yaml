@@ -13,7 +13,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern: ^/admin/
+            # pattern: ^/admin
             anonymous: lazy
             provider: app_user_provider
             guard:

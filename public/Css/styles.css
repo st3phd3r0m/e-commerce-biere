@@ -52,6 +52,9 @@ h3 {
 /* Fin Généralités */
 
 /* header */
+.logo{
+    width: 120px;
+}
 .navbar{
     height: 100px;
     background: url("../Css/images/Biere_mousse.jpg") center;
