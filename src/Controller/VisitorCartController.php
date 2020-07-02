@@ -2,10 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Cart;
-use App\Entity\Products;
-use App\Form\CartType;
-use App\Repository\CartRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,8 +62,6 @@ class VisitorCartController extends AbstractController
             ];
             $this->session->set('cart', $cart);
 
-            dd($cart);
-
             $this->addFlash('successCart', 'Les articles ont été ajoutés à votre panier.');
 
             return $this->redirectToRoute('home_show',  ['slug' => $slug]);
@@ -75,12 +69,65 @@ class VisitorCartController extends AbstractController
     }
 
     /**
-     * @Route("/summary", name="visitor_cart_summary", methods={"GET"})
+     * @Route("/summary/remove/{id}", name="visitor_cart_remove", methods={"GET"})
      */
-    public function cartSummary()
+    public function removeCartLine(int $id)
     {
-        return $this->render('home/cartSummary.html.twig', [
-        ]);
+        //On appel la variable globale de session
+        $cart = $this->session->get('cart');
+
+        unset($cart['product_' . $id]);
+        $this->session->set('cart', $cart);
+        //On renvoie un message à l'utilisateur
+        $this->addFlash('successCart', 'L\'article a été retirée de votre panier.');
+
+
+        return $this->render('customer/cartSummary.html.twig', []);
+    }
+
+    /**
+     * @Route("/summary/{id}/{what}", name="visitor_cart_summary", methods={"GET"})
+     */
+    public function cartSummary(int $id = null, string $what = null)
+    {
+        //Est ce qu'il sagit d'une requete d'incrementation/decrementation de la quantité d'un article dans le panier ?
+        if (isset($id) && !empty($id) && isset($what) && !empty($what)) {
+            //oui
+
+            //On appel la variable globale de session
+            $cart = $this->session->get('cart');
+
+            //On chope la quantité dans le panier
+            $quantity =  $cart['product_' . $id]['quantity'];
+            //incrementation/decrementation selon requete utilisateur
+            if ($what === 'decr') {
+                $quantity--;
+            } elseif ($what === 'incr') {
+                $quantity++;
+            }
+
+            //On vérifie que la quantité demandée pas l'utilisateur n'est pas nulle
+            if ($quantity > 0) {
+
+                //On verifie que la quantité demandée n'est pas supérieure à celle disponible en stock
+                $quantityInStock =  $cart['product_' . $id]['product']->getQuantity();
+
+                if ($quantityInStock >= $quantity) {
+                    //si ce n'est pas le cas, on charge dans la globale session
+                    $cart['product_' . $id]['quantity'] = $quantity;
+                    $this->session->set('cart', $cart);
+                } else {
+                    //si c'est le cas, on ne charge pas dans la globale session et on renvoie un message à l'utilisateur
+                    $this->addFlash('invalidQuantity', 'Nous ne pouvons malheureusement accéder à votre demande, la quantité en stock de cet article étant insuffisante.');
+                }
+            } else {
+                //Si la quantité demandée est nulle, on supprime la ligne de l'article correspondant
+                return $this->redirectToRoute('visitor_cart_remove', ['id' => $id]);
+            }
+        }
+
+
+        return $this->render('customer/cartSummary.html.twig', []);
     }
 
 }

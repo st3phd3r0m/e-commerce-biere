@@ -15,7 +15,7 @@
     <body>
 
         {# DEBUT HEADER #}
-        <header class="container-fluid p-0">
+        <header class="container-fluid">
             <nav class="row navbar align-content-center">
                 <div class="d-block px-5">
                     <a class="navbar-brand" href="{{ path('home') }}">E-commerce</a>
@@ -38,10 +38,17 @@
 
                 <div class="d-flex px-5">
                     <div class="d-block text-center mr-5">
-                        <svg class="bi bi-person" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		                    <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                         </svg>
-                        <p>Connexion</p>
+                        <div>
+                        {% if app.user %}
+                            Bonjour {{ app.user.firstname }}
+                            <a class="dropdown-item bouton" href="{{ path('app_customer_logout') }}">Déconnexion</a>
+                        {% else %}
+                            <a href="{{ path('app_customer_login') }}" title="connexion">Connexion</a>
+                        {% endif %}
+                        </div>
                     </div>
 
                     {% if nbrArticle == 0 %}
@@ -58,7 +65,7 @@
                             <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                             </svg>
                             {% if nbrArticle > 0 %}
-                                <span class="articleInCart rounded-circle text-white bg-success p-2"> {{ nbrArticle }}</span>  
+                                <span class="articleInCart rounded-circle text-white p-2"> {{ nbrArticle }}</span>  
                             {% endif %}
                             <p>Mon panier</p>                        
                         </a>
@@ -97,7 +104,7 @@
         {% block body %}{% endblock %}
 
         {# DEBUT FOOTER #}
-        <footer class="container-fluid mt5">
+        <footer class="container-fluid mt-5">
             <div class="d-block">
                 <div class="row d-block text-center">
                     <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool">

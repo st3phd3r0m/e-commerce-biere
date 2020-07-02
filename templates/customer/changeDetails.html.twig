@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Vos informations personnelles{% endblock %}
+
+{% block body %}
+
+    <main>
+        <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>            
+
+        <h2 class="m-5">Vos informations personnelles</h2>
+
+        <div class="w-50 mx-auto">
+            {{ form(form) }}   
+        </div>
+    </main>
+   
+{% endblock %}
+
+
+

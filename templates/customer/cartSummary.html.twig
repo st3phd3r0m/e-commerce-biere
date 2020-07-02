@@ -4,14 +4,29 @@
 
 {% block body %}
 
-   <main id="layoutSidenav_content">
+
+    {% for message in app.flashes('invalidQuantity') %}
+    <div class="alert alert-warning" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% for message in app.flashes('successCart') %}
+    <div class="alert alert-success" role="alert">{{ message }}</div>
+    {% endfor %}
+
+    <main id="layoutSidenav_content">
 
         <div class="container-fluid">
         
-            <ul class="breadcrumb mb-4">
-                <li class="breadcrumb-item">Votre panier</li>
-                {# <li class="breadcrumb-item active">Produits</li> #}
-            </ul>
+            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>
+            
+            {% if app.session.get('cart') is empty %}
+            <p class="m-5 font-weight-bold text-center">Votre panier est vide.</p>
+            {% else %}
+
+            <h2 class="m-5">Votre panier</h2>
+
+
+
+
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-beer"></i>
@@ -44,7 +59,7 @@
                                 {% for cart in app.session.get('cart') %}
                                     <tr>
                                         <th scope="row">{{ cart['product'].id }}</th>
-                                        <td>{{ cart['product'].name }}</td>     
+                                        <td class="w-25">{{ cart['product'].name }}</td>     
                                         <td> Bière
                                             {{ cart['product'].degree }} &deg;, 
                                             {{ volumeById(cart['product'].volume.id) }}cl, 
@@ -57,10 +72,18 @@
                                         {% endif %}
                                         </td>
                                         <td>{{ cart['product'].price }}&euro;</td>   
-                                        <td>{{ cart['quantity'] }}</td>   
+                                        <td class="w-25">
+
+                                            <a class="{{ (cart['quantity']==1)?'removeCartLine':'' }} rounded-circle text-white p-3 text-decoration-none font-weight-bold"  role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'decr' } ) }}" title="Enlever un produit">-</a>
+                                        
+                                            <span class="p-3 font-weight-bold">{{ cart['quantity'] }}</span>
+                                            
+                                            <a class="rounded-circle text-white p-3 text-decoration-none font-weight-bold" role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'incr' } ) }}" title="Ajouter un produit">+</a>
+                                        
+                                        </td>   
                                         <td>{{ cart['product'].price * cart['quantity'] }}&euro;</td>
                                         <td>
-                                            <a class="btn btn-danger" role="button" href="" title="Retirer le produit du panier">
+                                            <a class="removeCartLine btn btn-danger" role="button" href="{{ path('visitor_cart_remove', { id: cart['product'].id } ) }}" title="Retirer le produit du panier">
                                                 <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -72,34 +95,46 @@
 
                                     {% set total = total + (cart['product'].price * cart['quantity']) %}
 
-                                {% else %}
-                                    <tr>
-                                        <td colspan="8">Pas de produit dans votre panier</td>
-                                    </tr>
                                 {% endfor %}
                                     <tr>
                                         <th scope="row"></th>
                                         <td colspan="4"></td>     
-                                        <td> Total : </td>   
-                                        <td>{{ total }}&euro;</td>
+                                        <td class="font-weight-bold"> Total : </td>   
+                                        <td class="font-weight-bold">{{ total }}&euro;</td>
                                         <td>
+                                            {% if app.user %}
+
+                                            <a class="btn bouton" href="{{ path('customer_details') }}">Valider votre panier</a>
+
+                                            {% else %}
+
+                                            <a class="btn bouton" href="{{ path('app_customer_login') }}">Valider votre panier</a>
+
+                                            {% endif %}
+
+
                                         </td>
                                     </tr>
-
-                                <a class="btn btn-success float-right" href="{{ path('home') }}">Continuer mes achats</a>
 
                             </tbody>
                             {# FIN TBODY #}
                         </table>
 
-                        <a class="btn btn-success float-right" href="{{ path('home') }}">Continuer mes achats</a>
+
 
 
                     </div>
                 </div>
             </div>
+
+        {% endif %}
         </div>
     </main>
 
    
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/confirmCartLineDeletion.js') }}"></script>
+
 {% endblock %}
