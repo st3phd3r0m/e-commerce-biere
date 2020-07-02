@@ -180,7 +180,6 @@ class CustomerController extends AbstractController
         return $this->render('customer/purchaseSummary.html.twig');
     }
 
-<<<<<<< HEAD
     /**
      * @Route("/detailspdf", name="customer_detailspdf")
      */
@@ -210,7 +209,6 @@ class CustomerController extends AbstractController
         ]);
     }
         
-=======
 
     /**
      * @Route("/orders/record", name="customer_orders_record")
@@ -238,6 +236,5 @@ class CustomerController extends AbstractController
             'order' => $order
         ]);
     }
->>>>>>> 4a1c7e0ec7fa5ec1613a71f40eeb1f22e664b163
 }
 
