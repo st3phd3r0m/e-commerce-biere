@@ -9,6 +9,7 @@ use App\Entity\Users;
 use App\Form\CartType;
 use App\Form\UsersType;
 use App\Repository\CartRepository;
+use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,8 +49,8 @@ class CustomerController extends AbstractController
         //On appel la variable globale de session
         $cart = $this->session->get('cart');
 
-        $total=0;
-        foreach($cart as $line){
+        $total = 0;
+        foreach ($cart as $line) {
             $total += $line['product']->getPrice() * $line['quantity'];
         }
 
@@ -67,7 +68,7 @@ class CustomerController extends AbstractController
 
     /**
      * @Route("/store/transaction", name="store_transaction", methods={"GET","POST"})
-	 * @return Response
+     * @return Response
      */
     public function storeTransaction(): Response
     {
@@ -78,18 +79,18 @@ class CustomerController extends AbstractController
         $cartSession = $this->session->get('cart');
 
         //On calcule le montant total de la transaction
-        $total=0;
-        foreach($cartSession as $line){
+        $total = 0;
+        foreach ($cartSession as $line) {
             $total += $line['product']->getPrice() * $line['quantity'];
         }
 
         //Concaténation de l'adresse de l'utilisateur
-        $address = $this->getUser()->getAdress().', '.$this->getUser()->getCity().', '.$this->getUser()->getPostalCode();
+        $address = $this->getUser()->getAdress() . ', ' . $this->getUser()->getCity() . ', ' . $this->getUser()->getPostalCode();
 
         //Instanciation de Orders et "hydratation"
         $order = new Orders();
         $order->setCreatedAt(new \DateTime());
-        $order->setRef( rand(00000000,99999999) );
+        $order->setRef(rand(00000000, 99999999));
         $order->setPayment('Carte bancaire');
         $order->setStatus('En attente de préparation');
         $order->setAmount($total);
@@ -99,8 +100,8 @@ class CustomerController extends AbstractController
 
         // dd($order);
 
-        foreach($cartSession as $line){
-        
+        foreach ($cartSession as $line) {
+
             $amount = $line['product']->getPrice() * $line['quantity'];
             //Instanciation de Cart et "hydratation"
             $cart = new Cart;
@@ -110,7 +111,7 @@ class CustomerController extends AbstractController
             $cart->setAmmount($amount);
             $cart->setOrders($order);
             $entityManager->persist($cart);
-        }  
+        }
 
         $entityManager->flush();
 
@@ -120,7 +121,6 @@ class CustomerController extends AbstractController
         $this->session->set('cart', $cartSession);
 
         return $this->redirectToRoute('customer_send_bill');
-
     }
 
 
@@ -130,20 +130,20 @@ class CustomerController extends AbstractController
     public function sendBill()
     {
 
-        return $this->render('customer/send_bill.html.twig',[]);
+        return $this->render('customer/send_bill.html.twig', []);
     }
 
 
     /**
      * @Route("/details/change/{id}", name="customer_change_details", methods={"GET","POST"})
      * @param Request $request
-	 * @param Users $user
-	 * @return Response
+     * @param Users $user
+     * @return Response
      */
     public function changeDetails(Request $request, Users $user): Response
     {
         $form = $this->createForm(UsersType::class, $user);
-        $form->remove('roles'); 
+        $form->remove('roles');
 
         $form->handleRequest($request);
 
@@ -180,6 +180,7 @@ class CustomerController extends AbstractController
         return $this->render('customer/purchaseSummary.html.twig');
     }
 
+<<<<<<< HEAD
     /**
      * @Route("/detailspdf", name="customer_detailspdf")
      */
@@ -209,5 +210,34 @@ class CustomerController extends AbstractController
         ]);
     }
         
+=======
+
+    /**
+     * @Route("/orders/record", name="customer_orders_record")
+     */
+    public function ordersRecord(OrdersRepository $ordersRepository)
+    {
+        $user = $this->getUser();
+
+        $orders = $ordersRepository->findBy(['user' => $user], ['created_at' => 'DESC']);
+
+        return $this->render('customer/ordersRecord.html.twig', [
+            'orders' => $orders,
+        ]);
+    }
+
+    /**
+     * @Route("/order/record/{id}", name="customer_order_record", methods={"GET","POST"})
+     * @param Request $request
+     * @param Orders $order
+     * @return Response
+     */
+    public function orderRecord(Orders $order)
+    {
+        return $this->render('customer/orderRecord.html.twig', [
+            'order' => $order
+        ]);
+    }
+>>>>>>> 4a1c7e0ec7fa5ec1613a71f40eeb1f22e664b163
 }
 
