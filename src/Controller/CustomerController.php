@@ -192,7 +192,7 @@ class CustomerController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
         
         // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('customer/detailspdf.html.twig');
+        $html = $this->renderView('customer/billDownload.html.twig');
         
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
@@ -245,6 +245,37 @@ class CustomerController extends AbstractController
      */
     public function billDownload(Orders $order)
     {
+
+        // $this->render('customer/billDownload.html.twig', [
+        //     'order' => $order
+        // ]);
+
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('customer/billDownload.html.twig', [
+            'order' => $order
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+
+        
         return $this->render('customer/billDownload.html.twig', [
             'order' => $order
         ]);

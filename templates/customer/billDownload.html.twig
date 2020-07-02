@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %} #}
 
 {% block title %}BierShop - Commande ref_{{ order.ref }}{% endblock %}
 
@@ -7,8 +7,10 @@
     <main id="layoutSidenav_content">
 
         <div class="container-fluid">
+
+                {# <a class="btn float-right bouton" title="Imprimer la facture" href="{{ path('customer_detailspdf') }}">Imprimer la facture</a>   #}
         
-                <div class="card my-4 mx-auto w-50">
+                <div class="card my-4 mx-auto">
                     <div class="card-header">
                         <h2>Cold Beer inc.</h2>
                         Facture client

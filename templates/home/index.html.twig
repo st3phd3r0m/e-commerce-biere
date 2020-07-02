@@ -37,24 +37,23 @@
 				<h2>Nouveauté</h2>
 			</div>
 			<div class="row">
-				<div class="col-6 p-0">
-					<a href="https://brooklynbrewery.com/" title="lien vers brooklynbrewery.com"><img class="img-fluid" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn"></a>
+				<div class="col-6">
+					<a href="https://brooklynbrewery.com/" title="lien vers brooklynbrewery.com"><img class="w-100 h-100 " style="object-fit: cover" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn"></a>
 				</div>
 				<div class="col-6">
 					<div class="row justify-content-center">
 						<a class="w-100" href="https://www.grimbergenbeer.com/fr-ch/" title="lien vers grimbergen.com"><img class="img-fluid w-100" style="object-fit: cover; max-height: 175px" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></a>
 					</div>
-					<div
-						class="row">
+					<div class="row">
 						<!--Sélection nouveauté produits-->
 						{% for product in productsNew %}
 							{% set col = 4 %}
-							<div class="card col-{{ col }} p-0 mb-1">
+							<div class="card col-{{ col }} p-0 mb-0">
 								{% if product.image is not empty %}
-									<a class="card-img-top" href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}"><img class="d-block w-100 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}"></a>
+									<a class="card-img-top" href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}"><img class="d-block w-100 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}"></a>
 								{% endif %}
 								<div class="card-body mx-0 p-2">
-									<p class="card-title">{{ product.name }}</p>
+									<p class="card-title text-center" style="font-size:1.5em">{{ product.name }}</p>
 									<p class="m-0 text-center" style="font-size:2em; font-weight: bold; color: #2FB5F4;">{{ product.price }}
 										&euro;
 									</p>
@@ -69,7 +68,7 @@
 
 		<!--Section Les meilleures ventes-->
 		<section class="bestsellers">
-			<div class="row">
+			<div class="row mt-3">
 				<h1>Les meilleures ventes !</h1>
 			</div>
 			<div
@@ -79,10 +78,10 @@
 				{% for product in productsBestSales %}
 					<div class="card col-{{ col }} p-0 mb-1">
 						{% if product.image is not empty %}
-							<a class="card-img-top" href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}"><img class="d-block w-100 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}"></a>
+							<a class="card-img-top" href="{{ path('home_show', { slug: product.slug }) }}" title="Voir le produit {{ product.name }}"><img class="d-block w-100 p-3" src="{{ asset('images/products/'~ product.image )}}" alt="{{ product.name }}"></a>
 						{% endif %}
 						<div class="card-body mx-0 p-2">
-							<p class="card-title">{{ product.name }}</p>
+							<p class="card-title text-center" style="font-size:1.5em">{{ product.name }}</p>
 							<p class="m-0 text-center" style="font-size:2em; font-weight: bold; color: #2FB5F4;">{{ product.price }}
 								&euro;
 							</p>
