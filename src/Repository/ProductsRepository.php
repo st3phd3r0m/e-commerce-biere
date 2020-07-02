@@ -7,6 +7,7 @@ use App\Entity\Flavors;
 use App\Entity\Products;
 use App\Entity\Volumes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\AST\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -89,10 +90,40 @@ class ProductsRepository extends ServiceEntityRepository
 				->setParameter('maxDegree', $maxDegree);
 		}
 
-		// A voir ;)
+		
 		if ($volume !== null) {
-			$query->andWhere('p.volume < :volume')
-				->setParameter('volume', $volume);
+
+			$minVolume = 0;
+			$maxVolume = 999999;
+
+			switch ($volume) {
+				case 1:
+					$minVolume = 0;
+					$maxVolume = 32.9;
+					break;
+
+				case 2:
+					$minVolume = 33;
+					$maxVolume = 49.9;
+					break;
+
+				case 3:
+					$minVolume = 50;
+					$maxVolume = 74.9;
+					break;
+
+				case 4:
+					$minVolume = 75;
+					$maxVolume = 999999;
+					break;
+			}
+
+
+
+			$query->innerJoin(Volumes::class,"v","WITH","v.id=p.volume")
+			->andWhere('v.volume BETWEEN :minVolume AND :maxVolume')
+			->setParameter('minVolume', $minVolume)
+			->setParameter('maxVolume', $maxVolume);
 		}
 
 		$query->andWhere('p.category = :category')
