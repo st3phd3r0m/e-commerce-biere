@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BierShop - Commande ref_{{ order.ref }}</title>
-</head>
+{% extends 'base.html.twig' %}
 
-<body>
-    <main>
+{% block title %}BierShop - Commande ref_{{ order.ref }}{% endblock %}
 
-        <div>
-            <h1>BierShop inc. - Facture client </h1>
-            <h2>Commande ref_{{ order.ref }}</h2>
-            <img src="{{ base64 }}">
-        </div>
-        
+{% block body %}
+
+    <main id="layoutSidenav_content">
+
+        <a class="btn float-right bouton mx-2" title="Continuer mes achats" href="{{ path('home') }}">Continuer mes achats</a>          
+
+        <a class="btn float-right bouton mx-2" title="Retour à l'historique des commandes" href="{{ path('customer_orders_record') }}">Retour à l'historique des commandes</a>      
+
+        <a class="btn float-right bouton mx-2" title="Télécharger votre facture" href="{{ path('customer_bill', {'id': order.id }) }}">Télécharger votre facture</a>   
+
+
+        <h1>Merci pour votre commande !</h1>
+        <h2>Commande ref_{{ order.ref }}</h2>
 
         <h2>Informations client</h2>
         {# Début tableau #}
@@ -92,8 +92,7 @@
         </table>
 
     </main>
-</body>
 
-</html>
+{% endblock %}
 
 

@@ -7,10 +7,9 @@
 
         <div class="container-fluid">
         
-            <a class="btn float-right bouton mx-3" href="{{ path('customer_detailspdf') }}">Télecharger en pdf</a> 
-            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>            
+            <a class="btn float-right bouton mx-3" href="{{ path('home') }}">Continuer mes achats</a>            
 
-            <a class="btn float-right bouton" href="{{ path('customer_orders_record') }}">Historique de mes achats</a>            
+            <a class="btn float-right bouton mx-3" href="{{ path('customer_orders_record') }}">Historique de mes achats</a>            
 
 
             <h2 class="m-5">Vos informations personnelles</h2>
@@ -36,10 +35,18 @@
                     </div>
                     
                     {% if app.session.get('cart') is empty %}
+
                     <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
+
                     {% else %}
+
                     <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
-                    <a class="btn float-right m-2 bouton" href="{{ path('customer_purchase_summary') }}">Etape suivante</a>
+
+                    <a class="btn float-right m-2 bouton" href="{{ path('customer_purchase_summary') }}">Etape suivante ></a>
+                    
+                    <a class="btn float-right m-2 bouton" href="{{ path('visitor_cart_summary') }}">Retour au panier</a>
+
+
                     {% endif %}
                 </div>
             </div>        
