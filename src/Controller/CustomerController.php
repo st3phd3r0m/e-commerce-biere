@@ -108,13 +108,14 @@ class CustomerController extends AbstractController
             $cart->setAmmount($amount);
             $cart->setOrders($order);
             $entityManager->persist($cart);
-
         }  
 
         $entityManager->flush();
 
 
-        dd($cartSession);
+        //On vide le panier de la variable globale de session
+        $cartSession = [];
+        $this->session->set('cart', $cartSession);
 
         return $this->redirectToRoute('customer_send_bill');
 
