@@ -15,7 +15,7 @@
                 {% if app.session.get('cart') is empty %}
                     <p>Votre panier est vide.</p>
                 {% else %}
-                <div class="card mb-4">
+                <div class="card my-4 mb-4">
                     <div class="card-header">
                         <i class="fas fa-beer"></i>
                         Votre panier
@@ -104,7 +104,7 @@
                             <p class="d-block px-3"><span class="font-weight-bold">Téléphone : </span> {{ app.user.phone }}</p>
                         </div>
 
-                        <a class="btn btn-primary float-right m-2" href="{{ path('store_transaction', { 'id': app.user.id }) }}">Régler la commande</a>
+                        <a class="btn btn-primary float-right m-2" href="{{ path('customer_cart_payment') }}">Régler la commande</a>
                     </div>
                 </div>       
             

@@ -37,8 +37,6 @@ class CustomerController extends AbstractController
         }
     }
 
-    
-
     /**
      * @Route("/payment", name="customer_cart_payment", methods={"GET"})
      */
@@ -62,53 +60,77 @@ class CustomerController extends AbstractController
             'currency' => 'eur'
         ]);
 
-        return $this->render('customer/sendBill.html.twig', ['stripe' => $intent]);
+        return $this->render('customer/cartPayment.html.twig', ['stripe' => $intent]);
     }
 
     /**
-     * @Route("/store/transaction/{id}", name="store_transaction", methods={"GET","POST"})
-     * @param Request $request
-	 * @param Users $user
+     * @Route("/store/transaction", name="store_transaction", methods={"GET","POST"})
 	 * @return Response
      */
-    public function storeTransaction(Request $request, Users $user): Response
+    public function storeTransaction(): Response
     {
 
+        $entityManager = $this->getDoctrine()->getManager();
+
         //On appel la variable globale de session
-        $cart = $this->session->get('cart');
+        $cartSession = $this->session->get('cart');
 
         //On calcule le montant total de la transaction
         $total=0;
-        foreach($cart as $line){
+        foreach($cartSession as $line){
             $total += $line['product']->getPrice() * $line['quantity'];
         }
 
         //Concaténation de l'adresse de l'utilisateur
         $address = $this->getUser()->getAdress().', '.$this->getUser()->getCity().', '.$this->getUser()->getPostalCode();
 
-        // dd($this->getUser()->getId());
-
         //Instanciation de Orders et "hydratation"
         $order = new Orders();
         $order->setCreatedAt(new \DateTime());
-        $order->setRef(md5(uniqid()));
+        $order->setRef( rand(00000000,99999999) );
         $order->setPayment('Carte bancaire');
         $order->setStatus('En attente de préparation');
         $order->setAmount($total);
         $order->setDeliveryPoint($address);
-        $order->setUser($user);
+        $order->setUser($this->getUser());
+        $entityManager->persist($order);
+
+        // dd($order);
+
+        foreach($cartSession as $line){
         
+            $amount = $line['product']->getPrice() * $line['quantity'];
+            //Instanciation de Cart et "hydratation"
+            $cart = new Cart;
+            $cart->setProduct($entityManager->getRepository(Products::class)->find($line['product']->getId()));
+            $cart->setQuantity($line['quantity']);
+            $cart->setUnitPrice($line['product']->getPrice());
+            $cart->setAmmount($amount);
+            $cart->setOrders($order);
+            $entityManager->persist($cart);
+        }  
 
-        // $order->setStatus($faker->randomElement(['En attente de préparation','Préparer','Envoyer et terminer']));
-        // $order->setAmount($faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 1000)); // Ex: 48.8932
-        // $order->setDeliveryPoint($faker->address());
-        // $order->setPayment($faker->randomElement(['Stripe','Carte bancaire']));
+        $entityManager->flush();
 
-        dd($order);
 
-        return $this->redirectToRoute('customer_cart_payment');
+        //On vide le panier de la variable globale de session
+        $cartSession = [];
+        $this->session->set('cart', $cartSession);
+
+        return $this->redirectToRoute('customer_send_bill');
 
     }
+
+
+    /**
+     * @Route("/send/bill", name="customer_send_bill")
+     */
+    public function sendBill()
+    {
+
+        return $this->render('customer/send_bill.html.twig',[]);
+    }
+
 
     /**
      * @Route("/details/change/{id}", name="customer_change_details", methods={"GET","POST"})
