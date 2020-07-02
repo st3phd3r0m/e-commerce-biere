@@ -51,7 +51,7 @@
                                 {% if is_granted("ROLE_ADMIN") %}
                                     <a class="dropdown-item" href="{{ path('dashboard') }}">Espace Administrateur</a>
                                 {% endif %}
-                                    <a class="dropdown-item" href="{{ path('home') }}">Espace Client</a>
+                                    <a class="dropdown-item" href="{{ path('customer_details') }}">Espace Client</a>
                                     <a class="dropdown-item bouton" href="{{ path('app_logout') }}">Déconnexion</a>                            
                             </div>
                         {% else %}
