@@ -46,7 +46,7 @@ class ProductsRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-	public function filterProducts(Categories $categorie, string $minPrice = null, string $maxPrice = null, string $degree = null, string $volume = null)
+	public function filterProductsByCategories(Categories $categorie, string $minPrice = null, string $maxPrice = null, string $degree = null, string $volume = null)
 	{
 		// Ce n'est pas une requête SQL mais DQL
 		$query = $this->createQueryBuilder('p');
@@ -127,7 +127,95 @@ class ProductsRepository extends ServiceEntityRepository
 		}
 
 		$query->andWhere('p.category = :category')
-			->setParameter('category', $categorie)
+			->setParameter('category', $categorie)	
+			->getQuery()
+		;
+
+		return $query;
+	}
+
+	public function filterProductsByFlavors(Flavors $flavor, string $minPrice = null, string $maxPrice = null, string $degree = null, string $volume = null)
+	{
+		// Ce n'est pas une requête SQL mais DQL
+		$query = $this->createQueryBuilder('p');
+
+		if ($minPrice !== null) {
+			$query->andWhere('p.price BETWEEN :minPrice AND :maxPrice')
+				->setParameter('minPrice', $minPrice)
+				->setParameter('maxPrice', $maxPrice);
+		}
+
+		if ($degree !== null) {
+
+			$minDegree = 0;
+			$maxDegree = 999999;
+
+			switch ($degree) {
+				case 1:
+					$minDegree = 0;
+					$maxDegree = 5;
+					break;
+
+				case 2:
+					$minDegree = 5.1;
+					$maxDegree = 8;
+					break;
+
+				case 3:
+					$minDegree = 8.1;
+					$maxDegree = 10;
+					break;
+
+				case 4:
+					$minDegree = 10.1;
+					$maxDegree = 999999;
+					break;
+			}
+
+
+			$query->andWhere('p.degree BETWEEN :minDegree AND :maxDegree')
+				->setParameter('minDegree', $minDegree)
+				->setParameter('maxDegree', $maxDegree);
+		}
+
+		
+		if ($volume !== null) {
+
+			$minVolume = 0;
+			$maxVolume = 999999;
+
+			switch ($volume) {
+				case 1:
+					$minVolume = 0;
+					$maxVolume = 32.9;
+					break;
+
+				case 2:
+					$minVolume = 33;
+					$maxVolume = 49.9;
+					break;
+
+				case 3:
+					$minVolume = 50;
+					$maxVolume = 74.9;
+					break;
+
+				case 4:
+					$minVolume = 75;
+					$maxVolume = 999999;
+					break;
+			}
+
+
+
+			$query->innerJoin(Volumes::class,"v","WITH","v.id=p.volume")
+			->andWhere('v.volume BETWEEN :minVolume AND :maxVolume')
+			->setParameter('minVolume', $minVolume)
+			->setParameter('maxVolume', $maxVolume);
+		}
+
+		$query->andWhere('p.flavor = :flavor')
+			->setParameter('flavor', $flavor)
 			->getQuery()
 		;
 

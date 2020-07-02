@@ -1,19 +1,16 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}BierShop - Vos informations personnelles{% endblock %}
+{% block title %}BierShop - Facturation.pdf{% endblock %}
 
 {% block body %}
+
+<div class="d-block px-5">
+    <a class="navbar-brand" href="{{ path('home') }}" title="retour à l'accueil"><img class="logo" src="{{ asset('Css/images/logo.png') }}"></a>
+</div>
     <main id="layoutSidenav_content">
 
-        <div class="container-fluid">
-        
-            <a class="btn float-right bouton mx-3" href="{{ path('customer_detailspdf') }}">Télecharger en pdf</a> 
-            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>            
+        <div class="container-fluid">           
 
-            <a class="btn float-right bouton" href="{{ path('customer_orders_record') }}">Historique de mes achats</a>            
-
-
-            <h2 class="m-5">Vos informations personnelles</h2>
+            <h2 class="m-5">Vos informations personnelles en format pdf</h2>
 
             <div class="card my-4 mx-auto w-50">
                 <div class="card-header">
@@ -34,13 +31,6 @@
                         <p class="d-block px-3"><span class="font-weight-bold">Adresse email : </span> {{ app.user.email }}</p>
                         <p class="d-block px-3"><span class="font-weight-bold">Téléphone : </span> {{ app.user.phone }}</p>
                     </div>
-                    
-                    {% if app.session.get('cart') is empty %}
-                    <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
-                    {% else %}
-                    <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
-                    <a class="btn float-right m-2 bouton" href="{{ path('customer_purchase_summary') }}">Etape suivante</a>
-                    {% endif %}
                 </div>
             </div>        
 

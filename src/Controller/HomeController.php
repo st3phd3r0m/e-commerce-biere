@@ -49,14 +49,21 @@ class HomeController extends AbstractController
 
     /**
      *
-     * @Route("/flavor/{slug}", name="home_flavor")
+     * @Route("/flavor/{slug}", name="home_flavor", methods={"GET"})
      * @param string $slug
      * @param Request $request
      * @return Response
      */
-    public function showFlavor(string $slug, PaginatorInterface $paginator, Request $request)
+    public function showFlavor(Flavors $flavor,string $slug, PaginatorInterface $paginator, Request $request)
     {
-
+        $products = $this->getDoctrine()->getRepository(Products::class)->filterProductsByFlavors(
+			$flavor,
+			$request->query->get('minPrice'),
+			$request->query->get('maxPrice'),
+			$request->query->get('degree'),
+			$request->query->get('volume')
+        );
+        
         $flavor = $this->getDoctrine()->getRepository(Flavors::class)->findOneBy(['slug' => $slug]);
 
         $products = $paginator->paginate(
@@ -74,7 +81,6 @@ class HomeController extends AbstractController
     }
 
     /**
-     *
      * @Route("/categorie/{slug}", name="home_categorie", methods={"GET"})
      * @param string $slug
      * @param Request $request
@@ -83,7 +89,7 @@ class HomeController extends AbstractController
     public function showCategory(Categories $categorie, PaginatorInterface $paginator, Request $request)
     {
         
-        $products = $this->getDoctrine()->getRepository(Products::class)->filterProducts(
+        $products = $this->getDoctrine()->getRepository(Products::class)->filterProductsByCategories(
 			$categorie,
 			$request->query->get('minPrice'),
 			$request->query->get('maxPrice'),

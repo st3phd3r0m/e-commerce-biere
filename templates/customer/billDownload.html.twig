@@ -1,0 +1,111 @@
+{# {% extends 'base.html.twig' %} #}
+
+{% block title %}BierShop - Commande ref_{{ order.ref }}{% endblock %}
+
+{% block body %}
+
+    <main id="layoutSidenav_content">
+
+        <div class="container-fluid">
+
+                {# <a class="btn float-right bouton" title="Imprimer la facture" href="{{ path('customer_detailspdf') }}">Imprimer la facture</a>   #}
+        
+                <div class="card my-4 mx-auto">
+                    <div class="card-header">
+                        <h2>Cold Beer inc.</h2>
+                        Facture client
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+
+                            {# Début tableau #}
+                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                {# DEBUT THEAD #}
+                                <thead>
+                                    <tr>   
+                                        <th scope="col">Référence commande</th> 
+                                        <th scope="col">Destinataire</th> 
+                                        <th scope="col">Point de livraison</th>
+                                        <th scope="col">Paiement</th>
+                                        <th scope="col">Montant à payer</th>
+                                        <th scope="col">Date de la commande</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                {# FIN THEAD #}
+
+
+                                {# DEBUT TBODY #}
+                                <tbody>
+                                    <tr>   
+                                        <td>Commande ref_{{ order.ref }}</td>
+                                        <td>{{ app.user.firstname }} {{ app.user.lastname }}</td> 
+                                        <td>{{ order.deliveryPoint }}</td> 
+                                        <td>{{ order.payment }}</td>
+                                        <td>{{ order.amount }} &euro;</td>
+                                        <td>{{ order.createdAt | date('d.m.Y')  }}</td>
+                                        <td>{{ order.status }}</td>
+                                    </tr>
+                                </tbody>
+                                {# FIN TBODY #}
+                            </table>
+                        </div>
+
+                        <div class="table-responsive">
+
+                            {# Début tableau #}
+                            <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                                {# DEBUT THEAD #}
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ref produit</th>
+                                        <th scope="col">Nom du produit</th>
+                                        <th scope="col">Caractéristiques</th>
+                                        <th scope="col">Prix unitaire</th>
+                                        <th scope="col">Quantité</th>
+                                        <th scope="col">Montant</th>
+                                    </tr>
+                                </thead>
+                                {# FIN THEAD #}
+
+                                {# DEBUT TBODY #}
+                                <tbody>
+
+                                    {% for cart in order.carts %}
+                                        <tr>
+                                            <th scope="row">Ref_{{ cart.product.id }}</th>
+                                            <td>{{ cart.product.name }}</td>    
+                                            <td>
+                                                Bière {{ cart.product.category.name }},
+                                                {{ cart.product.flavor.name }},
+                                                {{ cart.product.degree }}&deg;,
+                                                {{ cart.product.volume.volume }}cl
+                                            </td>  
+                                            <td>{{ cart.product.price }} &euro;</td>
+                                            <td>{{ cart.quantity }}</td>
+                                            <td>{{ cart.ammount }} &euro;</td>
+                                        </tr>
+
+                                    {% endfor %}
+                                        <tr>
+                                            <th colspan="4"></th>
+                                            <td class="font-weight-bold">Total : </td>    
+                                            <td class="font-weight-bold">{{ order.amount }} &euro;</td>
+                                        </tr>
+
+                                </tbody>
+                                {# FIN TBODY #}
+                            </table>
+
+                        </div>
+                    </div>
+                </div>       
+        </div>
+    </main>
+
+   
+{% endblock %}
+
+
+
