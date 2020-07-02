@@ -72,6 +72,7 @@ h3 {
 .articleInCart {
     position: relative;
     right: 20px;
+    background-color:#2FB5F4;
 }
 /* Fin header */
 
@@ -227,6 +228,12 @@ main section {
 }
 
 /*Fin Page détails produits*/
+
+/*Page panier*/
+.rounded-circle{
+    background-color:#2FB5F4;
+}
+/*Fin Page panier*/
 
 /* footer */
 .footer-contact{
