@@ -78,6 +78,10 @@ h3 {
     right: 20px;
     background-color:#2FB5F4;
 }
+
+#divCustomerArea:hover{
+    font-weight: bold;
+}
 /* Fin header */
 
 /*Page Index*/
