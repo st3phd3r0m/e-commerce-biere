@@ -126,10 +126,15 @@ class ProductsRepository extends ServiceEntityRepository
 			->setParameter('maxVolume', $maxVolume);
 		}
 
-		$query->andWhere('p.category = :category')
+		$query->Where('p.category = :category')
 			->setParameter('category', $categorie)
 			->getQuery()
 		;
+
+		// $query->andWhere('p.flavor = :flavor')
+		// 	->setParameter('flavor', $flavor)
+		// 	->getQuery()
+		// ;
 
 		return $query;
 	}
