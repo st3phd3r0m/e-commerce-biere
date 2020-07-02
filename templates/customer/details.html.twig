@@ -8,7 +8,7 @@
 
         <div class="container-fluid">
         
-            <a class="btn btn-primary float-right" href="{{ path('home') }}">Continuer mes achats</a>            
+            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>            
 
             <h2 class="m-5">Vos informations personnelles</h2>
 
@@ -32,8 +32,8 @@
                         <p class="d-block px-3"><span class="font-weight-bold">Téléphone : </span> {{ app.user.phone }}</p>
                     </div>
 
-                    <a class="btn btn-primary float-left m-2" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
-                    <a class="btn btn-primary float-right m-2" href="{{ path('customer_purchase_summary') }}">Etape suivante</a>
+                    <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
+                    <a class="btn float-right m-2 bouton" href="{{ path('customer_purchase_summary') }}">Etape suivante</a>
                 </div>
             </div>        
 
