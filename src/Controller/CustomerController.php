@@ -205,4 +205,18 @@ class CustomerController extends AbstractController
             'order' => $order
         ]);
     }
+
+    /**
+     * @Route("/order/bill/{id}", name="customer_bill", methods={"GET","POST"})
+     * @param Request $request
+     * @param Orders $order
+     * @return Response
+     */
+    public function billDownload(Orders $order)
+    {
+        return $this->render('customer/billDownload.html.twig', [
+            'order' => $order
+        ]);
+    }
+
 }
