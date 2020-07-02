@@ -52,11 +52,15 @@ h3 {
 /* Fin Généralités */
 
 /* header */
+.logo{
+    width: 120px;
+}
 .navbar{
     height: 100px;
     background: url("../Css/images/Biere_mousse.jpg") center;
     background-size: cover;
     align-content: center;
+    padding: 4rem 1rem;
 }
 
 .cat{
@@ -133,6 +137,7 @@ h3 {
 .services {
     width: 80%;
     margin: auto;
+    margin-top: 20px;
 }
 
 /* Fin Services */
@@ -150,6 +155,17 @@ main section {
 }
 
 /* Fin Section En ce moment */
+
+.card_prod {	
+    transform: scale(1);
+    transition: .3s ease-in-out;
+}
+
+.card_prod:hover {	
+    transform: scale(1.1);
+    border: 1px #2FB5F4;
+    z-index: 1000;
+}
 
 /*Fin Page Index*/
 

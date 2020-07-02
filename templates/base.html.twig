@@ -18,7 +18,7 @@
         <header class="container-fluid">
             <nav class="row navbar align-content-center">
                 <div class="d-block px-5">
-                    <a class="navbar-brand" href="{{ path('home') }}">E-commerce</a>
+                    <a class="navbar-brand" title="Acceuil du site" href="{{ path('home') }}"><img class="logo" src="{{ asset('Css/images/logo.png') }}"></a>
                 </div>
 
                 {# Formulaire de recherche #}
@@ -30,26 +30,42 @@
                 </form> 
                 {# Fin formulaire de recherche #}
 
-                {# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
-                {% set nbrArticle = 0 %}
-                {% for cart in app.session.get('cart') %}
-                    {% set nbrArticle = nbrArticle + cart['quantity'] %}
-                {% endfor %}
-
+                {# Icone connexion#}
                 <div class="d-flex px-5">
                     <div class="d-block text-center mr-5">
-                        <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-		                    <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        </svg>
-                        <div>
+                        <div class="dropdown show">
                         {% if app.user %}
-                            Bonjour {{ app.user.firstname }}
-                            <a class="dropdown-item bouton" href="{{ path('app_customer_logout') }}">Déconnexion</a>
+                            <div data-toggle="dropdown">
+                                <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                </svg>
+                                <p>Bonjour {{ app.user.firstname }}</p>
+                            </div> 
+                            <div class="dropdown-menu">
+                                {% if is_granted("ROLE_ADMIN") %}
+                                    <a class="dropdown-item" href="{{ path('dashboard') }}" title="Espace Administrateur">Espace Administrateur</a>
+                                {% endif %}
+                                    <a class="dropdown-item" href="{{ path('customer_details') }}" title="Espace Client">Espace Client</a>
+                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>                            
+                            </div>
                         {% else %}
-                            <a href="{{ path('app_customer_login') }}" title="connexion">Connexion</a>
+                            <a href="{{ path('app_login') }}" title="connexion">
+                                <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                </svg>
+                                <p>Connexion</p> 
+                            </a>
                         {% endif %}
                         </div>
                     </div>
+                {# Fin Icone connexion #}
+
+                {# Icone panier #}
+                     {# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
+                    {% set nbrArticle = 0 %}
+                    {% for cart in app.session.get('cart') %}
+                    {% set nbrArticle = nbrArticle + cart['quantity'] %}
+                    {% endfor %}
 
                     {% if nbrArticle == 0 %}
                         {% set aTitle = 'Aucun article dans votre panier' %}
@@ -70,6 +86,7 @@
                             <p>Mon panier</p>                        
                         </a>
                     </div>
+                    {# Fin Icone panier #}
                 </div>
             </nav>
 
@@ -107,7 +124,8 @@
         <footer class="container-fluid mt-5">
             <div class="d-block">
                 <div class="row d-block text-center">
-                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool">
+                    <a href="https://solidarites-sante.gouv.fr/prevention-en-sante/addictions/article/alcool-cadre-legal#:~:text=L'ivresse%20publique%20sur%20la,code%20de%20la%20sant%C3%A9%20publique." title="Lien vers solidarites-sante.gouv.fr">
+                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool"></a>
                 </div>
                 <div class="row text-center footer-contact">
                     <div class="col">

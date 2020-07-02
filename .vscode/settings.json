@@ -1,0 +1,12 @@
+{
+    "beautify.language": {
+    "html": {
+
+    }
+    },
+    "beautify.config": "",
+    "emmet.includeLanguages": {
+        "twig": "html"
+    },
+    "editor.formatOnSave": true
+}

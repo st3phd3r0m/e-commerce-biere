@@ -13,7 +13,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern: ^/admin/
             anonymous: lazy
             provider: app_user_provider
             guard:
@@ -29,21 +28,6 @@ security:
                 path: '/'
                 domain: ''
         
-        front:
-            anonymous: lazy
-            provider: app_user_provider
-            guard:
-                authenticators:
-                    - App\Security\FrontAuthenticator
-            logout:
-                path: app_customer_logout
-                # where to redirect after logout
-                target: app_customer_login
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800 # 1 semaine en secondes
-                path: '/'
-                domain: ''
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
