@@ -54,7 +54,7 @@ class HomeController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function showFlavor(Flavors $flavor,string $slug, PaginatorInterface $paginator, Request $request)
+    public function showFlavor(Flavors $flavor, string $slug, PaginatorInterface $paginator, Request $request)
     {
         $products = $this->getDoctrine()->getRepository(Products::class)->filterProductsByFlavors(
 			$flavor,
