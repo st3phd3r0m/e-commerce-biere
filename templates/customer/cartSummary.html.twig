@@ -15,8 +15,8 @@
     <main id="layoutSidenav_content">
 
         <div class="container-fluid">
-
-            <a class="btn btn-primary float-right" href="{{ path('home') }}">Continuer mes achats</a>
+        
+            <a class="btn float-right bouton" href="{{ path('home') }}">Continuer mes achats</a>
             
             {% if app.session.get('cart') is empty %}
             <p class="m-5 font-weight-bold text-center">Votre panier est vide.</p>
@@ -74,11 +74,11 @@
                                         <td>{{ cart['product'].price }}&euro;</td>   
                                         <td class="w-25">
 
-                                            <a class="{{ (cart['quantity']==1)?'removeCartLine':'' }} rounded-circle text-white bg-success p-3 text-decoration-none font-weight-bold"  role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'decr' } ) }}" title="Enlever un produit">-</a>
+                                            <a class="{{ (cart['quantity']==1)?'removeCartLine':'' }} rounded-circle text-white p-3 text-decoration-none font-weight-bold"  role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'decr' } ) }}" title="Enlever un produit">-</a>
                                         
                                             <span class="p-3 font-weight-bold">{{ cart['quantity'] }}</span>
                                             
-                                            <a class="rounded-circle text-white bg-success p-3 text-decoration-none font-weight-bold" role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'incr' } ) }}" title="Ajouter un produit">+</a>
+                                            <a class="rounded-circle text-white p-3 text-decoration-none font-weight-bold" role="button" href="{{ path('visitor_cart_summary', { id: cart['product'].id, what: 'incr' } ) }}" title="Ajouter un produit">+</a>
                                         
                                         </td>   
                                         <td>{{ cart['product'].price * cart['quantity'] }}&euro;</td>
@@ -104,11 +104,11 @@
                                         <td>
                                             {% if app.user %}
 
-                                            <a class="btn btn-success float-right" href="{{ path('customer_details') }}">Valider votre panier</a>
+                                            <a class="btn  bouton" href="{{ path('customer_details') }}">Valider votre panier</a>
 
                                             {% else %}
 
-                                            <a class="btn btn-success float-right" href="{{ path('app_customer_login') }}">Valider votre panier</a>
+                                            <a class="btn  bouton" href="{{ path('app_customer_login') }}">Valider votre panier</a>
 
                                             {% endif %}
 
