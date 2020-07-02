@@ -8,7 +8,7 @@
 
    <main id="layoutSidenav_content">
 
-    <div id="cb" class="my-5 bg-white w-1/2 mx-auto rounded-lg p-6">
+        <div id="cb" class="my-5 bg-white w-1/2 mx-auto rounded-lg p-6">
             <div id="errors"></div>
             <input type="hidden" class="form-control mb-3" id="cardholder-name" value="{{ app.user.username }}" placeholder="Votre nom et prénom">
             <div id="card-elements"></div>
@@ -32,7 +32,7 @@ window.onload = () => {
     // Variables
     let stripe = Stripe('pk_test_51H02NpD7y6oTPe9NvLSYF5bUs6byXcjWEQHhYjhMKxegGDQma8k5glBZz7ECrBZfYYADelw94Aqn4qO92lNIYQqk00MlGYRpHy')
     let elements = stripe.elements()
-    let redirect = "/cart/payment/end"
+    let redirect = "/customer/store/transaction"
 
     // Objets de la page
     let cardHolderName = document.getElementById("cardholder-name")

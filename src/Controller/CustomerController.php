@@ -60,8 +60,7 @@ class CustomerController extends AbstractController
             'currency' => 'eur'
         ]);
 
-        return $this->redirectToRoute('store_transaction', ['stripe' => $intent]);
-        // return $this->render('customer/sendBill.html.twig', ['stripe' => $intent]);
+        return $this->render('customer/cartPayment.html.twig', ['stripe' => $intent]);
     }
 
     /**
@@ -115,18 +114,18 @@ class CustomerController extends AbstractController
         $entityManager->flush();
 
 
+        dd($cartSession);
+
         return $this->redirectToRoute('customer_send_bill');
 
     }
 
 
+    /**
+     * @Route("/send/bill", name="customer_send_bill")
+     */
     public function sendBill()
     {
-
-
-
-
-
 
         return $this->render('customer/send_bill.html.twig',[]);
     }
