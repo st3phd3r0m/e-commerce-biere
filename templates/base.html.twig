@@ -49,10 +49,10 @@
                             </div> 
                             <div class="dropdown-menu">
                                 {% if is_granted("ROLE_ADMIN") %}
-                                    <a class="dropdown-item" href="{{ path('dashboard') }}">Espace Administrateur</a>
+                                    <a class="dropdown-item" href="{{ path('dashboard') }}" title="espace administrateur">Espace Administrateur</a>
                                 {% endif %}
-                                    <a class="dropdown-item" href="{{ path('home') }}">Espace Client</a>
-                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}">Déconnexion</a>                            
+                                    <a class="dropdown-item" href="{{ path('home') }}" title="espace client">Espace Client</a>
+                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}" title="client">Déconnexion</a>                            
                             </div>
                         {% else %}
                             <a href="{{ path('app_login') }}" title="connexion">
