@@ -154,6 +154,17 @@ main section {
 
 /* Fin Section En ce moment */
 
+.card_prod {	
+    transform: scale(1);
+    transition: .3s ease-in-out;
+}
+
+.card_prod:hover {	
+    transform: scale(1.1);
+    border: 1px #2FB5F4;
+    z-index: 1000;
+}
+
 /*Fin Page Index*/
 
 /*Page détails produits*/

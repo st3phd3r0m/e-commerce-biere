@@ -223,4 +223,6 @@ class HomeController extends AbstractController
             'productsBestSales' => $productsBestSales
         ]);
     }
+
+    
 }

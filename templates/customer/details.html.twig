@@ -34,9 +34,13 @@
                         <p class="d-block px-3"><span class="font-weight-bold">Adresse email : </span> {{ app.user.email }}</p>
                         <p class="d-block px-3"><span class="font-weight-bold">Téléphone : </span> {{ app.user.phone }}</p>
                     </div>
-
+                    
+                    {% if app.session.get('cart') is empty %}
+                    <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
+                    {% else %}
                     <a class="btn float-left m-2 bouton" href="{{ path('customer_change_details', { 'id': app.user.id }) }}">Modifier</a>
                     <a class="btn float-right m-2 bouton" href="{{ path('customer_purchase_summary') }}">Etape suivante</a>
+                    {% endif %}
                 </div>
             </div>        
 
