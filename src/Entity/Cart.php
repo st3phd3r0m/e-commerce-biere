@@ -18,7 +18,7 @@ class Cart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="carts")
+     * @ORM\ManyToOne(targetEntity=Products::class, inversedBy="carts", cascade={"persist"})
      */
     private $product;
 

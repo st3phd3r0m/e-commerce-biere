@@ -37,8 +37,6 @@ class CustomerController extends AbstractController
         }
     }
 
-    
-
     /**
      * @Route("/payment", name="customer_cart_payment", methods={"GET"})
      */
@@ -74,19 +72,19 @@ class CustomerController extends AbstractController
     public function storeTransaction(Request $request, Users $user): Response
     {
 
+        $entityManager = $this->getDoctrine()->getManager();
+
         //On appel la variable globale de session
-        $cart = $this->session->get('cart');
+        $cartSession = $this->session->get('cart');
 
         //On calcule le montant total de la transaction
         $total=0;
-        foreach($cart as $line){
+        foreach($cartSession as $line){
             $total += $line['product']->getPrice() * $line['quantity'];
         }
 
         //Concaténation de l'adresse de l'utilisateur
         $address = $this->getUser()->getAdress().', '.$this->getUser()->getCity().', '.$this->getUser()->getPostalCode();
-
-        // dd($this->getUser()->getId());
 
         //Instanciation de Orders et "hydratation"
         $order = new Orders();
@@ -97,14 +95,30 @@ class CustomerController extends AbstractController
         $order->setAmount($total);
         $order->setDeliveryPoint($address);
         $order->setUser($user);
+
+        $entityManager->persist($order);
         
 
-        // $order->setStatus($faker->randomElement(['En attente de préparation','Préparer','Envoyer et terminer']));
-        // $order->setAmount($faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = 1000)); // Ex: 48.8932
-        // $order->setDeliveryPoint($faker->address());
-        // $order->setPayment($faker->randomElement(['Stripe','Carte bancaire']));
 
-        dd($order);
+        foreach($cartSession as $line){
+        
+            $amount = $line['product']->getPrice() * $line['quantity'];
+            //Instanciation de Cart et "hydratation"
+            $cart = new Cart;
+            $cart->setProduct($line['product']);
+            $cart->setQuantity($line['quantity']);
+            $cart->setUnitPrice($line['product']->getPrice());
+            $cart->setAmmount($amount);
+            $cart->setOrders($order);
+            $entityManager->persist($cart);
+
+            // dd($cart);
+
+        }
+        
+        $entityManager->flush();
+
+        dd($arrayCart);
 
         return $this->redirectToRoute('customer_cart_payment');
 
