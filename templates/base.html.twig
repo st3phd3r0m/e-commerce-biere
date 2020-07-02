@@ -49,10 +49,10 @@
                             </div> 
                             <div class="dropdown-menu">
                                 {% if is_granted("ROLE_ADMIN") %}
-                                    <a class="dropdown-item" href="{{ path('dashboard') }}">Espace Administrateur</a>
+                                    <a class="dropdown-item" href="{{ path('dashboard') }}" title="Espace Administrateur">Espace Administrateur</a>
                                 {% endif %}
-                                    <a class="dropdown-item" href="{{ path('customer_details') }}">Espace Client</a>
-                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}">Déconnexion</a>                            
+                                    <a class="dropdown-item" href="{{ path('customer_details') }}" title="Espace Client">Espace Client</a>
+                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>                            
                             </div>
                         {% else %}
                             <a href="{{ path('app_login') }}" title="connexion">
@@ -124,7 +124,8 @@
         <footer class="container-fluid mt-5">
             <div class="d-block">
                 <div class="row d-block text-center">
-                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool">
+                    <a href="https://solidarites-sante.gouv.fr/prevention-en-sante/addictions/article/alcool-cadre-legal#:~:text=L'ivresse%20publique%20sur%20la,code%20de%20la%20sant%C3%A9%20publique." title="Lien vers solidarites-sante.gouv.fr">
+                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool"></a>
                 </div>
                 <div class="row text-center footer-contact">
                     <div class="col">
