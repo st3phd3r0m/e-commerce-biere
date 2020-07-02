@@ -175,5 +175,4 @@ class CustomerController extends AbstractController
         return $this->render('customer/purchaseSummary.html.twig');
     }
 
-
 }
