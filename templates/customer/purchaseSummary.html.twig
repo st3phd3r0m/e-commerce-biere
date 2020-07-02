@@ -104,7 +104,7 @@
                             <p class="d-block px-3"><span class="font-weight-bold">Téléphone : </span> {{ app.user.phone }}</p>
                         </div>
 
-                        <a class="btn float-right m-2 bouton" href="{{ path('store_transaction', { 'id': app.user.id }) }}">Régler la commande</a>
+                        <a class="btn btn-primary float-right m-2" href="{{ path('customer_cart_payment') }}">Régler la commande</a>
                     </div>
                 </div>       
             

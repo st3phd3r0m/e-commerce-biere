@@ -60,16 +60,15 @@ class CustomerController extends AbstractController
             'currency' => 'eur'
         ]);
 
-        return $this->render('customer/sendBill.html.twig', ['stripe' => $intent]);
+        return $this->redirectToRoute('store_transaction', ['stripe' => $intent]);
+        // return $this->render('customer/sendBill.html.twig', ['stripe' => $intent]);
     }
 
     /**
-     * @Route("/store/transaction/{id}", name="store_transaction", methods={"GET","POST"})
-     * @param Request $request
-	 * @param Users $user
+     * @Route("/store/transaction", name="store_transaction", methods={"GET","POST"})
 	 * @return Response
      */
-    public function storeTransaction(Request $request, Users $user): Response
+    public function storeTransaction(): Response
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -89,40 +88,49 @@ class CustomerController extends AbstractController
         //Instanciation de Orders et "hydratation"
         $order = new Orders();
         $order->setCreatedAt(new \DateTime());
-        $order->setRef(md5(uniqid()));
+        $order->setRef( rand(00000000,99999999) );
         $order->setPayment('Carte bancaire');
         $order->setStatus('En attente de préparation');
         $order->setAmount($total);
         $order->setDeliveryPoint($address);
-        $order->setUser($user);
-
+        $order->setUser($this->getUser());
         $entityManager->persist($order);
-        
 
+        // dd($order);
 
         foreach($cartSession as $line){
         
             $amount = $line['product']->getPrice() * $line['quantity'];
             //Instanciation de Cart et "hydratation"
             $cart = new Cart;
-            $cart->setProduct($line['product']);
+            $cart->setProduct($entityManager->getRepository(Products::class)->find($line['product']->getId()));
             $cart->setQuantity($line['quantity']);
             $cart->setUnitPrice($line['product']->getPrice());
             $cart->setAmmount($amount);
             $cart->setOrders($order);
             $entityManager->persist($cart);
 
-            // dd($cart);
+        }  
 
-        }
-        
         $entityManager->flush();
 
-        dd($arrayCart);
 
-        return $this->redirectToRoute('customer_cart_payment');
+        return $this->redirectToRoute('customer_send_bill');
 
     }
+
+
+    public function sendBill()
+    {
+
+
+
+
+
+
+        return $this->render('customer/send_bill.html.twig',[]);
+    }
+
 
     /**
      * @Route("/details/change/{id}", name="customer_change_details", methods={"GET","POST"})
