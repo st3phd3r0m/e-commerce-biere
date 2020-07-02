@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "bluemmb/faker-picsum-photos-provider": "^1.0",
+        "dompdf/dompdf": "^0.8.5",
         "fzaninotto/faker": "^1.9",
         "knplabs/knp-paginator-bundle": "^5.2",
         "liip/imagine-bundle": "^2.3",

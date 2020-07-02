@@ -30,12 +30,6 @@
                 </form> 
                 {# Fin formulaire de recherche #}
 
-                {# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
-                {% set nbrArticle = 0 %}
-                {% for cart in app.session.get('cart') %}
-                    {% set nbrArticle = nbrArticle + cart['quantity'] %}
-                {% endfor %}
-
                 {# Icone connexion#}
                 <div class="d-flex px-5">
                     <div class="d-block text-center mr-5">
@@ -67,6 +61,12 @@
                 {# Fin Icone connexion #}
 
                 {# Icone panier #}
+                     {# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
+                    {% set nbrArticle = 0 %}
+                    {% for cart in app.session.get('cart') %}
+                    {% set nbrArticle = nbrArticle + cart['quantity'] %}
+                    {% endfor %}
+
                     {% if nbrArticle == 0 %}
                         {% set aTitle = 'Aucun article dans votre panier' %}
                     {% elseif nbrArticle == 1 %}

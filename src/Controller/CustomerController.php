@@ -21,6 +21,8 @@ use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/customer")
@@ -178,6 +180,35 @@ class CustomerController extends AbstractController
         return $this->render('customer/purchaseSummary.html.twig');
     }
 
+    /**
+     * @Route("/detailspdf", name="customer_detailspdf")
+     */
+    public function detailspdf()
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Roboto');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('customer/detailspdf.html.twig');
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
+        
 
     /**
      * @Route("/orders/record", name="customer_orders_record")
@@ -220,3 +251,4 @@ class CustomerController extends AbstractController
     }
 
 }
+
