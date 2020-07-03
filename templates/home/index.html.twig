@@ -4,23 +4,22 @@
 
 {% block body %}
 
-	<main
-		class="container-fluid">
-
-		<!-- Diaporama -->
-		<div class="slider">
-			<img
-			src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
-			<!--Flêches directionnelles-->
-			<i class="las la-chevron-circle-left"></i>
-			<i class="las la-chevron-circle-right"></i>
-			<!-- Ronds -->
-			<div id="circle" class="circle">
-				<i class="las la-dot-circle"></i>
-				<i class="las la-circle"></i>
-			</div>
+	<!-- Diaporama -->
+	<div class="slider">
+		<img
+		src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
+		<!--Flêches directionnelles-->
+		<i class="las la-chevron-circle-left"></i>
+		<i class="las la-chevron-circle-right"></i>
+		<!-- Ronds -->
+		<div id="circle" class="circle">
+			<i class="las la-dot-circle"></i>
+			<i class="las la-circle"></i>
 		</div>
-		<!-- Fin Diaporama -->
+	</div>
+	<!-- Fin Diaporama -->
+
+	<main class="container-fluid">
 
 		<!--Services-->
 		<div class="services">
