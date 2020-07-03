@@ -28,6 +28,7 @@ class VisitorCartController extends AbstractController
     }
 
     /**
+     * Ajoute un article dans le panier. Reçoit les informations du formulaire dans la page produit individuel
      * @Route("/add/product", name="visitor_cart_add", methods={"GET"})
      */
     public function addProduct(Request $request, ProductsRepository $productsRepository): Response
@@ -69,6 +70,7 @@ class VisitorCartController extends AbstractController
     }
 
     /**
+     * Supprime une ligne du panier
      * @Route("/summary/remove/{id}", name="visitor_cart_remove", methods={"GET"})
      */
     public function removeCartLine(int $id)
@@ -86,6 +88,7 @@ class VisitorCartController extends AbstractController
     }
 
     /**
+     * Affiche le panier, et se met à jour si l'utilisateur incrément ou décrémente une quantité de produits
      * @Route("/summary/{id}/{what}", name="visitor_cart_summary", methods={"GET"})
      */
     public function cartSummary(int $id = null, string $what = null)

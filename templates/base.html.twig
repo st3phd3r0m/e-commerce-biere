@@ -156,12 +156,14 @@
                     <div class="col">
                         <h4>Suivez-nous</h4>
                         <p><i class="lab la-facebook-f"></i><i class="lab la-youtube mx-3"></i><i class="lab la-twitter"></i></p>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        {# Formulaire de recherche #}
+                        <form action="{{ path('results') }}" method="GET" class="input-group mb-3">
+                            <input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn bouton" type="submit"><i class="lab la-telegram"></i></button>
+                                <button class="btn my-2 my-sm-0 bouton"><i class="las la-search"></i></button>
                             </div>
-                        </div>
+                        </form> 
+                        {# Fin formulaire de recherche #}
                     </div>
                 </div>
                 <div class="row justify-content-center copyright p-0">
