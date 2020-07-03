@@ -1,0 +1,109 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}BierShop - Commande ref_{{ order.ref }}{% endblock %}
+
+{% block body %}
+        <div class="position-relative">
+            <a class="btn float-right bouton mx-2" title="Continuer mes achats" href="{{ path('home') }}">Continuer mes achats</a>          
+
+            <a class="btn float-right bouton mx-2" title="Retour à l'historique des commandes" href="{{ path('customer_orders_record') }}">Retour à l'historique des commandes</a>      
+
+            <a class="btn float-right bouton mx-2" title="Télécharger votre facture" href="{{ path('customer_bill', {'id': order.id }) }}">Télécharger votre facture</a>          
+    
+        </div>
+
+
+    <main id="layoutSidenav_content">
+
+        <section class="w-50 mx-auto">
+
+            <h1 class="mt-5 pt-5 font-weight-bold">Nous vous remercions pour votre commande ! Voici votre facture.</h1>
+
+
+
+            <h2 class="my-5">Commande ref_{{ order.ref }}</h2>
+
+            <h2>Informations client</h2>
+            {# Début tableau #} 
+            <table class="table table-bordered text-center" id="dataTable" cellspacing="0">
+                {# DEBUT THEAD #}
+                <thead>
+                    <tr>   
+                        <th scope="col">Référence commande</th> 
+                        <th scope="col">Destinataire</th> 
+                        <th scope="col">Point de livraison</th>
+                        <th scope="col">Date de la commande</th>
+                    </tr>
+                </thead>
+                {# FIN THEAD #}
+
+
+                {# DEBUT TBODY #}
+                <tbody>
+                    <tr>   
+                        <td>ref_{{ order.ref }}</td>
+                        <td>{{ app.user.firstname }} {{ app.user.lastname }}</td> 
+                        <td>{{ order.deliveryPoint }}</td> 
+                        <td>{{ order.createdAt | date('d.m.Y')  }}</td>
+                    </tr>
+                </tbody>
+                {# FIN TBODY #}
+            </table>
+
+            <h2>Articles commandés</h2>
+            {# Début tableau #}
+            <table class="table table-bordered text-center" id="dataTable" cellspacing="0">
+                {# DEBUT THEAD #}
+                <thead>
+                    <tr>
+                        <th scope="col">Ref produit</th>
+                        <th scope="col">Nom du produit</th>
+                        <th scope="col">Caractéristiques</th>
+                        <th scope="col">Prix unitaire</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Montant</th>
+                    </tr>
+                </thead>
+                {# FIN THEAD #}
+
+                {# DEBUT TBODY #}
+                <tbody>
+
+                    {% for cart in order.carts %}
+                        <tr>
+                            <th scope="row">Ref_{{ cart.product.id }}</th>
+                            <td>{{ cart.product.name }}</td>    
+                            <td>
+                                Bière {{ cart.product.category.name }},
+                                {{ cart.product.flavor.name }},
+                                {{ cart.product.degree }}&deg;,
+                                {{ cart.product.volume.volume }}cl
+                            </td>  
+                            <td>{{ cart.product.price }} &euro;</td>
+                            <td>{{ cart.quantity }}</td>
+                            <td>{{ cart.ammount }} &euro;</td>
+                        </tr>
+
+                    {% endfor %}
+                        <tr>
+                            <th colspan="4"></th>
+                            <td>
+                                <span class="font-weight-bold">Montant total à régler : </span>
+                            </td>    
+                            <td><span class="font-weight-bold">{{ order.amount }} &euro;</span></td>
+                        </tr>
+
+                </tbody>
+                {# FIN TBODY #}
+            </table>        
+        
+        
+        </section>
+
+
+    </main>
+
+{% endblock %}
+
+

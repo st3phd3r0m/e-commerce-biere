@@ -115,22 +115,11 @@ class CustomerController extends AbstractController
 
         $entityManager->flush();
 
-
         //On vide le panier de la variable globale de session
         $cartSession = [];
         $this->session->set('cart', $cartSession);
 
-        return $this->redirectToRoute('customer_send_bill');
-    }
-
-
-    /**
-     * @Route("/send/bill", name="customer_send_bill")
-     */
-    public function sendBill()
-    {
-
-        return $this->render('customer/send_bill.html.twig', []);
+        return $this->redirectToRoute('thankforyourorder',['id'=> $order->getId() ]);
     }
 
 
@@ -181,36 +170,6 @@ class CustomerController extends AbstractController
     }
 
     /**
-     * @Route("/detailspdf", name="customer_detailspdf")
-     */
-    public function detailspdf()
-    {
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Roboto');
-        
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-        
-        // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('customer/billDownload.html.twig');
-        
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
-        
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        $dompdf->render();
-
-        // Output the generated PDF to Browser (inline view)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => false
-        ]);
-    }
-        
-
-    /**
      * @Route("/orders/record", name="customer_orders_record")
      */
     public function ordersRecord(OrdersRepository $ordersRepository)
@@ -246,20 +205,30 @@ class CustomerController extends AbstractController
     public function billDownload(Orders $order)
     {
 
-        // $this->render('customer/billDownload.html.twig', [
-        //     'order' => $order
-        // ]);
+        //Conversion préalable en base64 (wtf?) du fichier logo.png pour inclure l'image
+        //dans la facture en pdf
+        $publicDirectory = $this->getParameter('kernel.project_dir').'/public/';
+
+        $path = 'Css/images/logo.png';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
 
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
         
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
-        
+
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('customer/billDownload.html.twig', [
-            'order' => $order
+            'order' => $order,
+            'base64' => $base64
         ]);
+        //Concatenation pour inclure les chemins des fichiers css
+        $html .= '<link rel="stylesheet" href="'.$publicDirectory.'/Css/styles.css">';
+        $html .= '<link rel="stylesheet" href="'.$publicDirectory.'/Css/stylesPDF.css">';
         
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
@@ -272,11 +241,21 @@ class CustomerController extends AbstractController
 
         // Output the generated PDF to Browser (inline view)
         $dompdf->stream("mypdf.pdf", [
-            "Attachment" => false
+            "Attachment" => true
         ]);
 
-        
-        return $this->render('customer/billDownload.html.twig', [
+    }
+
+
+    /**
+     * @Route("/thank/for/your/order/{id}", name="thankforyourorder", methods={"GET","POST"})
+     * @param Request $request
+     * @param Orders $order
+     * @return Response
+     */
+    public function thankForYourOrder(Orders $order)
+    {
+        return $this->render('customer/thankForYourOrder.html.twig', [
             'order' => $order
         ]);
     }
