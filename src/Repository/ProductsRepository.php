@@ -216,8 +216,7 @@ class ProductsRepository extends ServiceEntityRepository
 
 		$query->andWhere('p.flavor = :flavor')
 			->setParameter('flavor', $flavor)
-			->getQuery()
-		;
+			->getQuery();
 
 		return $query;
 	}
