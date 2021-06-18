@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  php-fpm:
+    build: ./
+    ports:
+      - 5000:8000
+    volumes:
+      - ./:/var/www/html
+      - ./config/php.ini-development:/usr/local/etc/php/php.ini
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      ***REMOVED***
+      ***REMOVED***
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: mysql

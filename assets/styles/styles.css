@@ -1,0 +1,277 @@
+/* Généralités */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    color : #646464; 
+}
+
+a {
+    color : #646464; 
+}
+
+a:hover{
+    color: black;
+    text-decoration: none;
+}
+
+.bouton{
+    color: white;
+    background-color: #2FB5F4;
+}
+
+.bouton > a {
+    color: white;
+    text-decoration: none;
+}
+
+.bouton > a:hover{
+    color: black;
+}
+
+.titleBlue{
+    border-bottom: 5px solid #2FB5F4;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.titleBlue h2{
+    color : white;
+    background-color: #2FB5F4;
+    font-size: 16px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 0;
+}
+
+h3 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* Fin Généralités */
+
+/* header */
+.logo{
+    width: 120px;
+}
+.navbar{
+    height: 100px;
+    background: url("Biere_mousse.jpg") center;
+    background-size: cover;
+    align-content: center;
+    padding: 4rem 1rem;
+}
+
+.cat{
+    color: white;
+    background-color: #2FB5F4;
+}
+
+.liste {
+    display: flex;
+    list-style-type: none;
+}
+
+.articleInCart {
+    position: relative;
+    right: 20px;
+    background-color:#2FB5F4;
+}
+
+#divCustomerArea:hover{
+    font-weight: bold;
+}
+/* Fin header */
+
+/*Page Index*/
+/* Slider */
+
+.slider {
+    position: relative;
+}
+
+.slider img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+}
+
+/* Flèche gauche */
+.la-chevron-circle-left{
+    color:#2FB5F4;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 3em;
+}
+/* Flèche droite */
+.la-chevron-circle-right{
+    color: #2FB5F4;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 3em;
+}
+
+/* Ronds de sélection */
+.la-dot-circle, .la-circle{
+    color: #2FB5F4;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.circle {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); 
+    font-size: 1.5em;
+}
+
+/* Fin Slider */
+
+/* Services */
+.services {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+/* Fin Services */
+
+/* Main */
+main section {
+    width: 80%;
+    margin: auto;
+}
+
+
+/* Section En ce moment */
+.newProducts > div {
+   display: flex;
+}
+
+/* Fin Section En ce moment */
+
+/*Section Bestsellers*/
+
+.card_prod {	
+    transform: scale(1);
+    transition: .3s ease-in-out;
+}
+
+.card_prod:hover {	
+    transform: scale(1.1);
+    border: 1px #2FB5F4;
+    z-index: 1000;
+}
+
+/* Fin Section Bestsellers*/
+
+/*Fin Page Index*/
+
+/*Page détails produits*/
+.breadcrumb{
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.rating {
+    display: flex;
+}
+
+.rating__star{
+    padding-right: 3px;
+}
+
+.productName{
+    font-weight: bold;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.quantity{
+    margin-bottom: 15px;
+}
+
+.quantity--green {
+    color: rgb(5, 209, 5);
+}
+
+.quantity--orange {
+    color: orangered;
+}
+
+.quantity--red{
+    color: red;
+}
+
+.product_attribut{
+    margin-bottom: 5px;
+}
+
+.bloc {
+    display: inline-block;
+     background-color: white;
+     border: 1px solid #e6e6e6;
+     border-radius: 30px;
+     padding: 4px 12px;
+}
+
+.blocPrix {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.blocPrix p {
+    margin : 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.blocPrix .bouton {
+    border-radius: 30px;
+}
+
+/*Fin Page détails produits*/
+
+/*Page panier*/
+.rounded-circle{
+    background-color:#2FB5F4;
+}
+/*Fin Page panier*/
+
+/* footer */
+.footer-contact{
+    color: white;
+    background-color: #232323;
+}
+
+.footer-contact i{
+    font-size: 1.5em;
+}
+
+.copyright{
+    color: white;
+    background-color:#2FB5F4 ;
+}
+
+/* fin footer */
