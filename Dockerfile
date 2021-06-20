@@ -1,14 +1,15 @@
 FROM php:7.4-fpm-alpine
 
-# RUN sudo apt-get install -y zlib1g-dev libicu-dev g++ \
-# && docker-php-ext-configure intl \
-# && docker-php-ext-install intl
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd intl pdo_mysql
 
 # Apk install
 RUN apk --no-cache update && apk --no-cache add bash git
 
 # Install pdo
-RUN docker-php-ext-install pdo_mysql
+# RUN docker-php-ext-install pdo_mysql
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && php -r "unlink('composer-setup.php');" && mv composer.phar /usr/local/bin/composer

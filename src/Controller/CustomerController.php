@@ -119,7 +119,7 @@ class CustomerController extends AbstractController
         $cartSession = [];
         $this->session->set('cart', $cartSession);
 
-        return $this->redirectToRoute('thankforyourorder',['id'=> $order->getId() ]);
+        return $this->redirectToRoute('thankforyourorder', ['id' => $order->getId()]);
     }
 
 
@@ -139,11 +139,10 @@ class CustomerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            if ($cart = $this->session->get('cart')){
+            if ($cart = $this->session->get('cart')) {
                 return $this->redirectToRoute('customer_purchase_summary');
             }
             return $this->redirectToRoute('customer_details');
-            
         }
 
         return $this->render('customer/changeDetails.html.twig', [
@@ -207,9 +206,9 @@ class CustomerController extends AbstractController
 
         //Conversion préalable en base64 (wtf?) du fichier logo.png pour inclure l'image
         //dans la facture en pdf
-        $publicDirectory = $this->getParameter('kernel.project_dir').'/public/';
+        $publicDirectory = $this->getParameter('kernel.project_dir') . '/public/';
 
-        $path = 'Css/images/logo.png';
+        $path = 'images/miscellaneous/logo.png';
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
@@ -217,7 +216,7 @@ class CustomerController extends AbstractController
 
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
-        
+
         // Instantiate Dompdf with our options
         $dompdf = new Dompdf($pdfOptions);
 
@@ -227,12 +226,12 @@ class CustomerController extends AbstractController
             'base64' => $base64
         ]);
         //Concatenation pour inclure les chemins des fichiers css
-        $html .= '<link rel="stylesheet" href="'.$publicDirectory.'/Css/styles.css">';
-        $html .= '<link rel="stylesheet" href="'.$publicDirectory.'/Css/stylesPDF.css">';
-        
+        $html .= '<link rel="stylesheet" href="' . $publicDirectory . '/Css/styles.css">';
+        $html .= '<link rel="stylesheet" href="' . $publicDirectory . '/Css/stylesPDF.css">';
+
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
-        
+
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
         $dompdf->setPaper('A4', 'portrait');
 
@@ -243,7 +242,6 @@ class CustomerController extends AbstractController
         $dompdf->stream("mypdf.pdf", [
             "Attachment" => true
         ]);
-
     }
 
 
@@ -259,6 +257,4 @@ class CustomerController extends AbstractController
             'order' => $order
         ]);
     }
-
 }
-

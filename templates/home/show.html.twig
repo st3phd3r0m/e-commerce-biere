@@ -1,136 +1,167 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}
+	{{ product.name }}
+{% endblock %}
 
 {% block body %}
 
-    {% for message in app.flashes('success') %}
-    <div class="alert alert-success" role="alert">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('invalidQuantity') %}
-    <div class="alert alert-warning" role="alert">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('successCart') %}
-    <div class="alert alert-success" role="alert">{{ message }}</div>
-    {% endfor %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('invalidQuantity') %}
+		<div class="alert alert-warning" role="alert">{{ message }}</div>
+	{% endfor %}
+	{% for message in app.flashes('successCart') %}
+		<div class="alert alert-success" role="alert">{{ message }}</div>
+	{% endfor %}
 
 
+	<div class="container">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('home') }}">Home</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ path('home_categorie', { slug: product.category.slug }) }}">
+						{{ product.category.name }}</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+			</ol>
+		</nav>
+	</div>
 
-    <div class="container">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ path('home_categorie', { slug: product.category.slug }) }}"> {{ product.category.name }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
-            </ol>
-        </nav>
-    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				{% if product.image is not empty %}
+					<img class="w-100 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
+				{% endif %}
+			</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                {% if product.image is not empty %}
-                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
-                {% endif %}
-            </div>
+			<div class="col-6">
+				<div class="rating">
+					<div class="rating__star">☆</div>
+					<div class="rating__star">☆</div>
+					<div class="rating__star">☆</div>
+					<div class="rating__star">☆</div>
+					<div class="rating__star">☆</div>
+					<div class="rating__label">
+						0 notes clients</div>
+				</div>
+				<h1 class="productName">{{ product.name }}</h1>
 
-            <div class="col-6">
-                <div class="rating">
-                    <div class="rating__star">☆</div>
-                    <div class="rating__star">☆</div>
-                    <div class="rating__star">☆</div>
-                    <div class="rating__star">☆</div>
-                    <div class="rating__star">☆</div>
-                    <div class="rating__label">
-                    0 notes clients</div>
-                </div>
-                <h1 class="productName">{{ product.name }}</h1>
-
-                    <div class="product_attribut">Couleur : <span class="bloc">{{ product.category.name }}</span></div>
-                    <div class="product_attribut">Saveur : <span class="bloc">{{ product.flavor.name }}</span></div>
-                    <div class="product_attribut">Degré : <span class="bloc">{{ product.degree }}°</span></div>
-                    <div class="product_attribut">Contenance : <span class="bloc">{{ product.volume.volume }}cl</span></div>
+				<div class="product_attribut">Couleur :
+					<span class="bloc">{{ product.category.name }}</span>
+				</div>
+				<div class="product_attribut">Saveur :
+					<span class="bloc">{{ product.flavor.name }}</span>
+				</div>
+				<div class="product_attribut">Degré :
+					<span class="bloc">{{ product.degree }}°</span>
+				</div>
+				<div class="product_attribut">Contenance :
+					<span class="bloc">{{ product.volume.volume }}cl</span>
+				</div>
 
 
-                    {% if product.quantity > 10 %}
-                        <div class="quantity quantity--green">En stock !</div>
-                    {% elseif product.quantity > 0 %}
-                        <div class="quantity quantity--orange">Plus que {{ product.quantity }} en stock !</div>
-                    {% else %}
-                        <div class="quantity quantity--red">Produit indisponible pour le moment.</div>
-                    {% endif %}   
-                
-                    {% if product.quantity > 0 %}
+				{% if product.quantity > 10 %}
+					<div class="quantity quantity--green">En stock !</div>
+				{% elseif product.quantity > 0 %}
+					<div class="quantity quantity--orange">Plus que
+						{{ product.quantity }}
+						en stock !</div>
+				{% else %}
+					<div class="quantity quantity--red">Produit indisponible pour le moment.</div>
+				{% endif %}
 
-                        <div class ="row blocPrix">
-                            <p class="col-6"> {{ product.price }} &euro;</p> 
-                            <div class="col-6">
-                                {# <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button> #}
+				{% if product.quantity > 0 %}
 
-                                <form action="{{ path('visitor_cart_add') }}" method="GET">
-                                    <input type="number" name="quantity" class="form-control mb-3 w-50 mx-auto" min="1" max="{{ product.quantity }}" value='1'>
-                                    <input type="hidden" name="product_id" value="{{ product.id }}" class="form-control">
-                                    <input type="hidden" name="slug" value="{{ product.slug }}" class="form-control">
-                                    <button class="btn my-2 my-sm-0 bouton mt-3">Ajouter au panier</button>
-                                </form> 
+					<div class="row blocPrix">
+						<p class="col-6">
+							{{ product.price }}
+							&euro;</p>
+						<div
+							class="col-6">
+							{# <button class="btn my-2 my-sm-0 bouton" type="submit">Ajouter au panier</button> #}
 
-                            </div>
-                        </div>
+							<form action="{{ path('visitor_cart_add') }}" method="GET">
+								<input type="number" name="quantity" class="form-control mb-3 w-50 mx-auto" min="1" max="{{ product.quantity }}" value='1'>
+								<input type="hidden" name="product_id" value="{{ product.id }}" class="form-control">
+								<input type="hidden" name="slug" value="{{ product.slug }}" class="form-control">
+								<button class="btn my-2 my-sm-0 bouton mt-3">Ajouter au panier</button>
+							</form>
 
-                        <div>Livraison : Livraison possible dans toute la France.</div>
-                        <div>
-                            Paiement : <img class="w-50 p-3" src="{{ asset('Css/images/logo-stripe-payment.png')}}" alt="Logo Stripe">
-                        </div>                    
+						</div>
+					</div>
 
-                    {% endif %} 
+					<div>Livraison : Livraison possible dans toute la France.</div>
+					<div>
+						Paiement :
+						<img class="w-50 p-3" src="{{ asset('images/miscellaneous/logo-stripe-payment.png')}}" alt="Logo Stripe">
+					</div>
 
-            </div>
-        </div>
-    </div>
+				{% endif %}
 
-    <div class="container">
-        <div class="titleBlue"><h2>Description</h2></div>
-        <p>{{ product.description }}</p>
-            {# Possibilité d'ajouter une image secondaire ?
-            {% if product.secondary_image is not empty %}
-                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.secondary_image ) }}" alt="{{ product.name }}">
-            {% endif %}#}
-    </div>
+			</div>
+		</div>
+	</div>
 
-    <div class="container">
-        <div class="titleBlue"><h2>Avis</h2></div>
-        {% for comment in product.comments|sort((a, b) => a.createdAt > b.createdAt) %}
-            <div>
-                <p class="font-italic">Avis posté par {{ comment.user.firstname }} {{ comment.user.lastname }} le {{ comment.createdAt | date('d.m.Y') }}</p>
-                <p class="p-2">{{ comment.comment }}</p> 
-            </div>
-            <hr>
-         {% endfor %}
+	<div class="container">
+		<div class="titleBlue">
+			<h2>Description</h2>
+		</div>
+		<p>{{ product.description }}</p>
+		{# Possibilité d'ajouter une image secondaire ?
+		            {% if product.secondary_image is not empty %}
+		                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.secondary_image ) }}" alt="{{ product.name }}">
+		            {% endif %}#}
+	</div>
 
-        <h3>Postez votre avis</h3>
-        {# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
-        {% if app.user %}
-            <p class="font-weight-bold font-italic pl-5 pt-5">Bonjour {{ app.user.firstname }},</p>
+	<div class="container">
+		<div class="titleBlue">
+			<h2>Avis</h2>
+		</div>
+		{% for comment in product.comments|sort((a, b) => a.createdAt > b.createdAt) %}
+			<div>
+				<p class="font-italic">Avis posté par
+					{{ comment.user.firstname }}
+					{{ comment.user.lastname }}
+					le
+					{{ comment.createdAt | date('d.m.Y') }}</p>
+				<p class="p-2">{{ comment.comment }}</p>
+			</div>
+			<hr>
+		{% endfor %}
 
-            {% if formComment is defined %}
-                {{ form(formComment) }}
-            {% else %}
-                <p class="font-weight-bold font-italic pl-5 pb-5">n'ayant pas acheté ce produit, vous ne pouvez pas le commenter.</p>
-            {% endif %}    
+		<h3>Postez votre avis</h3>
+		{# Si l'utilisateur est connecté et qu'il a acheté le produit on lui offre la possibilité de commenter #}
+		{% if app.user %}
+			<p class="font-weight-bold font-italic pl-5 pt-5">Bonjour
+				{{ app.user.firstname }},</p>
 
-        {% else %}
-            {# Sinon, on l'invite à se connecter ou à s'incrire #}
-            {# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
-        {% endif %}
-    </div>
+			{% if formComment is defined %}
+				{{ form(formComment) }}
+					{% else %}
+						<p class="font-weight-bold font-italic pl-5 pb-5">n'ayant pas acheté ce produit, vous ne pouvez pas le commenter.</p>
+				{% endif %}
 
-    <div class="container">
-        <div class="titleBlue"><h2>Nos recommandations</h2></div>
-            <div class="row">
-                {% for product in productsBestSales %} 
-                    {% set col = 3 %}
-                    {{ include('home/_listProducts.html.twig') }}
-                {% endfor %}
-            </div>
-    </div>
-{% endblock %}
+				{% else %}
+			{# Sinon, on l'invite à se connecter ou à s'incrire #}
+				{# <p><a href="{{ path('app_login') }}" title="Se connecter">Connectez-vous</a> ou <a href="{{ path('app_register') }}" title="S'inscrire">inscrivez-vous</a> pour poster un commentaire.</p> #}
+			{% endif %}
+		</div>
+
+		<div class="container">
+			<div class="titleBlue">
+				<h2>Nos recommandations</h2>
+			</div>
+			<div class="row">
+				{% for product in productsBestSales %}
+					{% set col = 3 %}
+					{{ include('home/_listProducts.html.twig') }}
+				{% endfor %}
+			</div>
+		</div>
+	{% endblock %}

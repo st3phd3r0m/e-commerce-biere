@@ -1,9 +1,15 @@
 // Variables globales
 let compteur = 0; // Compteur qui servira d'index pour le tableau images
 let intervalle; // Variable destinée à stocker l'intervalle du diaporama
+let images;
 
 // On s'assure que le document est chargé
 window.onload = () => {
+
+    let imgElement =document.querySelector('.slider>img[data-images]');
+
+    images = JSON.parse( imgElement.dataset.images);
+
     // On exécute changeImage toutes les 5 secondes
     intervalle = setInterval(changeImage, 5000);
 

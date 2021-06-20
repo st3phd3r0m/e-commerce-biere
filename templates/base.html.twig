@@ -1,183 +1,195 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <!-- CSS only -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
-        <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
-        <link rel="stylesheet" href="{{ asset('Css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ asset('Css/styles.css') }}">
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<!-- CSS only -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+		<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+		{{ encore_entry_link_tags('app') }}
+		{% block stylesheets %}{% endblock %}
+	</head>
+	<body>
 
-        {# DEBUT HEADER #}
-        <header class="container-fluid">
-            <nav class="row navbar align-content-center">
-                <div class="d-block px-5">
-                    <a class="navbar-brand" title="Acceuil du site" href="{{ path('home') }}"><img class="logo" src="{{ asset('Css/images/logo.png') }}"></a>
-                </div>
+		{# DEBUT HEADER #}
+		<header class="container-fluid">
+			<nav class="row navbar align-content-center">
+				<div class="d-block px-5">
+					<a class="navbar-brand" title="Acceuil du site" href="{{ path('home') }}"><img class="logo" src="{{ asset('images/miscellaneous/logo.png') }}"></a>
+				</div>
 
-                {# Formulaire de recherche #}
-                <form action="{{ path('results') }}" method="GET" class="w-50 input-group mb-3">
-                    <input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn my-2 my-sm-0 bouton"><i class="las la-search"></i></button>
-                    </div>
-                </form> 
-                {# Fin formulaire de recherche #}
+				{# Formulaire de recherche #}
+				<form action="{{ path('results') }}" method="GET" class="w-50 input-group mb-3">
+					<input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+						<button class="btn my-2 my-sm-0 bouton">
+							<i class="las la-search"></i>
+						</button>
+					</div>
+				</form>
+				{# Fin formulaire de recherche #}
 
-                {# Icone connexion#}
-                <div class="d-flex px-5">
-                    <div class="d-block text-center mr-5">
-                        <div class="dropdown show">
-                        {% if app.user %}
-                            <div data-toggle="dropdown" title="Espace client" id="divCustomerArea">
-                                <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-		                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                </svg>
-                                <p>Bonjour {{ app.user.firstname }}</p>
-                            </div> 
-                            <div class="dropdown-menu">
-                                {% if is_granted("ROLE_ADMIN") %}
-                                    <a class="dropdown-item" href="{{ path('dashboard') }}" title="Espace Administrateur">Espace Administrateur</a>
-                                {% endif %}
-                                    <a class="dropdown-item" href="{{ path('customer_details') }}" title="Espace Client">Espace Client</a>
-                                    <a class="dropdown-item bouton" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>                            
-                            </div>
-                        {% else %}
-                            <a href="{{ path('app_login') }}" title="Connexion">
-                                <svg class="bi bi-person" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-		                        <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                                </svg>
-                                <p>Connexion</p> 
-                            </a>
-                        {% endif %}
-                        </div>
-                    </div>
-                {# Fin Icone connexion #}
+				{# Icone connexion#}
+				<div class="d-flex px-5">
+					<div class="d-block text-center mr-5">
+						<div class="dropdown show">
+							{% if app.user %}
+								<div data-toggle="dropdown" title="Espace client" id="divCustomerArea">
+									<svg class="bi bi-person" width="3em" height="3em" viewbox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+									</svg>
+									<p>Bonjour
+										{{ app.user.firstname }}</p>
+								</div>
+								<div class="dropdown-menu">
+									{% if is_granted("ROLE_ADMIN") %}
+										<a class="dropdown-item" href="{{ path('dashboard') }}" title="Espace Administrateur">Espace Administrateur</a>
+									{% endif %}
+									<a class="dropdown-item" href="{{ path('customer_details') }}" title="Espace Client">Espace Client</a>
+									<a class="dropdown-item bouton" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
+								</div>
+							{% else %}
+								<a href="{{ path('app_login') }}" title="Connexion">
+									<svg class="bi bi-person" width="3em" height="3em" viewbox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+									</svg>
+									<p>Connexion</p>
+								</a>
+							{% endif %}
+						</div>
+					</div>
+					{# Fin Icone connexion #}
 
-                {# Icone panier #}
-                     {# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
-                    {% set nbrArticle = 0 %}
-                    {% for cart in app.session.get('cart') %}
-                    {% set nbrArticle = nbrArticle + cart['quantity'] %}
-                    {% endfor %}
+					{# Icone panier #}
+					{# Calcul du nombre d'articles dans le panier (appel de la variable session) #}
+					{% set nbrArticle = 0 %}
+						{% for cart in app.session.get('cart') %}
+					{% set nbrArticle = nbrArticle + cart['quantity'] %}
+					{% endfor %}
 
-                    {% if nbrArticle == 0 %}
-                        {% set aTitle = 'Aucun article dans votre panier' %}
-                    {% elseif nbrArticle == 1 %}
-                        {% set aTitle = 'Vous avez un article dans votre panier' %}
-                    {% else %}    
-                        {% set aTitle = 'Vous avez ' ~ nbrArticle ~ ' articles dans votre panier' %}
-                    {% endif %}
+						{% if nbrArticle == 0 %}
+						{% set aTitle = 'Aucun article dans votre panier' %}
+					{% elseif nbrArticle == 1 %}
+						{% set aTitle = 'Vous avez un article dans votre panier' %}
+					{% else %}
+						{% set aTitle = 'Vous avez ' ~ nbrArticle ~ ' articles dans votre panier' %}
+					{% endif %}
 
-                    <div class="d-block text-center">
-                        <a href="{{ path('visitor_cart_summary') }}" title="{{ aTitle }}" class="text-decoration-none">
-                            <svg class="bi bi-cart4" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-                            </svg>
-                            {% if nbrArticle > 0 %}
-                                <span class="articleInCart rounded-circle text-white p-2"> {{ nbrArticle }}</span>  
-                            {% endif %}
-                            <p>Mon panier</p>                        
-                        </a>
-                    </div>
-                    {# Fin Icone panier #}
-                </div>
-            </nav>
-
-
-            <div class="row">
-                <div class="col-3">
-                    <p class="ml-5 mb-0 py-2 text-center cat">Nos catégories de bière et saveurs :</p>
-                </div>
-                <div class="col-9 p-0">
-
-                    <ul class="liste m-auto p-0">
-                        {% for category in allCategories() %} 
-                            <li>
-                                <a class="nav-link" href="{{ path('home_categorie', { slug: category.slug }) }}">{{ category.name }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                        {% for flavor in allFlavors() %} 
-                            <li>
-                                <a class="nav-link" href="{{ path('home_flavor', { slug: flavor.slug }) }}">{{ flavor.name }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-
-                </div>
-            </div>
-        </header>
-        {# FIN HEADER #}
-
-    
-        {% block body %}{% endblock %}
-
-        {# DEBUT FOOTER #}
-        <footer class="container-fluid mt-5">
-            <div class="d-block">
-                <div class="row d-block text-center pb-3">
-                    <a href="https://solidarites-sante.gouv.fr/prevention-en-sante/addictions/article/alcool-cadre-legal#:~:text=L'ivresse%20publique%20sur%20la,code%20de%20la%20sant%C3%A9%20publique." title="Lien vers solidarites-sante.gouv.fr">
-                    <img src="{{asset('Css/images/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool"></a>
-                </div>
-                <div class="row text-center footer-contact p-3">
-                    <div class="col">
-                        <h4>Nous contacter</h4>
-                        <p>(+33) 8 36 65 65 65</p>
-                        <p>biere@e-commerce.com</p>
-                        <p>Saone et Loire</p>
-                    </div>
-                    <div class="col">
-                        <h4>Conditions</h4>
-                        <p>Conditions générales de ventes</p>
-                        <p>Conditions de livraison</p>
-                        <p>Conditions des offres</p>
-                        <p>Mentions légales</p>
-                        <p>Politique de confidentialité</p>
-                    </div>
-                    <div class="col">
-                        <h4>A propos</h4>
-                        <p>Qui sommes-nous</p>
-                        <p>L'équipe</p>
-                        <p>Recrutement</p>
-                    </div>
-                    <div class="col">
-                        <h4>Service client</h4>
-                        <p>Aide et contact</p>
-                        <p>Parrainage</p>
-                    </div>
-                    <div class="col">
-                        <h4>Suivez-nous</h4>
-                        <p><i class="lab la-facebook-f"></i><i class="lab la-youtube mx-3"></i><i class="lab la-twitter"></i></p>
-                        {# Formulaire de recherche #}
-                        <form action="{{ path('results') }}" method="GET" class="input-group mb-3">
-                            <input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn my-2 my-sm-0 bouton"><i class="las la-search"></i></button>
-                            </div>
-                        </form> 
-                        {# Fin formulaire de recherche #}
-                    </div>
-                </div>
-                <div class="row justify-content-center copyright p-0">
-                    <p class="m-0 py-2">Copyright © 2020 Lauralee, Daria, Stéphane, David</p>
-                </div>
-            </div>
-        </footer>
-        {# FIN FOOTER  #}
+					<div class="d-block text-center">
+						<a href="{{ path('visitor_cart_summary') }}" title="{{ aTitle }}" class="text-decoration-none">
+							<svg class="bi bi-cart4" width="3em" height="3em" viewbox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+							</svg>
+							{% if nbrArticle > 0 %}
+								<span class="articleInCart rounded-circle text-white p-2">
+									{{ nbrArticle }}</span>
+							{% endif %}
+							<p>Mon panier</p>
+						</a>
+					</div>
+					{# Fin Icone panier #}
+				</div>
+			</nav>
 
 
-         <!-- JS, Popper.js, and jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-        {% block javascripts %}{% endblock %}
-    </body>
+			<nav class="row">
+				<div class="col-3">
+					<p class="ml-5 mb-0 py-2 text-center cat">Nos catégories de bière et saveurs :</p>
+				</div>
+				<div class="col-9 p-0">
+
+					<ul class="liste m-auto p-0">
+						{% for category in allCategories() %}
+							<li>
+								<a class="nav-link" href="{{ path('home_categorie', { slug: category.slug }) }}">{{ category.name }}
+								</a>
+							</li>
+						{% endfor %}
+						{% for flavor in allFlavors() %}
+							<li>
+								<a class="nav-link" href="{{ path('home_flavor', { slug: flavor.slug }) }}">{{ flavor.name }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+
+				</div>
+			</nav>
+		</header>
+		{# FIN HEADER #}
+
+
+		{% block body %}{% endblock %}
+
+		{# DEBUT FOOTER #}
+		<footer class="container-fluid mt-5">
+			<div class="d-block">
+				<div class="row d-block text-center pb-3">
+					<a href="https://solidarites-sante.gouv.fr/prevention-en-sante/addictions/article/alcool-cadre-legal#:~:text=L'ivresse%20publique%20sur%20la,code%20de%20la%20sant%C3%A9%20publique." title="Lien vers solidarites-sante.gouv.fr">
+						<img src="{{asset('images/miscellaneous/bandeau_informatif_alcool_mineurs.png')}}" alt="Législation vente d'alcool"></a>
+				</div>
+				<div class="row text-center footer-contact p-3">
+					<div class="col">
+						<h4>Nous contacter</h4>
+						<p>(+33) 8 36 65 65 65</p>
+						<p>biere@e-commerce.com</p>
+						<p>Saone et Loire</p>
+					</div>
+					<div class="col">
+						<h4>Conditions</h4>
+						<p>Conditions générales de ventes</p>
+						<p>Conditions de livraison</p>
+						<p>Conditions des offres</p>
+						<p>Mentions légales</p>
+						<p>Politique de confidentialité</p>
+					</div>
+					<div class="col">
+						<h4>A propos</h4>
+						<p>Qui sommes-nous</p>
+						<p>L'équipe</p>
+						<p>Recrutement</p>
+					</div>
+					<div class="col">
+						<h4>Service client</h4>
+						<p>Aide et contact</p>
+						<p>Parrainage</p>
+					</div>
+					<div class="col">
+						<h4>Suivez-nous</h4>
+						<p>
+							<i class="lab la-facebook-f"></i>
+							<i class="lab la-youtube mx-3"></i>
+							<i class="lab la-twitter"></i>
+						</p>
+						{# Formulaire de recherche #}
+						<form action="{{ path('results') }}" method="GET" class="input-group mb-3">
+							<input type="search" name="search" class="form-control" placeholder="Rechercher" aria-label="Recipient's username" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn my-2 my-sm-0 bouton">
+									<i class="las la-search"></i>
+								</button>
+							</div>
+						</form>
+						{# Fin formulaire de recherche #}
+					</div>
+				</div>
+				<div class="row justify-content-center copyright p-0">
+					<p class="m-0 py-2">Copyright © 2020 Lauralee, Daria, Stéphane, David</p>
+				</div>
+			</div>
+		</footer>
+		{# FIN FOOTER  #}
+
+
+		<!-- JS, Popper.js, and jQuery -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+		{% block javascripts %}{% endblock %}
+	</body>
 </html>

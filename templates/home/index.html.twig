@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cold Beer - Accueil{% endblock %}
+{% block title %}Cold Beer - Accueil
+{% endblock %}
 
 {% block body %}
 
 	<!-- Diaporama -->
 	<div class="slider">
+		{% set images = [
+			asset('images/miscellaneous/Coucher_de_soleil.jpg'),
+			asset('images/miscellaneous/Table_presentation_biere.jpg'),
+			asset('images/miscellaneous/Sante_table.jpg')
+		] %}
 		<img
-		src="{{asset('Css/images/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil">
+		src="{{asset('images/miscellaneous/Coucher_de_soleil.jpg')}}" alt="Bieres au coucher de soleil" data-images="{{ images|json_encode }}">
 		<!--Flêches directionnelles-->
 		<i class="las la-chevron-circle-left"></i>
 		<i class="las la-chevron-circle-right"></i>
@@ -19,11 +25,12 @@
 	</div>
 	<!-- Fin Diaporama -->
 
-	<main class="container-fluid">
+	<main
+		class="container-fluid">
 
 		<!--Services-->
 		<div class="services">
-			<img class="img-fluid" src="{{asset('Css/images/Services.png')}}" alt="Services">
+			<img class="img-fluid" src="{{asset('images/miscellaneous/Services.png')}}" alt="Services">
 		</div>
 		<!--Fin Services-->
 
@@ -37,13 +44,14 @@
 			</div>
 			<div class="row">
 				<div class="col-6">
-					<a href="https://brooklynbrewery.com/" title="lien vers brooklynbrewery.com"><img class="w-100 h-100 " style="object-fit: cover" src="{{asset('Css/images/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn"></a>
+					<a href="https://brooklynbrewery.com/" title="lien vers brooklynbrewery.com"><img class="w-100 h-100 " style="object-fit: cover" src="{{asset('images/miscellaneous/Nouveau_biere_brooklyn.jpg')}}" alt="Nouveauté bière brooklyn"></a>
 				</div>
 				<div class="col-6">
 					<div class="row justify-content-center">
-						<a class="w-100" href="https://www.grimbergenbeer.com/fr-ch/" title="lien vers grimbergen.com"><img class="img-fluid w-100" style="object-fit: cover; max-height: 175px" src="{{asset('Css/images/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></a>
+						<a class="w-100" href="https://www.grimbergenbeer.com/fr-ch/" title="lien vers grimbergen.com"><img class="img-fluid w-100" style="object-fit: cover; max-height: 175px" src="{{asset('images/miscellaneous/Slider_Grimbergen.jpg')}}" alt="Pub Grimbergen"></a>
 					</div>
-					<div class="row">
+					<div
+						class="row">
 						<!--Sélection nouveauté produits-->
 						{% for product in productsNew %}
 							{% set col = 4 %}
@@ -95,8 +103,5 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script>
-		let images = ['{{ asset('Css/images/Coucher_de_soleil.jpg') }}', '{{ asset('Css/images/Table_presentation_biere.jpg') }}', '{{ asset('Css/images/Sante_table.jpg') }}'];
-	</script>
-	<script src="{{ asset('js/carousel.js') }}"></script>
+	{{ encore_entry_script_tags('carousel') }}
 {% endblock %}
