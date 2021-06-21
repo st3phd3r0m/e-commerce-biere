@@ -25,6 +25,7 @@ Encore
     .addEntry('carousel', './assets/js/carousel.js')
     .addEntry('confirmCartLineDeletion', './assets/js/confirmCartLineDeletion.js')
     .addEntry('admin', './assets/appAdmin.js')
+    .addEntry('cardPayment', './assets/js/cardpayment.js')
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
