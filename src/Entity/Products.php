@@ -293,7 +293,7 @@ class Products
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updated_at = new \DateTimeImmutable();
         }
     }
 

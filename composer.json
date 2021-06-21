@@ -44,8 +44,9 @@
         "vich/uploader-bundle": "^1.14"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "phpstan/phpstan": "^0.12.90",
+        "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/test-pack": "*"
