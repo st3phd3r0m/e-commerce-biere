@@ -4,7 +4,7 @@
 {% block body %}
 
 	<div class="d-block px-5">
-		<a class="navbar-brand" href="{{ path('home') }}" title="retour à l'accueil"><img class="logo" src="{{ asset('images/miscellaneous/logo.png') }}"></a>
+		<a class="navbar-brand" href="{{ path('home') }}" title="retour à l'accueil"><img class="logo" src="{{ asset('images/miscellaneous/logo.png') | imagine_filter('miniatures') }}"></a>
 	</div>
 	<main id="layoutSidenav_content">
 

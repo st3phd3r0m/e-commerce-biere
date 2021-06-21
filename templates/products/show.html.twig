@@ -1,94 +1,98 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Détail de l'article #{{ product.id }} {% endblock %}
+{% block title %}Détail de l'article #{{ product.id }}
+{% endblock %}
 
 {% block body %}
 
-<div class="p-5">
+	<div
+		class="p-5">
 
-    {# DEBUT DU MAIN #}
-    <main id="layoutSidenav_content">
+		{# DEBUT DU MAIN #}
+		<main id="layoutSidenav_content">
 
-        <div class="container-fluid">
-        
-            <ul class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Produits</li>
-            </ul>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-beer"></i>
-                    Détail du produit
-                </div>
-                <div class="card-body">
+			<div class="container-fluid">
 
-                    <table class="table text-center">
-                        <tbody>
-                            <tr>
-                                <th>#</th>
-                                <td>{{ product.id }}</td>
-                            </tr>
-                            <tr>
-                                <th>Nom du produit</th>
-                                <td>{{ product.name }}</td>
-                            </tr>  
-                            <tr>
-                                <th>Produit créé le</th>
-                                <td>{{ product.createdAt | date('d.m.Y') }}</td>
-                            </tr>
-                            <tr>
-                                <th>Produit mis à jour le</th>
-                                <td>{{ product.updatedAt | date('d.m.Y') }}</td>
-                            </tr>
-                            <tr>
-                                <th>Illustration</th>
-                                <td>
-                                    <img class="d-block w-50 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Description</th>
-                                <td>{{ product.description }}</td>
-                            </tr>
+				<ul class="breadcrumb mb-4">
+					<li class="breadcrumb-item">
+						<a href="{{ path('dashboard') }}">Dashboard</a>
+					</li>
+					<li class="breadcrumb-item active">Produits</li>
+				</ul>
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-beer"></i>
+						Détail du produit
+					</div>
+					<div class="card-body">
 
-                            <tr>
-                                <th>Catégorie</th>
-                                <td>{{ product.category.name }}</td>
-                            </tr>
-                                        <tr>
-                                <th>Saveur</th>
-                                <td>{{ product.flavor.name }}</td>
-                            </tr>
-                                        <tr>
-                                <th>Volume</th>
-                                <td>{{ product.volume.volume }}cl</td>
-                            </tr>
+						<table class="table text-center">
+							<tbody>
+								<tr>
+									<th>#</th>
+									<td>{{ product.id }}</td>
+								</tr>
+								<tr>
+									<th>Nom du produit</th>
+									<td>{{ product.name }}</td>
+								</tr>
+								<tr>
+									<th>Produit créé le</th>
+									<td>{{ product.createdAt | date('d.m.Y') }}</td>
+								</tr>
+								<tr>
+									<th>Produit mis à jour le</th>
+									<td>{{ product.updatedAt | date('d.m.Y') }}</td>
+								</tr>
+								<tr>
+									<th>Illustration</th>
+									<td>
+										<img class="d-block w-50 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
+									</td>
+								</tr>
+								<tr>
+									<th>Description</th>
+									<td>{{ product.description }}</td>
+								</tr>
 
-                            <tr>
-                                <th>Degré d'alcool</th>
-                                <td>{{ product.degree }}&deg;</td>
-                            </tr>
-                            <tr>
-                                <th>Prix unitaire</th>
-                                <td>{{ product.price }}&euro;</td>
-                            </tr>
-                            <tr>
-                                <th>Quantité en stock</th>
-                                <td>{{ product.quantity }}</td>
-                            </tr>
+								<tr>
+									<th>Catégorie</th>
+									<td>{{ product.category.name }}</td>
+								</tr>
+								<tr>
+									<th>Saveur</th>
+									<td>{{ product.flavor.name }}</td>
+								</tr>
+								<tr>
+									<th>Volume</th>
+									<td>{{ product.volume.volume }}cl</td>
+								</tr>
 
-                        </tbody>
-                    </table>
+								<tr>
+									<th>Degré d'alcool</th>
+									<td>{{ product.degree }}&deg;</td>
+								</tr>
+								<tr>
+									<th>Prix unitaire</th>
+									<td>{{ product.price }}&euro;</td>
+								</tr>
+								<tr>
+									<th>Quantité en stock</th>
+									<td>{{ product.quantity }}</td>
+								</tr>
 
-                    <a class="btn btn-primary" href="{{ path('products_index') }}">Retour à la liste des produits</a>
+							</tbody>
+						</table>
 
-                    <a class="btn btn-warning float-right d-inline" href="{{ path('products_edit', {'id': product.id}) }}">Modifier les informations du produit</a>
+						<a class="btn btn-primary" href="{{ path('products_index') }}">Retour à la liste des produits</a>
 
-                    {{ include('products/_delete_form.html.twig') }}
-                </div>
-            </div>
-        </div>
-    </main>                
+						<a class="btn btn-warning float-right d-inline" href="{{ path('products_edit', {'id': product.id}) }}">Modifier les informations du produit</a>
 
-</div>
+						{{ include('products/_delete_form.html.twig') }}
+					</div>
+				</div>
+			</div>
+		</main>
+
+	</div>
 {% endblock %}

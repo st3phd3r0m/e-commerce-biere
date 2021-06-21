@@ -36,7 +36,7 @@
 		<div class="row">
 			<div class="col-6">
 				{% if product.image is not empty %}
-					<img class="w-100 p-3" src="{{ asset('images/products/'~ product.image ) }}" alt="{{ product.name }}">
+					<img class="w-100 p-3" src="{{ asset('images/products/'~ product.image ) | imagine_filter('miniatures') }}" alt="{{ product.name }}">
 				{% endif %}
 			</div>
 
@@ -99,7 +99,7 @@
 					<div>Livraison : Livraison possible dans toute la France.</div>
 					<div>
 						Paiement :
-						<img class="w-50 p-3" src="{{ asset('images/miscellaneous/logo-stripe-payment.png')}}" alt="Logo Stripe">
+						<img class="w-50 p-3" src="{{ asset('images/miscellaneous/logo-stripe-payment.png') | imagine_filter('miniatures') }}" alt="Logo Stripe">
 					</div>
 
 				{% endif %}
@@ -114,9 +114,9 @@
 		</div>
 		<p>{{ product.description }}</p>
 		{# Possibilité d'ajouter une image secondaire ?
-		            {% if product.secondary_image is not empty %}
-		                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.secondary_image ) }}" alt="{{ product.name }}">
-		            {% endif %}#}
+						            {% if product.secondary_image is not empty %}
+						                <img class="w-100 p-3" src="{{ asset('images/products/'~ product.secondary_image ) }}" alt="{{ product.name }}">
+						            {% endif %}#}
 	</div>
 
 	<div class="container">

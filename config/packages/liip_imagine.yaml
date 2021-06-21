@@ -4,8 +4,10 @@ liip_imagine:
     driver: "gd"
     
     resolvers:
-        default:
-            web_path: ~
+        my_resolver:
+            web_path:
+                web_root: "%kernel.root_dir%"
+                cache_prefix: "media/cache"
 
     filter_sets:
         cache: ~
@@ -13,4 +15,5 @@ liip_imagine:
         miniatures:
             quality: 70
             filters:
-                thumbnail: { size: [100, 100], position : center }
+                relative_resize: 
+                    widen: 500 # Shrink/upscale the image to 150 of height, with full quality 
