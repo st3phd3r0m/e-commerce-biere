@@ -18,7 +18,8 @@ class AppExtension extends AbstractExtension
             new TwigFunction('allVolumes', [$this, 'showVolumes']),
             new TwigFunction('categoryById', [$this, 'showCategoryById']),
             new TwigFunction('flavorById', [$this, 'showFlavorById']),
-            new TwigFunction('volumeById', [$this, 'showVolumeById'])
+            new TwigFunction('volumeById', [$this, 'showVolumeById']),
+            new TwigFunction('fileGetContents', [$this, 'fileGetContents']),
         ];
     }
 
@@ -61,5 +62,15 @@ class AppExtension extends AbstractExtension
     public function showVolumeById($id)
     {
         return $this->volumesRepository->find($id)->getVolume();  
+    }
+
+    public function fileGetContents($file)
+    {
+      return file_get_contents($file);
+    }
+  
+    public function getName()
+    {
+      return 'app_extension';
     }
 }

@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BierShop - Commande ref_{{ order.ref }}</title>
+    <style type="text/css">
+        {{ fileGetContents( '../public/css/styles.min.css' )  }}
+        {{ fileGetContents( '../public/css/stylesPDF.min.css' ) }}
+    </style>
 </head>
 
 <body>
     <main>
-
         <div>
             <h1>BierShop inc. - Facture client </h1>
             <h2>Commande ref_{{ order.ref }}</h2>
