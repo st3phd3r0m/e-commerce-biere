@@ -8,19 +8,23 @@ services:
     volumes:
       - ./:/var/www/html
       - ./config/php.ini-production:/usr/local/etc/php/php.ini
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
+  database:
+    image: postgres:13-alpine
     restart: always
     environment:
       ***REMOVED***
       ***REMOVED***
-  phpmyadmin:
+      ***REMOVED***
+    ports: [5432]
+
+  pgadmin:
     depends_on:
-      - mysql
-    image: phpmyadmin/phpmyadmin
+      - database
+    image: dpage/pgadmin4
     restart: always
-    ports:
-      - "8080:80"
     environment:
-      PMA_HOST: mysql
+      ***REMOVED***
+      ***REMOVED***
+    ports:
+      - "5050:80"
+      

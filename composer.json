@@ -48,7 +48,7 @@
         "phpstan/phpstan": "^0.12.90",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.32",
         "symfony/test-pack": "*"
     },
     "config": {
