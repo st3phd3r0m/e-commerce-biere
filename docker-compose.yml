@@ -2,12 +2,14 @@ version: "3.3"
 
 services:
   node:
+    container_name: node_container
     build:
       context: .
       dockerfile: DockerfileNode
     volumes:
       - ./:/var/www/html
   php-fpm:
+    container_name: php_container
     build:
       context: .
       dockerfile: DockerfilePHP-FPM
