@@ -1,6 +1,7 @@
 
 ###> symfony/framework-bundle ###
 servers.json
+/.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -31,3 +32,9 @@ servers.json
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+#### Docker
+/docker-composer.yml
+/DockerfilePHP-FPM
+/DockerfileNode
+####

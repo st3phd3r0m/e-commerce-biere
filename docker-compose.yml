@@ -18,6 +18,7 @@ services:
     volumes:
       - ./:/var/www/html
       - ./config/php.ini-production:/usr/local/etc/php/php.ini
+    restart: always
   postgres:
     env_file: .env.local
     container_name: postgres_container
