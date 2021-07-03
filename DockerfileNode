@@ -1,9 +1,0 @@
-FROM node:16-alpine
-
-RUN npm install -g npm@7.19.0
-
-WORKDIR /var/www/html
-
-EXPOSE 8080
-
-CMD ["npm", "run", "build"]

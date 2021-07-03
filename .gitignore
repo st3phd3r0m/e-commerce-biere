@@ -33,8 +33,11 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-#### Docker
+####
 /docker-composer.yml
 /DockerfilePHP-FPM
 /DockerfileNode
+/src/DataFixtures/
+/config/php.ini-development
+/config/php.ini-production
 ####
