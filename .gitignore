@@ -34,7 +34,7 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ####
-/docker-composer.yml
+/docker-compose.yml
 /DockerfilePHP-FPM
 /DockerfileNode
 /src/DataFixtures/
