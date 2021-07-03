@@ -1,0 +1,48 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/app.710381c1.js"
+      ],
+      "css": [
+        "/build/app.b897a09f.css"
+      ]
+    },
+    "sliderFilter": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/sliderFilter.8a2c4608.js"
+      ]
+    },
+    "carousel": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/306.04f6df64.js",
+        "/build/carousel.8f68cec0.js"
+      ]
+    },
+    "confirmCartLineDeletion": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/306.04f6df64.js",
+        "/build/confirmCartLineDeletion.4956b731.js"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/admin.f57bc578.js"
+      ],
+      "css": [
+        "/build/admin.b8e205d9.css"
+      ]
+    },
+    "cardPayment": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/cardPayment.d569803c.js"
+      ]
+    }
+  }
+}
