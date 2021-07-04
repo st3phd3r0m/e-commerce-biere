@@ -35,7 +35,7 @@ yarn-error.log
 
 ####
 /dockerstuffs
-# /docker-compose.yml
+/docker-compose.yml
 /DockerfilePHP-FPM
 /DockerfileNode
 /src/DataFixtures/
