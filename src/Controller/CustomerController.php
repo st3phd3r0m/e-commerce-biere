@@ -203,9 +203,6 @@ class CustomerController extends AbstractController
      */
     public function billDownload(Orders $order)
     {
-        //Conversion préalable en base64 (wtf?) du fichier logo.png pour inclure l'image
-        //dans la facture en pdf
-        $publicDirectory = $this->getParameter('kernel.project_dir');
 
         $path = 'images/miscellaneous/logo.png';
         $type = pathinfo($path, PATHINFO_EXTENSION);
